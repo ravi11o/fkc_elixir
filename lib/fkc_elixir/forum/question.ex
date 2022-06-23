@@ -5,7 +5,7 @@ defmodule FkcElixir.Forum.Question do
   schema "questions" do
     field :description, :string
     field :title, :string
-    field :views, :integer
+    field :views, :integer, default: 0
 
     timestamps()
   end
@@ -14,6 +14,6 @@ defmodule FkcElixir.Forum.Question do
   def changeset(question, attrs) do
     question
     |> cast(attrs, [:title, :views, :description])
-    |> validate_required([:title, :views, :description])
+    |> validate_required([:title, :description])
   end
 end
