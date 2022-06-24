@@ -18,7 +18,6 @@
     <tr>
       <th>Title</th>
       <th>Views</th>
-      <th>Description</th>
 
       <th></th>
     </tr>
@@ -26,12 +25,11 @@
   <tbody id="questions">
     <%= for question <- @questions do %>
       <tr id={"question-#{question.id}"}>
-        <td><%= question.title %></td>
+        <td><%= live_redirect question.title, to: Routes.question_show_path(@socket, :show, question) %></td>
         <td><%= question.views %></td>
-        <td><%= question.description %></td>
+       
 
         <td>
-          <span><%= live_redirect "Show", to: Routes.question_show_path(@socket, :show, question) %></span>
           <span><%= live_patch "Edit", to: Routes.question_index_path(@socket, :edit, question) %></span>
           <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: question.id, data: [confirm: "Are you sure?"] %></span>
         </td>

@@ -7,19 +7,17 @@
     id="question-form"
     phx-target={@myself}
     phx-change="validate"
-    phx-update="ignore"
     phx-submit="save">
   
     <%= label f, :title %>
     <%= text_input f, :title %>
     <%= error_tag f, :title %>
   
-    <%= label f, :views %>
-    <%= number_input f, :views %>
-    <%= error_tag f, :views %>
-  
     <%= label f, :description %>
-    <%= textarea f, :description, phx_hook: "Editor", rows: "8" %>
+    <%= hidden_input f, :description, id: "description", rows: 9, phx_hook: "Trix" %>
+    <div>
+      <trix-editor input="description"></trix-editor>
+    </div> 
     <%= error_tag f, :description %>
   
     <div>
