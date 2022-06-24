@@ -18,7 +18,11 @@ defmodule FkcElixir.Forum do
 
   """
   def list_questions do
-    Repo.all(Question)
+    # Repo.all(Question)
+
+    Question
+    |> order_by(desc: :inserted_at)
+    |> Repo.all()
   end
 
   @doc """
