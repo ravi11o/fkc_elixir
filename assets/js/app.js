@@ -2,6 +2,7 @@
 // Remove this line if you add a your own CSS build pipeline (e.g postcss).
 import "../css/app.css";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import TrixEditor from "trix";
 
 // If you want to use Phoenix channels, run `mix help phx.gen.channel`
 // to get started and then uncomment the line below.
@@ -31,18 +32,45 @@ let csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute("content");
 
-const Hooks = {
-  Editor: {
-    mounted() {
-      ClassicEditor.create(this.el)
-        .then((editor) => {
-          editor.resize("100%", "500");
-          console.log(editor);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+let Hooks = {};
+
+Hooks.Editor = {
+  mounted() {
+    ClassicEditor.create(this.el, {
+      codeBlock: {
+        languages: [
+          { language: "css", label: "CSS" },
+          { language: "html", label: "HTML" },
+          { language: "javascript", label: "Javascript" },
+        ],
+      },
+    })
+      .then((editor) => {
+        console.log(editor);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+};
+
+let bindTrix = function () {
+  let trix = document.querySelector("trix-editor");
+
+  if (trix != null) {
+    trix.addEventListener("trix-change", function () {
+      trix.inputElement.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+  }
+};
+
+Hooks.Trix = {
+  mounted() {
+    bindTrix();
+  },
+
+  updated() {
+    bindTrix();
   },
 };
 let liveSocket = new LiveSocket("/live", Socket, {

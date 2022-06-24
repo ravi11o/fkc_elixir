@@ -35,7 +35,17 @@ defmodule FkcElixir.Forum do
       ** (Ecto.NoResultsError)
 
   """
-  def get_question!(id), do: Repo.get!(Question, id)
+  def get_question!(id) do
+    Repo.get!(Question, id)
+  end
+
+  def get_question_and_update_view!(id) do
+    question = Repo.get!(Question, id)
+
+    question
+    |> Question.changeset(%{views: question.views + 1})
+    |> Repo.update!()
+  end
 
   @doc """
   Creates a question.

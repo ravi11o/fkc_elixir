@@ -13,7 +13,7 @@ defmodule FkcElixirWeb.QuestionLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:question, Forum.get_question!(id))}
+     |> assign(:question, Forum.get_question_and_update_view!(id))}
   end
 
   defp page_title(:show), do: "Show Question"
