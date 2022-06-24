@@ -19,4 +19,23 @@ defmodule FkcElixir.ForumFixtures do
 
     question
   end
+
+  @doc """
+  Generate a unique tag name.
+  """
+  def unique_tag_name, do: "some name#{System.unique_integer([:positive])}"
+
+  @doc """
+  Generate a tag.
+  """
+  def tag_fixture(attrs \\ %{}) do
+    {:ok, tag} =
+      attrs
+      |> Enum.into(%{
+        name: unique_tag_name()
+      })
+      |> FkcElixir.Forum.create_tag()
+
+    tag
+  end
 end
