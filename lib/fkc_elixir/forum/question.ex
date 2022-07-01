@@ -6,6 +6,7 @@ defmodule FkcElixir.Forum.Question do
     field :description, :string
     field :title, :string
     field :views, :integer, default: 0
+    field :tags, {:array, :integer}, default: []
 
     timestamps()
   end
@@ -13,7 +14,7 @@ defmodule FkcElixir.Forum.Question do
   @doc false
   def changeset(question, attrs) do
     question
-    |> cast(attrs, [:title, :views, :description])
+    |> cast(attrs, [:title, :views, :description, :tags])
     |> validate_required([:title, :description])
   end
 end

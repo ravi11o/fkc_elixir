@@ -1,6 +1,8 @@
 <div>
   <h2><%= @title %></h2>
 
+
+
   <.form
     let={f}
     for={@changeset}
@@ -13,16 +15,20 @@
     <%= label f, :title %>
     <%= text_input f, :title %>
     <%= error_tag f, :title %>
+
+  <%= label f, :description %>
+      <%= hidden_input f, :description, id: "description", rows: 9, phx_hook: "Trix" %>
+      <div>
+        <trix-editor input="description"></trix-editor>
+      </div> 
+      <%= error_tag f, :description %>
+    
+      <div>
+        <%= submit "Save", phx_disable_with: "Saving..." %>
+      </div>
+    </.form>
+
+
   
-    <%= label f, :description %>
-    <%= hidden_input f, :description, id: "description", rows: 9, phx_hook: "Trix" %>
-    <div>
-      <trix-editor input="description"></trix-editor>
-    </div> 
-    <%= error_tag f, :description %>
-  
-    <div>
-      <%= submit "Save", phx_disable_with: "Saving..." %>
-    </div>
-  </.form>
+
 </div>
