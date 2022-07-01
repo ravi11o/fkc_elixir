@@ -1,6 +1,11 @@
-/* This file is for your main application CSS */
-@import "./phoenix.css";
 @import "./trix.css";
+
+@import "./phoenix.css";
+
+
+
+
+/* This file is for your main application CSS */
 
 /* Alerts and form errors used by phx.new */
 .alert {
@@ -119,3 +124,4 @@
   0% { opacity: 1; }
   100% { opacity: 0; }
 }
+
