@@ -22,6 +22,12 @@ defmodule FkcElixirWeb.Router do
 
     get "/", PageController, :index
     resources "/tags", TagController
+    resources "/comments", CommentController
+
+    scope "/forum" do
+      live "/questions", QuestionLive.Index, :index
+      live "/questions/:slug", QuestionLive.Details, :details
+    end
 
     ### Live routes
 
