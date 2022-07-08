@@ -4,6 +4,8 @@ defmodule FkcElixirWeb.LiveHelpers do
 
   alias Phoenix.LiveView.JS
 
+  alias FkcElixir.Accounts
+
   @doc """
   Renders a live component inside a modal.
 
@@ -50,6 +52,14 @@ defmodule FkcElixirWeb.LiveHelpers do
       </div>
     </div>
     """
+  end
+
+  def assign_current_user(socket, session) do
+    assign_new(
+      socket,
+      :current_user,
+      fn -> Accounts.get_user_by_session_token(session["user_token"]) end
+    )
   end
 
   defp hide_modal(js \\ %JS{}) do
