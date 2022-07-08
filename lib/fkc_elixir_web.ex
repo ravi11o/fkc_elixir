@@ -47,6 +47,7 @@ defmodule FkcElixirWeb do
       use Phoenix.LiveView,
         layout: {FkcElixirWeb.LayoutView, "live.html"}
 
+      import FkcElixirWeb.LiveHelpers
       unquote(view_helpers())
     end
   end

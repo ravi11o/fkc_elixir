@@ -5,7 +5,8 @@ defmodule FkcElixirWeb.QuestionLive.Index do
   alias FkcElixir.Forum.Question
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
+    socket = assign_current_user(socket, session)
     {:ok, assign(socket, :questions, list_questions())}
   end
 
