@@ -5,7 +5,7 @@ defmodule FkcElixirWeb.QuestionLive.Show do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, socket}
+    {:ok, assign(socket, show: false)}
   end
 
   @impl true
@@ -21,6 +21,10 @@ defmodule FkcElixirWeb.QuestionLive.Show do
   def handle_event("remove_tag", %{"tag_id" => tagId, "question_id" => questionId}, socket) do
     question = Forum.remove_question_tag(questionId, tagId)
     {:noreply, assign(socket, question: question)}
+  end
+
+  def handle_event("show_tag", _, socket) do
+    {:noreply, assign(socket, show: !socket.assigns.show)}
   end
 
   defp page_title(:show), do: "Show Question"

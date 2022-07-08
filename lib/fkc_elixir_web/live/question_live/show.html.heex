@@ -32,16 +32,22 @@
 
 
   <%= if @question_tags !== [] do %>
-      <h3>Tags</h3>
       <%= for tag <- @question_tags do %>
         <span><%= tag.name %></span>
-        <a href="#" phx-click="remove_tag" phx-value-tag_id={tag.id} phx-value-question_id={@question.id}>X</a>
+        <a href="#" phx-click="remove_tag" phx-value-tag_id={tag.id} phx-value-question_id={@question.id}>x</a>
       <% end %>
   <% end %>
+  <div>
+    <a href="#" phx-click="show_tag">Add tag</a>
+  </div>
+
 
 </ul>
 
-<%= live_component FkcElixirWeb.QuestionLive.TagComponent, id: "tag_component", question: @question %>
+<%= if @show do %>
+  <%= live_component FkcElixirWeb.QuestionLive.TagComponent, id: "tag_component", question: @question %>
+<% end %>
+
 
 
 <span><%= live_patch "Edit", to: Routes.question_show_path(@socket, :edit, @question), class: "button" %></span> |
