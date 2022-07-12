@@ -6,6 +6,7 @@ defmodule FkcElixirWeb.QuestionLive.Index do
 
   @impl true
   def mount(_params, session, socket) do
+    if connected?(socket), do: Forum.subscribe()
     socket = assign_current_user(socket, session)
     {:ok, assign(socket, :questions, list_questions())}
   end
@@ -39,6 +40,18 @@ defmodule FkcElixirWeb.QuestionLive.Index do
     {:ok, _} = Forum.delete_question(question)
 
     {:noreply, assign(socket, :questions, list_questions())}
+  end
+
+  @impl true
+  def handle_info({:question_created, question}, socket) do
+    socket =
+      update(
+        socket,
+        :questions,
+        fn questions -> [question | questions] end
+      )
+
+    {:noreply, socket}
   end
 
   defp list_questions do

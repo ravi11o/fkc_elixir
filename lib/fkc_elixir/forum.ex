@@ -9,6 +9,10 @@ defmodule FkcElixir.Forum do
   alias FkcElixir.Forum.Question
   alias FkcElixir.Forum.Tag
 
+  def subscribe do
+    Phoenix.PubSub.subscribe(FkcElixir.PubSub, "questions")
+  end
+
   @doc """
   Returns the list of questions.
 
@@ -68,24 +72,23 @@ defmodule FkcElixir.Forum do
     %Question{}
     |> Question.changeset(attrs)
     |> Repo.insert()
+    |> broadcast(:question_created)
   end
 
-  @doc """
-  Updates a question.
-
-  ## Examples
-
-      iex> update_question(question, %{field: new_value})
-      {:ok, %Question{}}
-
-      iex> update_question(question, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
   def update_question(%Question{} = question, attrs) do
     question
     |> Question.changeset(attrs)
     |> Repo.update()
+  end
+
+  def broadcast({:ok, question}, event) do
+    Phoenix.PubSub.broadcast(FkcElixir.PubSub, "questions", {event, question})
+
+    {:ok, question}
+  end
+
+  def broadcast({:error, changeset}, _event) do
+    {:error, changeset}
   end
 
   def add_question_tag(%Question{} = question, tag) do
