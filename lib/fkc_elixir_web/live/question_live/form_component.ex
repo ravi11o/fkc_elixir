@@ -10,10 +10,6 @@ defmodule FkcElixirWeb.QuestionLive.FormComponent do
     {:ok,
      socket
      |> assign(assigns)
-     |> assign(tag: "")
-     |> assign(tags: Forum.list_tags())
-     |> assign(suggest_tags: [])
-     |> assign(selected_tags: [])
      |> assign(:changeset, changeset)}
   end
 
