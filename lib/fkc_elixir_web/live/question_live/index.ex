@@ -54,6 +54,22 @@ defmodule FkcElixirWeb.QuestionLive.Index do
     {:noreply, socket}
   end
 
+  @impl true
+  def handle_info({:question_updated, question}, socket) do
+    socket =
+      update(
+        socket,
+        :questions,
+        fn questions -> [question | questions] end
+      )
+
+    {:noreply, socket}
+  end
+
+  def handle_info(:question_deleted, socket) do
+    {:noreply, assign(socket, :questions, list_questions())}
+  end
+
   defp list_questions do
     Forum.list_questions()
   end

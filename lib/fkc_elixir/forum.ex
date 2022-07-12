@@ -48,12 +48,13 @@ defmodule FkcElixir.Forum do
     Repo.get!(Question, id)
   end
 
-  def get_question_and_update_view!(id) do
+  def get_question_and_update_view(id) do
     question = Repo.get!(Question, id)
 
     question
     |> Question.changeset(%{views: question.views + 1})
-    |> Repo.update!()
+    |> Repo.update()
+    |> broadcast(:question_updated)
   end
 
   @doc """
@@ -79,6 +80,7 @@ defmodule FkcElixir.Forum do
     question
     |> Question.changeset(attrs)
     |> Repo.update()
+    |> broadcast(:question_updated)
   end
 
   def broadcast({:ok, question}, event) do
@@ -87,9 +89,7 @@ defmodule FkcElixir.Forum do
     {:ok, question}
   end
 
-  def broadcast({:error, changeset}, _event) do
-    {:error, changeset}
-  end
+  def broadcast({:error, _changeset} = error, _event), do: error
 
   def add_question_tag(%Question{} = question, tag) do
     question
@@ -125,6 +125,7 @@ defmodule FkcElixir.Forum do
   """
   def delete_question(%Question{} = question) do
     Repo.delete(question)
+    Phoenix.PubSub.broadcast(FkcElixir.PubSub, "questions", :question_deleted)
   end
 
   @doc """
