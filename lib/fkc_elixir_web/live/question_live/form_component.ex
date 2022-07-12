@@ -27,15 +27,6 @@ defmodule FkcElixirWeb.QuestionLive.FormComponent do
     save_question(socket, socket.assigns.action, question_params)
   end
 
-  def handle_event("add_tag", params, socket) do
-    IO.inspect(params)
-    {:noreply, socket}
-  end
-
-  # def handle_event("add_tag", _, socket) do
-  #   {:noreply, socket}
-  # end
-
   defp save_question(socket, :edit, question_params) do
     case Forum.update_question(socket.assigns.question, question_params) do
       {:ok, _question} ->
