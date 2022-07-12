@@ -5,15 +5,18 @@ defmodule FkcElixirWeb.QuestionLive.Show do
 
   @impl true
   def mount(_params, _session, socket) do
+    if connected?(socket), do: Forum.subscribe()
     {:ok, assign(socket, show: false)}
   end
 
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
+    {:ok, question} = Forum.get_question_and_update_view(id)
+
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:question, Forum.get_question_and_update_view!(id))
+     |> assign(:question, question)
      |> assign(:question_tags, Forum.get_question_tags(id))}
   end
 
@@ -25,6 +28,11 @@ defmodule FkcElixirWeb.QuestionLive.Show do
 
   def handle_event("show_tag", _, socket) do
     {:noreply, assign(socket, show: !socket.assigns.show)}
+  end
+
+  @impl true
+  def handle_info({:question_updated, question}, socket) do
+    {:noreply, assign(socket, question: question)}
   end
 
   defp page_title(:show), do: "Show Question"
