@@ -18,11 +18,11 @@
 
 
   <%= if @suggest_tags != [] do %>
-      <datalist id="matches">
-        <%= for tag <- @suggest_tags do %>
-          <option value={tag.id}><%= tag.name %></option>
-        <% end %>
+    <datalist id="matches">
+      <%= for tag <- @suggest_tags do %>
+        <option value={tag.id}><%= tag.name %></option>
+      <% end %>
     </datalist>
-    <% end %>
+  <% end %>
 
 </div>
