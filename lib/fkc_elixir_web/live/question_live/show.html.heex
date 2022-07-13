@@ -50,5 +50,5 @@
 
 
 
-<span><%= live_patch "Edit", to: Routes.question_show_path(@socket, :edit, @question), class: "button" %></span> |
+<span><%= live_redirect "Edit", to: Routes.question_new_path(@socket, :edit, @question), class: "button" %></span> |
 <span><%= live_redirect "Back", to: Routes.question_index_path(@socket, :index) %></span>

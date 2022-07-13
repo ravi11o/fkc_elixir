@@ -8,6 +8,7 @@
       title={@page_title}
       action={@live_action}
       question={@question}
+      current_user={@current_user}
       return_to={Routes.question_index_path(@socket, :index)}
     />
   </.modal>
@@ -30,14 +31,18 @@
         <td><%= live_redirect question.title, to: Routes.question_show_path(@socket, :show, question) %></td>
         <td><%= question.views %></td>
        
-
-        <td>
-          <span><%= live_patch "Edit", to: Routes.question_index_path(@socket, :edit, question) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: question.id, data: [confirm: "Are you sure?"] %></span>
-        </td>
+        <%= if @current_user && (@current_user.id == question.author_id) do %>
+          <td>
+            <span><%= live_redirect "Edit", to: Routes.question_new_path(@socket, :edit, question) %></span>
+            <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: question.id, data: [confirm: "Are you sure?"] %></span>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<span><%= live_patch "New Question", to: Routes.question_index_path(@socket, :new) %></span>
+
+<%= if @current_user do %>
+  <span><%= live_redirect "New Question", to: Routes.question_new_path(@socket, :new) %></span>
+<% end %>

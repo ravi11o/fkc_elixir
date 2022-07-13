@@ -55,11 +55,17 @@ defmodule FkcElixirWeb.LiveHelpers do
   end
 
   def assign_current_user(socket, session) do
-    assign_new(
-      socket,
-      :current_user,
-      fn -> Accounts.get_user_by_session_token(session["user_token"]) end
-    )
+    case session["user_token"] do
+      nil ->
+        assign_new(socket, :current_user, fn -> nil end)
+
+      _ ->
+        assign_new(
+          socket,
+          :current_user,
+          fn -> Accounts.get_user_by_session_token(session["user_token"]) end
+        )
+    end
   end
 
   defp hide_modal(js \\ %JS{}) do

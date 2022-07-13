@@ -37,9 +37,9 @@ defmodule FkcElixirWeb.QuestionLive.Index do
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
     question = Forum.get_question!(id)
-    {:ok, _} = Forum.delete_question(question)
+    Forum.delete_question(question)
 
-    {:noreply, assign(socket, :questions, list_questions())}
+    {:noreply, socket}
   end
 
   @impl true
@@ -55,12 +55,12 @@ defmodule FkcElixirWeb.QuestionLive.Index do
   end
 
   @impl true
-  def handle_info({:question_updated, question}, socket) do
+  def handle_info({:question_updated, _question}, socket) do
     socket =
       update(
         socket,
         :questions,
-        fn questions -> [question | questions] end
+        fn _questions -> list_questions() end
       )
 
     {:noreply, socket}

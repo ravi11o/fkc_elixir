@@ -4,6 +4,9 @@ defmodule FkcElixir.Accounts.User do
 
   schema "users" do
     field :email, :string
+    field :username, :string
+    field :image, :string
+    field :is_admin, :boolean, default: false
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
@@ -30,14 +33,22 @@ defmodule FkcElixir.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :username, :password, :image])
+    |> validate_required([:email, :password, :username])
     |> validate_email()
     |> validate_password(opts)
+    |> validate_username()
+  end
+
+  defp validate_username(changeset) do
+    changeset
+    |> validate_length(:username, min: 4, max: 25)
+    |> unsafe_validate_unique(:username, FkcElixir.Repo)
+    |> unique_constraint(:username)
   end
 
   defp validate_email(changeset) do
     changeset
-    |> validate_required([:email])
     |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
     |> validate_length(:email, max: 160)
     |> unsafe_validate_unique(:email, FkcElixir.Repo)
@@ -46,7 +57,6 @@ defmodule FkcElixir.Accounts.User do
 
   defp validate_password(changeset, opts) do
     changeset
-    |> validate_required([:password])
     |> validate_length(:password, min: 4, max: 72)
     # |> validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")
     # |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
