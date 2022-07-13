@@ -7,6 +7,7 @@ defmodule FkcElixir.Forum.Question do
     field :title, :string
     field :views, :integer, default: 0
     field :tags, {:array, :integer}, default: []
+    belongs_to :author, FkcElixir.Accounts.User
 
     timestamps()
   end
@@ -14,7 +15,7 @@ defmodule FkcElixir.Forum.Question do
   @doc false
   def changeset(question, attrs) do
     question
-    |> cast(attrs, [:title, :views, :description, :tags])
-    |> validate_required([:title, :description])
+    |> cast(attrs, [:title, :views, :description, :tags, :author_id])
+    |> validate_required([:title, :description, :author_id])
   end
 end

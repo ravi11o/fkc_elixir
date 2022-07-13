@@ -17,28 +17,6 @@ defmodule FkcElixirWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", FkcElixirWeb do
-    pipe_through :browser
-
-    get "/", PageController, :index
-    resources "/tags", TagController
-    resources "/comments", CommentController
-
-    scope "/forum" do
-      live "/questions", QuestionLive.Index, :index
-      live "/questions/:slug", QuestionLive.Details, :details
-    end
-
-    ### Live routes
-
-    live "/questions", QuestionLive.Index, :index
-    live "/questions/new", QuestionLive.Index, :new
-    live "/questions/:id/edit", QuestionLive.Index, :edit
-
-    live "/questions/:id", QuestionLive.Show, :show
-    live "/questions/:id/show/edit", QuestionLive.Show, :edit
-  end
-
   # Other scopes may use custom stacks.
   # scope "/api", FkcElixirWeb do
   #   pipe_through :api
@@ -93,6 +71,10 @@ defmodule FkcElixirWeb.Router do
   scope "/", FkcElixirWeb do
     pipe_through [:browser, :require_authenticated_user]
 
+    ## Questions live route
+    live "/questions/new", QuestionLive.New, :new
+    live "/questions/:id/edit", QuestionLive.New, :edit
+
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
@@ -106,5 +88,20 @@ defmodule FkcElixirWeb.Router do
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :edit
     post "/users/confirm/:token", UserConfirmationController, :update
+
+    get "/", PageController, :index
+    resources "/tags", TagController
+    resources "/comments", CommentController
+
+    ## Questions live route
+
+    live "/questions", QuestionLive.Index, :index
+
+    live "/questions/:id", QuestionLive.Show, :show
+
+    scope "/forum" do
+      live "/questions", QuestionLive.Index, :index
+      live "/questions/:slug", QuestionLive.Details, :details
+    end
   end
 end
