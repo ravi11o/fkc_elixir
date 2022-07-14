@@ -31,17 +31,6 @@
   </li>
 
 
-  <%= if @question_tags !== [] do %>
-      <%= for tag <- @question_tags do %>
-        <span><%= tag.name %></span>
-        <a href="#" phx-click="remove_tag" phx-value-tag_id={tag.id} phx-value-question_id={@question.id}>x</a>
-      <% end %>
-  <% end %>
-  <div>
-    <a href="#" phx-click="show_tag">Add tag</a>
-  </div>
-
-
 </ul>
 
 <%= if @show do %>

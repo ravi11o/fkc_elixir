@@ -4,7 +4,7 @@ defmodule FkcElixir.Forum.Comment do
 
   schema "comments" do
     field :title, :string
-    belongs_to :author, FkcElixir.Accounts.User
+    belongs_to :user, FkcElixir.Accounts.User
 
     timestamps()
   end
@@ -12,7 +12,7 @@ defmodule FkcElixir.Forum.Comment do
   @doc false
   def changeset(comment, attrs) do
     comment
-    |> cast(attrs, [:title, :author_id])
-    |> validate_required([:title, :author_id])
+    |> cast(attrs, [:title, :user_id])
+    |> validate_required([:title, :user_id])
   end
 end

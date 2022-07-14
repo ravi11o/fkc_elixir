@@ -6,7 +6,7 @@ defmodule FkcElixir.Forum.Answer do
     field :description, :string
     field :verified, :boolean, default: false
     belongs_to :question, FkcElixir.Forum.Question
-    belongs_to :author, FkcElixir.Accounts.User
+    belongs_to :user, FkcElixir.Accounts.User
 
     timestamps()
   end
@@ -14,7 +14,7 @@ defmodule FkcElixir.Forum.Answer do
   @doc false
   def changeset(answer, attrs) do
     answer
-    |> cast(attrs, [:description, :question_id, :author_id])
-    |> validate_required([:description, :question_id, :author_id])
+    |> cast(attrs, [:description, :question_id, :user_id])
+    |> validate_required([:description, :question_id, :user_id])
   end
 end

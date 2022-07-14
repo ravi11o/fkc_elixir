@@ -2,12 +2,14 @@ defmodule FkcElixir.Forum.Question do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias FkcElixir.Forum.{Tag, QuestionTag}
+
   schema "questions" do
-    field :description, :string
-    field :title, :string
-    field :views, :integer, default: 0
-    field :tags, {:array, :integer}, default: []
-    belongs_to :author, FkcElixir.Accounts.User
+    field(:description, :string)
+    field(:title, :string)
+    field(:views, :integer, default: 0)
+    belongs_to(:user, FkcElixir.Accounts.User)
+    many_to_many(:tags, Tag, join_through: QuestionTag)
 
     timestamps()
   end
@@ -15,7 +17,7 @@ defmodule FkcElixir.Forum.Question do
   @doc false
   def changeset(question, attrs) do
     question
-    |> cast(attrs, [:title, :views, :description, :tags, :author_id])
-    |> validate_required([:title, :description, :author_id])
+    |> cast(attrs, [:title, :views, :description, :user_id])
+    |> validate_required([:title, :description, :user_id])
   end
 end

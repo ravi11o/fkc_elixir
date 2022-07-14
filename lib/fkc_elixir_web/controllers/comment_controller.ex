@@ -20,7 +20,7 @@ defmodule FkcElixirWeb.CommentController do
   end
 
   def create(conn, %{"comment" => comment_params}) do
-    comment_params = Map.put(comment_params, "author_id", conn.assigns.current_user.id)
+    comment_params = Map.put(comment_params, "user_id", conn.assigns.current_user.id)
 
     case Forum.create_comment(comment_params) do
       {:ok, comment} ->
