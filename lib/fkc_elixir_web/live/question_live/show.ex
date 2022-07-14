@@ -16,18 +16,7 @@ defmodule FkcElixirWeb.QuestionLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:question, question)
-     |> assign(:question_tags, Forum.get_question_tags(id))}
-  end
-
-  @impl true
-  def handle_event("remove_tag", %{"tag_id" => tagId, "question_id" => questionId}, socket) do
-    question = Forum.remove_question_tag(questionId, tagId)
-    {:noreply, assign(socket, question: question)}
-  end
-
-  def handle_event("show_tag", _, socket) do
-    {:noreply, assign(socket, show: !socket.assigns.show)}
+     |> assign(:question, question)}
   end
 
   @impl true

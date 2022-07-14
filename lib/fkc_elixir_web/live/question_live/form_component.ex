@@ -41,7 +41,7 @@ defmodule FkcElixirWeb.QuestionLive.FormComponent do
   end
 
   defp save_question(socket, :new, question_params) do
-    question_params = Map.put_new(question_params, "author_id", socket.assigns.current_user.id)
+    question_params = Map.put_new(question_params, "user_id", socket.assigns.current_user.id)
 
     case Forum.create_question(question_params) do
       {:ok, _question} ->

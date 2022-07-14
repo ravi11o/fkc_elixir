@@ -10,6 +10,9 @@ defmodule FkcElixir.Accounts.User do
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
+    has_many :questions, FkcElixir.Forum.Question
+    has_many :comments, FkcElixir.Forum.Comment
+    has_many :a_comments, FkcElixir.Forum.AComment
 
     timestamps()
   end

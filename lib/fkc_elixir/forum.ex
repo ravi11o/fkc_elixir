@@ -91,26 +91,6 @@ defmodule FkcElixir.Forum do
 
   def broadcast({:error, _changeset} = error, _event), do: error
 
-  def add_question_tag(%Question{} = question, tag) do
-    question
-    |> Question.changeset(%{tags: question.tags ++ [tag]})
-    |> Repo.update()
-  end
-
-  def remove_question_tag(questionId, tag) do
-    question = get_question!(questionId)
-    tag = String.to_integer(tag)
-
-    question
-    |> Question.changeset(%{tags: question.tags -- [tag]})
-    |> Repo.update!()
-  end
-
-  def get_question_tags(id) do
-    question = get_question!(id)
-    from(t in Tag, where: t.id in ^question.tags) |> Repo.all()
-  end
-
   @doc """
   Deletes a question.
 
@@ -182,7 +162,7 @@ defmodule FkcElixir.Forum do
     Repo.all(Comment)
 
     Comment
-    |> preload(:author)
+    |> preload(:user)
     |> Repo.all()
   end
 

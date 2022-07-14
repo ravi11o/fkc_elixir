@@ -31,7 +31,7 @@
         <td><%= live_redirect question.title, to: Routes.question_show_path(@socket, :show, question) %></td>
         <td><%= question.views %></td>
        
-        <%= if @current_user && (@current_user.id == question.author_id) do %>
+        <%= if @current_user && (@current_user.id == question.user_id) do %>
           <td>
             <span><%= live_redirect "Edit", to: Routes.question_new_path(@socket, :edit, question) %></span>
             <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: question.id, data: [confirm: "Are you sure?"] %></span>
