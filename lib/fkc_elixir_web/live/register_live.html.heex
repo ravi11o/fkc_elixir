@@ -16,6 +16,21 @@
   <%= password_input f, :password, required: true, value: input_value(f, :password) %>
   <%= error_tag f, :password %>
 
+  <%= live_file_input @uploads.image %>
+  <%= for {_ref, err} <- @uploads.image.errors do %>
+    <div>
+      <%= humanize(err) %>
+    </div>
+  <% end %>
+
+  <%= for entry <- @uploads.image.entries do %>
+  <a href="#" phx-click="cancel" phx-value-ref={entry.ref}>&times;</a>
+    <div>
+      <%= live_img_preview entry, width: 200 %>
+    </div>
+    
+  <% end %>
+
   <div>
     <%= submit "Register" %>
   </div>
