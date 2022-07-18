@@ -12,6 +12,8 @@
   <%= email_input f, :email, required: true %>
   <%= error_tag f, :email %>
 
+  <%= hidden_input f, :image %>
+
   <%= label f, :password %>
   <%= password_input f, :password, required: true, value: input_value(f, :password) %>
   <%= error_tag f, :password %>
@@ -27,6 +29,9 @@
   <a href="#" phx-click="cancel" phx-value-ref={entry.ref}>&times;</a>
     <div>
       <%= live_img_preview entry, width: 200 %>
+    </div>
+    <div>
+      <%= entry.progress %>
     </div>
     
   <% end %>

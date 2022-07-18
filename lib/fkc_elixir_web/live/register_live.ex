@@ -12,7 +12,6 @@ defmodule FkcElixirWeb.RegisterLive do
         socket,
         :image,
         accept: ~w(.png .jpg .jpeg),
-        max: 3,
         max_file_size: 5_000_000
       )
 
@@ -20,7 +19,21 @@ defmodule FkcElixirWeb.RegisterLive do
   end
 
   def handle_event("save", %{"user" => params}, socket) do
-    changeset = registration_changeset(params)
+    [photo | _] =
+      consume_uploaded_entries(socket, :image, fn meta, entry ->
+        dest = Path.join("priv/static/uploads", filename(entry))
+        File.cp!(meta.path, dest)
+        Routes.static_path(socket, "/uploads/#{filename(entry)}")
+      end)
+
+    # {completed, []} = uploaded_entries(socket, :image)
+
+    # [photo | _] =
+    #   for entry <- completed do
+    #     Routes.static_path(socket, "/uploads/#{filename(entry)}")
+    #   end
+
+    changeset = registration_changeset(%{params | "image" => photo})
 
     {:noreply, assign(socket, changeset: changeset, trigger_submit: changeset.valid?)}
   end
@@ -38,5 +51,10 @@ defmodule FkcElixirWeb.RegisterLive do
     %User{}
     |> Accounts.change_user_registration(params)
     |> Map.put(:action, :insert)
+  end
+
+  defp filename(entry) do
+    [ext | _] = MIME.extensions(entry.client_type)
+    "#{entry.uuid}.#{ext}"
   end
 end
