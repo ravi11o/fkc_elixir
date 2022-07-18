@@ -2,7 +2,7 @@ defmodule FkcElixir.Forum.Question do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias FkcElixir.Forum.{Tag, QuestionTag}
+  alias FkcElixir.Forum.{Tag, QuestionTag, Answer}
 
   schema "questions" do
     field(:description, :string)
@@ -10,7 +10,8 @@ defmodule FkcElixir.Forum.Question do
     field(:views, :integer, default: 0)
     field :tag, :string, virtual: true
     belongs_to(:user, FkcElixir.Accounts.User)
-    many_to_many(:tags, Tag, join_through: QuestionTag)
+    has_many :answers, Answer
+    many_to_many(:tags, Tag, join_through: QuestionTag, on_replace: :delete)
 
     timestamps()
   end

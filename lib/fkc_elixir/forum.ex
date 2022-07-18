@@ -27,6 +27,7 @@ defmodule FkcElixir.Forum do
 
     Question
     |> order_by(desc: :inserted_at)
+    |> preload([:tags, :user, :answers])
     |> Repo.all()
   end
 
