@@ -25,6 +25,6 @@ defmodule FkcElixirWeb.QuestionLive.New do
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, "New Question")
-    |> assign(:question, %Question{})
+    |> assign(:question, %Question{tags: []})
   end
 end

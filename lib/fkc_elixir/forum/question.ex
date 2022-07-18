@@ -8,6 +8,7 @@ defmodule FkcElixir.Forum.Question do
     field(:description, :string)
     field(:title, :string)
     field(:views, :integer, default: 0)
+    field :tag, :string, virtual: true
     belongs_to(:user, FkcElixir.Accounts.User)
     many_to_many(:tags, Tag, join_through: QuestionTag)
 
@@ -17,7 +18,7 @@ defmodule FkcElixir.Forum.Question do
   @doc false
   def changeset(question, attrs) do
     question
-    |> cast(attrs, [:title, :views, :description, :user_id])
+    |> cast(attrs, [:title, :views, :description, :user_id, :tag])
     |> validate_required([:title, :description, :user_id])
   end
 end

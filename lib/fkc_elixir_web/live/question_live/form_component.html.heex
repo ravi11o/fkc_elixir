@@ -10,23 +10,27 @@
     phx-target={@myself}
     phx-change="validate"
     phx-update="ignore"
-    phx-submit="save">
+    phx-submit="save"
+    debounce="1000">
   
     <%= label f, :title %>
     <%= text_input f, :title %>
     <%= error_tag f, :title %>
 
-  <%= label f, :description %>
-      <%= hidden_input f, :description, id: "description", rows: 9, phx_hook: "Trix" %>
-      <div>
-        <trix-editor input="description"></trix-editor>
-      </div> 
-      <%= error_tag f, :description %>
-    
-      <div>
-        <%= submit "Save", phx_disable_with: "Saving..." %>
-      </div>
-    </.form>
+    <%= label f, :tags %>
+    <%= text_input f, :tag, placeholder: "Add tags seperated by comma", value: (for tag <- @question.tags, do: tag.name) |> Enum.join(", ") %>
+
+    <%= label f, :description %>
+        <%= hidden_input f, :description, id: "description", rows: 9, phx_hook: "Trix" %>
+        <div>
+          <trix-editor input="description"></trix-editor>
+        </div> 
+        <%= error_tag f, :description %>
+      
+        <div>
+          <%= submit "Save", phx_disable_with: "Saving..." %>
+        </div>
+      </.form>
 
 
   
