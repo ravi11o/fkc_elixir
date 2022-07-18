@@ -1,18 +1,5 @@
 <h1>Listing Questions</h1>
 
-<%= if @live_action in [:new, :edit] do %>
-  <.modal return_to={Routes.question_index_path(@socket, :index)}>
-    <.live_component
-      module={FkcElixirWeb.QuestionLive.FormComponent}
-      id={@question.id || :new}
-      title={@page_title}
-      action={@live_action}
-      question={@question}
-      current_user={@current_user}
-      return_to={Routes.question_index_path(@socket, :index)}
-    />
-  </.modal>
-<% end %>
 
 
 

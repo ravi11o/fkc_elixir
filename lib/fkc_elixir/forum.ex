@@ -45,7 +45,10 @@ defmodule FkcElixir.Forum do
 
   """
   def get_question!(id) do
-    Repo.get!(Question, id)
+    # Repo.get!(Question, id)
+    Question
+    |> preload(:tags)
+    |> Repo.get!(id)
   end
 
   def get_question_and_update_view(id) do
@@ -72,6 +75,7 @@ defmodule FkcElixir.Forum do
   def create_question(attrs \\ %{}) do
     %Question{}
     |> Question.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:tags, question_tags(attrs))
     |> Repo.insert()
     |> broadcast(:question_created)
   end
@@ -79,6 +83,7 @@ defmodule FkcElixir.Forum do
   def update_question(%Question{} = question, attrs) do
     question
     |> Question.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:tags, question_tags(attrs))
     |> Repo.update()
     |> broadcast(:question_updated)
   end
@@ -245,5 +250,30 @@ defmodule FkcElixir.Forum do
   """
   def change_comment(%Comment{} = comment, attrs \\ %{}) do
     Comment.changeset(comment, attrs)
+  end
+
+  defp parse_tags(nil), do: []
+
+  defp parse_tags(tags) do
+    # Repo.insert_all requires the inserted_at and updated_at to be filled out
+    # and they should have time truncated to the second that is why we need this
+    now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+
+    for tag <- String.split(tags, ","),
+        tag = tag |> String.trim() |> String.downcase(),
+        tag != "",
+        do: %{name: tag, inserted_at: now, updated_at: now}
+  end
+
+  defp question_tags(attrs) do
+    # => [%{name: "phone", inserted_at: ..},  ...]
+    tags = parse_tags(attrs["tag"])
+
+    # do an upsert ensuring that all the input tags are present
+    Repo.insert_all(Tag, tags, on_conflict: :nothing)
+
+    tag_names = for t <- tags, do: t.name
+    # find all the input tags
+    Repo.all(from t in Tag, where: t.name in ^tag_names)
   end
 end
