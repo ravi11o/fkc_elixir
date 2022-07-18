@@ -57,7 +57,7 @@ config :fkc_elixir, FkcElixirWeb.Endpoint,
 config :fkc_elixir, FkcElixirWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/static/(?!uploads).*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/fkc_elixir_web/(live|views)/.*(ex)$",
       ~r"lib/fkc_elixir_web/templates/.*(eex)$"

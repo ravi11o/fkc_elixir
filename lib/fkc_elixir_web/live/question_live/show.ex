@@ -6,7 +6,7 @@ defmodule FkcElixirWeb.QuestionLive.Show do
   @impl true
   def mount(_params, _session, socket) do
     if connected?(socket), do: Forum.subscribe()
-    {:ok, assign(socket, show: false)}
+    {:ok, socket}
   end
 
   @impl true
