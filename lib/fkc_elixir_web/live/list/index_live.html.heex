@@ -1,0 +1,67 @@
+
+<div class="container flex justify-content padding1">
+  <div>
+    <h1>Question  <span class="number1">85</span>  </h1>
+  </div>
+  <div>
+    <nav>
+      <a class="test-Q3 dark" href="#">Newest</a>
+      <a class="test-Q3" href="#">Votes</a>
+      <a class="test-Q3" href="#">Updated</a>
+      <a class="test-Q3" href="#">Unanswered</a>
+      <a class="test-Q3" href="#">Unapproved</a>
+      <a class="test-Q3" href="#"><i class="fa-solid fa-filter"></i></a>
+    </nav>
+  </div>
+</div>
+<%= for question <- @questions do %>
+  <section>
+    <div class="container box flex justify-content">
+      <div class="flex">
+          <div>
+            <ul>
+              <li class="white-box margin-06">1 Votes</li>
+              <li class="yellow-box margin-06"><%= Enum.count question.answers %> Answers</li>
+              <li class="white-box"><%= question.views %> Views</li>
+            </ul>
+          </div>
+          <div class="test-Que">
+            <%= link question.title, to: "#", class: "test-Q1" %>
+            <%= if question.answers !== [] do %>
+              <%= link "Answered", to: "#", class: "test-Q3 green" %>
+            <% end %>
+            <%= for tag <- question.tags do %>
+              <%= link tag.name, to: "#", class: "test-Q3" %>
+            <% end %>
+          </div>
+      </div>
+      <div class="days-ago">
+          <div class="flex">
+            <div>
+              
+              <a class="aa" href="#"><i class="fa-solid fa-user"></i></a>
+            </div>
+            <div>
+              <a class="name" href="#"><%= question.user.username %></a>
+              <p class="number">5</p>
+            </div>
+          </div>
+          <div>
+            <ul class="days flex">
+              <li><i class="fa-solid fa-clock"></i></li>
+              <li>one day ago</li>
+            </ul>
+          </div>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+
+
+
+<section>
+  <div class="show-more">
+    <a class="show" href="#">Show more result</a>
+  </div>
+</section>
