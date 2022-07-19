@@ -13,8 +13,6 @@ defmodule FkcElixirWeb.DetailsLive do
   def handle_params(%{"slug" => slug}, _, socket) do
     question = Forum.get_question_by_slug(slug)
 
-    IO.inspect(question)
-
     {
       :noreply,
       socket

@@ -63,7 +63,8 @@ defmodule FkcElixir.Forum do
 
   def get_question_by_slug(slug) do
     Question
-    |> preload([:answers, :user, :comments, :tags])
+    |> preload(answers: [:user, a_comments: [:user]], comments: [:user])
+    |> preload([:user, :tags])
     |> Repo.get_by!(slug: slug)
   end
 
@@ -324,6 +325,6 @@ defmodule FkcElixir.Forum do
 
     tag_names = for t <- tags, do: t.name
     # find all the input tags
-    Repo.all(from t in Tag, where: t.name in ^tag_names)
+    Repo.all(from(t in Tag, where: t.name in ^tag_names))
   end
 end
