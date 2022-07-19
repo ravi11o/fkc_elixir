@@ -18,6 +18,18 @@ defmodule FkcElixirWeb.Router do
   end
 
   scope "/", FkcElixirWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    ## Questions live route
+    live "/questions/new", QuestionLive.New, :new
+    live "/questions/:id/edit", QuestionLive.New, :edit
+
+    get "/users/settings", UserSettingsController, :edit
+    put "/users/settings", UserSettingsController, :update
+    get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+  end
+
+  scope "/", FkcElixirWeb do
     pipe_through [:browser]
 
     live "/", IndexLive

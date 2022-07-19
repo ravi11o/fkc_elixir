@@ -1,1 +1,143 @@
-<h1>This is the details page</h1>
+<main class="flex">
+  <section class="width-65 padding1">
+    <div class="container">
+      <div>
+        <%= if @question.answers !== [] do %>
+          <h2><i class="fa-solid fa-check"></i>Answered</h2>
+        <% end %>
+        <h3><%= @question.title %></h3><hr>
+      </div>
+    </div>
+    <div class="container">
+      <div>
+        <h4><%= raw @question.description %></h4>
+        <%# <a class="google" href="#">google.com</a> %>
+      </div>
+      <div class="flex justify-content margin-06">
+        <div>
+          <ul class="flex">
+            <li class="padding-right up"><i class="fa-solid fa-chevron-up"></i></li>
+            <li class="padding-right up"><i class="fa-solid fa-angle-down"></i></li>
+            <li class="up">1</li>
+          </ul>
+        </div>
+        <div>
+          <ul class="flex">
+            <li class="color"><%= @question.inserted_at %></li>
+            <li><a class="aa" href="#"><i class="fa-solid fa-user"></i></a></li>
+            <li class="name"><%= @question.user.username  %></li>
+          </ul>
+          <ul>
+            <li class="num32">32<i class="fa-solid fa-star"></i>*1</li>
+          </ul>
+        </div>
+        
+      </div>
+    </div>
+    <div class="container flex margin-top padding-bottom">
+      <div>
+        <ul class="flex color">
+          <li class="padding-right"><i class="fa-solid fa-chevron-up"></i></li>
+          <li><i class="fa-solid fa-angle-down"></i></li>
+        </ul>
+      </div>
+      <div>
+        <ul class="flex">
+          <li class="color left">Adding a comment for testing--</li>
+          <li><a class="blue" href="#">Jake Wilson</a></li>
+        </ul>
+      </div>
+      <div>
+        <ul class="flex">
+          <li><i class="fa-solid fa-clock"></i></li>
+          <li class="month">3 months ago</li>
+          <li><a  class="blue" href="#">Report</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container flex justify-content">
+      <div>
+        <p class="p1">Answers 3</p>
+      </div>
+      <div>
+        <a class="test-Q3 dark" herf="#">Votes</a>
+        <a class="test-Q3" href="#">Newest</a>
+      </div>
+    </div><hr>
+    <div class="container">
+      <div class="padding2">
+        <a class="blue" href="#">Not yet</a>
+      </div>
+      <div>
+        <div class="flex justify-content margin-06 padding2">
+        <div>
+          <ul class="flex">
+            <li><i class="check padding-right fa-solid fa-check"></i></li>
+            <li class="padding-right up"><i class="fa-solid fa-chevron-up"></i></li>
+            <li class="padding-right up"><i class="fa-solid fa-angle-down"></i></li>
+          </ul>
+        </div>
+        <div>
+          <ul class="flex">
+            <li class="color">Posted 3 months ago</li>
+            <li><a class="aa" href="#"><i class="fa-solid fa-user"></i></a></li>
+            <li class="name">Jake Wilson </li>
+          </ul>
+          <ul>
+            <li class="num32">32<i class="fa-solid fa-star"></i>*1</li>
+          </ul>
+        </div>
+        
+      </div>
+      </div>
+    </div>
+    <div class="container flex margin-top padding-bottom">
+      <div>
+        <ul class="flex color">
+          <li class="padding-right"><i class="fa-solid fa-chevron-up"></i></li>
+          <li><i class="fa-solid fa-angle-down"></i></li>
+        </ul>
+      </div>
+      <div>
+        <ul class="flex">
+          <li class="color left">Adding a comment for testing--</li>
+          <li><a class="blue" href="#">Jake Wilson</a></li>
+        </ul>
+      </div>
+      <div>
+        <ul class="flex">
+          <li><i class="fa-solid fa-clock"></i></li>
+          <li class="month">3 months ago</li>
+          <li><a  class="blue" href="#">Report</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr>
+    <div class="container">
+      <div class="ans-write">
+        <a class="write" href="#"><i class="fa-solid fa-pen"></i>WRITE YOUR ANSWER</a>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <div class="box1 margin-top color">
+        <ul class="line-height">
+          <li><%= @question.views %> Views</li>
+          <li><%=Enum.count(@question.answers) %> Answers</li>
+          <li><i class="fa-solid fa-clock"></i><%= @question.inserted_at %></li>
+          <li><i class="fa-solid fa-pencil"></i><%= @question.updated_at %></li>
+          <li><i class="fa-solid fa-tag"></i>Tags</li>
+        </ul>
+        <ul class="flex margin-top">
+          <%= if @question.answers !== [] do %>
+            <li class="test-Q3 green">Answered</li>
+          <% end %>
+          <%= for tag <- @question.tags do %>
+            <li class="test-Q3 margin-left"><%= link tag.name, to: "#" %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>

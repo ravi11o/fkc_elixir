@@ -26,7 +26,7 @@
             </ul>
           </div>
           <div class="test-Que">
-            <%= link question.title, to: "#", class: "test-Q1" %>
+            <%= link question.title, to: "/question/#{question.slug}", class: "test-Q1" %>
             <%= if question.answers !== [] do %>
               <%= link "Answered", to: "#", class: "test-Q3 green" %>
             <% end %>
