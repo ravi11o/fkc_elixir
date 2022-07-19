@@ -1,7 +1,7 @@
 defmodule FkcElixirWeb.DetailsLive do
   use FkcElixirWeb, :live_view
 
-  # alias FkcElixir.Forum
+  alias FkcElixir.Forum
 
   @impl true
   def mount(_params, session, socket) do
@@ -11,13 +11,15 @@ defmodule FkcElixirWeb.DetailsLive do
 
   @impl true
   def handle_params(%{"slug" => slug}, _, socket) do
-    IO.inspect(slug)
+    question = Forum.get_question_by_slug(slug)
+
+    IO.inspect(question)
 
     {
       :noreply,
       socket
       |> assign(:page_title, "Details | #{slug}")
-      #  |> assign(:question, Forum.get_question_and_update_view!(id))
+      |> assign(:question, question)
       #  |> assign(:question_tags, Forum.get_question_tags(id))}
     }
   end

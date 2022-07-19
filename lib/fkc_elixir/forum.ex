@@ -61,6 +61,12 @@ defmodule FkcElixir.Forum do
     |> broadcast(:question_updated)
   end
 
+  def get_question_by_slug(slug) do
+    Question
+    |> preload([:answers, :user, :comments, :tags])
+    |> Repo.get_by!(slug: slug)
+  end
+
   @doc """
   Creates a question.
 
