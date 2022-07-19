@@ -6,8 +6,7 @@ defmodule FkcElixir.Forum do
   import Ecto.Query, warn: false
   alias FkcElixir.Repo
 
-  alias FkcElixir.Forum.{Question, Answer, Comment, AComment}
-  alias FkcElixir.Forum.Tag
+  alias FkcElixir.Forum.{Question, Answer, Comment, AComment, Tag}
 
   def subscribe do
     Phoenix.PubSub.subscribe(FkcElixir.PubSub, "questions")
