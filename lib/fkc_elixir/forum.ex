@@ -280,6 +280,28 @@ defmodule FkcElixir.Forum do
 
   ## Answer Comment Queries
 
+  def create_answer_comment(attrs \\ %{}) do
+    %AComment{}
+    |> AComment.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def update_answer_comment(%AComment{} = a_comment, attrs) do
+    a_comment
+    |> AComment.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def delete_answer_comment(%AComment{} = a_comment) do
+    Repo.delete(a_comment)
+  end
+
+  def change_answer_comment(%AComment{} = a_comment, attrs \\ %{}) do
+    AComment.changeset(a_comment, attrs)
+  end
+
+  ## Tags parsing
+
   defp parse_tags(nil), do: []
 
   defp parse_tags(tags) do
