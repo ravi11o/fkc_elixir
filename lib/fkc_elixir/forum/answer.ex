@@ -2,11 +2,14 @@ defmodule FkcElixir.Forum.Answer do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias FkcElixir.Forum.{Question, AComment}
+
   schema "answers" do
     field :description, :string
     field :verified, :boolean, default: false
-    belongs_to :question, FkcElixir.Forum.Question
+    belongs_to :question, Question
     belongs_to :user, FkcElixir.Accounts.User
+    has_many :a_comments, AComment
 
     timestamps()
   end
