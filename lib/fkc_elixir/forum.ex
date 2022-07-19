@@ -264,6 +264,14 @@ defmodule FkcElixir.Forum do
     |> Repo.insert()
   end
 
+  def list_answers(id) do
+    Answer
+    |> preload(a_comments: [:user])
+    |> preload([:user])
+    |> where([a], a.question_id == ^id)
+    |> Repo.all()
+  end
+
   def update_answer(%Answer{} = answer, attrs) do
     answer
     |> Answer.changeset(attrs)
