@@ -6,7 +6,7 @@ defmodule FkcElixir.Forum do
   import Ecto.Query, warn: false
   alias FkcElixir.Repo
 
-  alias FkcElixir.Forum.Question
+  alias FkcElixir.Forum.{Question, Answer, Comment, AComment}
   alias FkcElixir.Forum.Tag
 
   def subscribe do
@@ -159,8 +159,6 @@ defmodule FkcElixir.Forum do
     Tag.changeset(tag, attrs)
   end
 
-  alias FkcElixir.Forum.Comment
-
   @doc """
   Returns the list of comments.
 
@@ -171,7 +169,7 @@ defmodule FkcElixir.Forum do
 
   """
   def list_comments do
-    Repo.all(Comment)
+    # Repo.all(Comment)
 
     Comment
     |> preload(:user)
@@ -258,6 +256,29 @@ defmodule FkcElixir.Forum do
   def change_comment(%Comment{} = comment, attrs \\ %{}) do
     Comment.changeset(comment, attrs)
   end
+
+  ## Answers Queries
+  def create_answer(attrs \\ %{}) do
+    %Answer{}
+    |> Answer.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def update_answer(%Answer{} = answer, attrs) do
+    answer
+    |> Answer.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def delete_answer(%Answer{} = answer) do
+    Repo.delete(answer)
+  end
+
+  def change_answer(%Answer{} = answer, attrs \\ %{}) do
+    Answer.changeset(answer, attrs)
+  end
+
+  ## Answer Comment Queries
 
   defp parse_tags(nil), do: []
 
