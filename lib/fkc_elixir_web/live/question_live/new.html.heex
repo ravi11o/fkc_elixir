@@ -1,4 +1,4 @@
-<.modal return_to={Routes.question_index_path(@socket, :index)}>
+<.modal return_to="/">
     <.live_component
       module={FkcElixirWeb.QuestionLive.FormComponent}
       id={@question.id || :new}

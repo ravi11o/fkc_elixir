@@ -60,11 +60,14 @@ defmodule FkcElixir.Forum do
     |> broadcast(:question_updated)
   end
 
-  def get_question_by_slug(slug) do
-    Question
-    |> preload(answers: [:user, a_comments: [:user]], comments: [:user])
-    |> preload([:user, :tags])
-    |> Repo.get_by!(slug: slug)
+  def get_question_by_slug!(slug) do
+    question = Repo.get_by!(Question, slug: slug)
+
+    question
+    |> Question.changeset(%{views: question.views + 1})
+    |> Repo.update!()
+    |> Repo.preload(comments: [:user])
+    |> Repo.preload([:user, :tags, :answers])
   end
 
   @doc """
@@ -266,9 +269,9 @@ defmodule FkcElixir.Forum do
 
   def list_answers(id) do
     Answer
+    |> where([a], a.question_id == ^id)
     |> preload(a_comments: [:user])
     |> preload([:user])
-    |> where([a], a.question_id == ^id)
     |> Repo.all()
   end
 

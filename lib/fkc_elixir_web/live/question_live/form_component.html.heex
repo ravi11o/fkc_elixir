@@ -11,9 +11,10 @@
     phx-change="validate"
     phx-update="ignore"
     phx-submit="save"
-    debounce="1000">
+    debounce="1000"
+    class="">
   
-    <%= label f, :title %>
+    <%= label f, :title, class: "" %>
     <%= text_input f, :title %>
     <%= error_tag f, :title %>
 

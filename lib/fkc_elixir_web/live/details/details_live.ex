@@ -11,14 +11,14 @@ defmodule FkcElixirWeb.DetailsLive do
 
   @impl true
   def handle_params(%{"slug" => slug}, _, socket) do
-    question = Forum.get_question_by_slug(slug)
+    question = Forum.get_question_by_slug!(slug)
+    answers = Forum.list_answers(question.id)
 
     {
       :noreply,
       socket
       |> assign(:page_title, "Details | #{slug}")
-      |> assign(:question, question)
-      #  |> assign(:question_tags, Forum.get_question_tags(id))}
+      |> assign(question: question, answers: answers)
     }
   end
 end

@@ -1,0 +1,56 @@
+<div>
+  <div class="container">
+    <div class="padding2">
+      <p href="#"><%=raw @answer.description %></p>
+    </div>
+    <div>
+      <div class="flex justify-content margin-06 padding2">
+      <div>
+        <ul class="flex">
+          <%= if @answer.verified do %>
+            <li><i class="check padding-right fa-solid fa-check"></i></li>
+          <% end %>
+          <li class="padding-right up"><i class="fa-solid fa-chevron-up"></i></li>
+          <li class="padding-right up"><i class="fa-solid fa-angle-down"></i></li>
+        </ul>
+      </div>
+      <div>
+        <ul class="flex">
+          <li class="color"><%= @answer.inserted_at %></li>
+          <li><a class="aa" href="#"><i class="fa-solid fa-user"></i></a></li>
+          <li class="name"><%= @answer.user.username %></li>
+        </ul>
+        <ul>
+          <li class="num32">32<i class="fa-solid fa-star"></i>*1</li>
+        </ul>
+      </div>
+      
+    </div>
+    </div>
+  </div>
+  <%= for comment <- @answer.a_comments do %>  
+    <div class="container flex margin-top padding-bottom">
+      <div>
+        <ul class="flex color">
+          <li class="padding-right"><i class="fa-solid fa-chevron-up"></i></li>
+          <li><i class="fa-solid fa-angle-down"></i></li>
+        </ul>
+      </div>
+      <div>
+        <ul class="flex">
+          <li class="color left"><%= comment.description %>--</li>
+          <li><a class="blue" href="#"><%= comment.user.username %></a></li>
+        </ul>
+      </div>
+      <div>
+        <ul class="flex">
+          <li><i class="fa-solid fa-clock"></i></li>
+          <li class="month"><%= comment.updated_at %></li>
+          <li><a  class="blue" href="#">Edit</a></li>
+          <li><a  class="blue" href="#">&times;</a></li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <hr>
+</div>
