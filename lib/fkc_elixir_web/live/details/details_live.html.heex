@@ -35,28 +35,12 @@
       </div>
     </div>
     <%= for comment <- @question.comments do %>
-      <div class="container flex margin-top padding-bottom">
-        <div>
-          <ul class="flex color">
-            <li class="padding-right"><i class="fa-solid fa-chevron-up"></i></li>
-            <li><i class="fa-solid fa-angle-down"></i></li>
-          </ul>
-        </div>
-        <div>
-          <ul class="flex">
-            <li class="color left"><%= comment.title %>--</li>
-            <li><a class="blue" href="#"><%= comment.user.username %></a></li>
-          </ul>
-        </div>
-        <div>
-          <ul class="flex">
-            <li><i class="fa-solid fa-clock"></i></li>
-            <li class="month"><%= comment.updated_at %>></li>
-            <li><a  class="blue" href="#">Edit  </a></li>
-            <li><a  class="blue" href="#">&times;</a></li>
-          </ul>
-        </div>
-      </div>
+      <.live_component
+        module={FkcElixirWeb.CommentComponent}
+        id={"#{comment.id}-question" || :new_question}
+        comment={comment}
+        for={:question}
+      />
     <% end %>
     <div class="container flex justify-content">
       <div>
