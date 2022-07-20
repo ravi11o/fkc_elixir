@@ -69,7 +69,11 @@
     </div>
     <hr>
     <%= for answer <- @answers do %>
-      <.live_component module={FkcElixirWeb.AnswerComponent} id={answer.id || :new} answer={answer} />
+      <.live_component 
+        module={FkcElixirWeb.AnswerComponent} 
+        id={answer.id || :new} 
+        answer={answer} 
+      />
     <% end %>
     <div class="container">
       <div class="ans-write">

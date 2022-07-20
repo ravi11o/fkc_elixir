@@ -1,11 +1,11 @@
 <.modal return_to="/">
-    <.live_component
-      module={FkcElixirWeb.QuestionLive.FormComponent}
-      id={@question.id || :new}
-      title={@page_title}
-      action={@live_action}
-      question={@question}
-      current_user={@current_user}
-      return_to="/"
-    />
-  </.modal>
+  <.live_component
+    module={FkcElixirWeb.QuestionLive.FormComponent}
+    id={@question.id || :new}
+    title={@page_title}
+    action={@live_action}
+    question={@question}
+    current_user={@current_user}
+    return_to="/"
+  />
+</.modal>
