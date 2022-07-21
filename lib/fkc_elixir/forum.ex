@@ -30,6 +30,11 @@ defmodule FkcElixir.Forum do
     |> Repo.all()
   end
 
+  def count_questions do
+    Question
+    |> Repo.aggregate(:count)
+  end
+
   @doc """
   Gets a single question.
 

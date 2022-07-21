@@ -1,7 +1,7 @@
 
 <div class="container flex justify-content padding1">
   <div>
-    <h1>Question  <span class="number1">85</span>  </h1>
+    <h1>Question  <span class="number1"><%= @count %></span>  </h1>
   </div>
   <div>
     <nav>
@@ -21,7 +21,7 @@
           <div>
             <ul>
               <li class="white-box margin-06">1 Votes</li>
-              <li class="yellow-box margin-06"><%= Enum.count question.answers %> Answers</li>
+              <li class="yellow-box margin-06"><%= length question.answers %> Answers</li>
               <li class="white-box"><%= question.views %> Views</li>
             </ul>
           </div>
@@ -49,7 +49,7 @@
           <div>
             <ul class="days flex">
               <li><i class="fa-solid fa-clock"></i></li>
-              <li>one day ago</li>
+              <li><%= FkcElixir.Cldr.format_date_time(question.inserted_at) %></li>
             </ul>
           </div>
       </div>

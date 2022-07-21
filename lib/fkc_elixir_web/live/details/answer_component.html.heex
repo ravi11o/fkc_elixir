@@ -16,7 +16,7 @@
       </div>
       <div>
         <ul class="flex">
-          <li class="color"><%= @answer.inserted_at %></li>
+          <li class="color">Posted <%= FkcElixir.Cldr.format_date_time(@answer.inserted_at) %></li>
           <li><a class="aa" href="#"><i class="fa-solid fa-user"></i></a></li>
           <li class="name"><%= @answer.user.username %></li>
         </ul>

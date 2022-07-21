@@ -23,7 +23,7 @@
         </div>
         <div>
           <ul class="flex">
-            <li class="color"><%= @question.inserted_at %></li>
+            <li class="color">Posted <%= FkcElixir.Cldr.format_date_time(@question.inserted_at) %></li>
             <li><a class="aa" href="#"><i class="fa-solid fa-user"></i></a></li>
             <li class="name"><%= @question.user.username  %></li>
           </ul>
@@ -71,8 +71,8 @@
         <ul class="line-height">
           <li><%= @question.views %> Views</li>
           <li><%=Enum.count(@question.answers) %> Answers</li>
-          <li><i class="fa-solid fa-clock"></i><%= @question.inserted_at %></li>
-          <li><i class="fa-solid fa-pencil"></i><%= @question.updated_at %></li>
+          <li><i class="fa-solid fa-clock"></i><%= FkcElixir.Cldr.format_date_time(@question.inserted_at) %></li>
+          <li><i class="fa-solid fa-pencil"></i><%= FkcElixir.Cldr.format_date_time(@question.inserted_at) %></li>
           <li><i class="fa-solid fa-tag"></i>Tags</li>
         </ul>
         <ul class="flex margin-top">
