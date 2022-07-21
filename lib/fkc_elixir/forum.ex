@@ -6,7 +6,7 @@ defmodule FkcElixir.Forum do
   import Ecto.Query, warn: false
   alias FkcElixir.Repo
 
-  alias FkcElixir.Forum.{Question, Answer, Comment, AComment, Tag, QuestionVote}
+  alias FkcElixir.Forum.{Question, Answer, Comment, AComment, Tag, QuestionVote, AnswerVote}
 
   def subscribe do
     Phoenix.PubSub.subscribe(FkcElixir.PubSub, "questions")
@@ -353,6 +353,18 @@ defmodule FkcElixir.Forum do
   def downvote_question(qid, uid) do
     %QuestionVote{vote: :down}
     |> QuestionVote.changeset(%{q_id: qid, u_id: uid})
+    |> Repo.insert!()
+  end
+
+  def upvote_answer(aid, uid) do
+    %AnswerVote{vote: :up}
+    |> AnswerVote.changeset(%{a_id: aid, u_id: uid})
+    |> Repo.insert!()
+  end
+
+  def downvote_answer(aid, uid) do
+    %AnswerVote{vote: :down}
+    |> AnswerVote.changeset(%{a_id: aid, u_id: uid})
     |> Repo.insert!()
   end
 

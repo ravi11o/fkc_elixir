@@ -23,6 +23,8 @@ defmodule FkcElixir.Forum.AnswerVote do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @primary_key false
+
   schema "answer_votes" do
     field :vote, Ecto.Enum, values: [:up, :down]
     belongs_to :u, FkcElixir.Accounts.User
@@ -41,6 +43,8 @@ defmodule FkcElixir.Forum.CommentVote do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @primary_key false
+
   schema "comment_votes" do
     field :vote, Ecto.Enum, values: [:up, :down]
     belongs_to :u, FkcElixir.Accounts.User
@@ -58,6 +62,8 @@ end
 defmodule FkcElixir.Forum.ACommentVote do
   use Ecto.Schema
   import Ecto.Changeset
+
+  @primary_key false
 
   schema "a_comment_votes" do
     field :vote, Ecto.Enum, values: [:up, :down]
