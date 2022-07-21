@@ -1,8 +1,17 @@
 <div class="container flex margin-top padding-bottom">
   <div>
     <ul class="flex color">
-      <li class="padding-right"><i class="fa-solid fa-chevron-up"></i></li>
-      <li><i class="fa-solid fa-angle-down"></i></li>
+      <li class="padding-right">
+        <a href="#" phx-click="comment_upvote" phx-value-cid={@comment.id} phx-value-for={@for} phx-target={@myself}>
+          <i class="fa-solid fa-chevron-up"></i>
+        </a>
+        </li>
+      <li>
+        <a href="#" phx-click="comment_downvote" phx-value-cid={@comment.id} phx-value-for={@for} phx-target={@myself}>
+          <i class="fa-solid fa-angle-down"></i>
+        </a>
+      </li>
+      <li class="up"><%= Forum.count_comment_votes(@comment.id, @for) %></li>
     </ul>
   </div>
   <div>

@@ -6,7 +6,17 @@ defmodule FkcElixir.Forum do
   import Ecto.Query, warn: false
   alias FkcElixir.Repo
 
-  alias FkcElixir.Forum.{Question, Answer, Comment, AComment, Tag, QuestionVote, AnswerVote}
+  alias FkcElixir.Forum.{
+    Question,
+    Answer,
+    Comment,
+    AComment,
+    Tag,
+    QuestionVote,
+    AnswerVote,
+    CommentVote,
+    ACommentVote
+  }
 
   def subscribe do
     Phoenix.PubSub.subscribe(FkcElixir.PubSub, "questions")
@@ -368,6 +378,34 @@ defmodule FkcElixir.Forum do
     |> Repo.insert!()
   end
 
+  def upvote_comment(cid, uid, topic) do
+    case topic do
+      :question ->
+        %CommentVote{vote: :up}
+        |> CommentVote.changeset(%{c_id: cid, u_id: uid})
+        |> Repo.insert!()
+
+      :answer ->
+        %ACommentVote{vote: :up}
+        |> ACommentVote.changeset(%{ac_id: cid, u_id: uid})
+        |> Repo.insert!()
+    end
+  end
+
+  def downvote_comment(cid, uid, topic) do
+    case topic do
+      :question ->
+        %CommentVote{vote: :down}
+        |> CommentVote.changeset(%{c_id: cid, u_id: uid})
+        |> Repo.insert!()
+
+      :answer ->
+        %ACommentVote{vote: :down}
+        |> ACommentVote.changeset(%{ac_id: cid, u_id: uid})
+        |> Repo.insert!()
+    end
+  end
+
   def get_votes(id, topic) do
     case topic do
       :question ->
@@ -404,6 +442,13 @@ defmodule FkcElixir.Forum do
   def downvote(id, topic) do
     votes(id, topic)
     |> Enum.filter(&(&1.vote == :down))
+  end
+
+  def count_comment_votes(id, topic) do
+    case topic do
+      :question -> count_votes(id, :comment)
+      :answer -> count_votes(id, :answer_comment)
+    end
   end
 
   def count_votes(id, topic) do

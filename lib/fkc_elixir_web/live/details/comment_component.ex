@@ -23,4 +23,18 @@ defmodule FkcElixirWeb.CommentComponent do
          |> assign(:changeset, changeset)}
     end
   end
+
+  @impl true
+  def handle_event("comment_upvote", %{"cid" => cid, "for" => for}, socket) do
+    Forum.upvote_comment(cid, socket.assigns.current_user.id, String.to_atom(for))
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("comment_downvote", %{"cid" => cid, "for" => for}, socket) do
+    Forum.downvote_comment(cid, socket.assigns.current_user.id, String.to_atom(for))
+
+    {:noreply, socket}
+  end
 end

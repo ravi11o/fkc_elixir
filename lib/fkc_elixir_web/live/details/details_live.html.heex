@@ -48,6 +48,7 @@
         id={"#{comment.id}-question" || :new_question}
         comment={comment}
         for={:question}
+        current_user={@current_user}
       />
     <% end %>
     <div class="container flex justify-content">
