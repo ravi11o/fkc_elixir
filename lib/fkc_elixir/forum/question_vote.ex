@@ -2,6 +2,8 @@ defmodule FkcElixir.Forum.QuestionVote do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @primary_key false
+
   schema "question_votes" do
     field :vote, Ecto.Enum, values: [:up, :down]
     belongs_to :u, FkcElixir.Accounts.User
@@ -13,6 +15,7 @@ defmodule FkcElixir.Forum.QuestionVote do
     question_vote
     |> cast(attrs, [:vote, :u_id, :q_id])
     |> validate_required([:vote, :u_id, :q_id])
+    |> unique_constraint([:uid, :qid], name: "already Voted")
   end
 end
 

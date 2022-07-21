@@ -6,7 +6,7 @@ defmodule FkcElixir.Forum do
   import Ecto.Query, warn: false
   alias FkcElixir.Repo
 
-  alias FkcElixir.Forum.{Question, Answer, Comment, AComment, Tag}
+  alias FkcElixir.Forum.{Question, Answer, Comment, AComment, Tag, QuestionVote}
 
   def subscribe do
     Phoenix.PubSub.subscribe(FkcElixir.PubSub, "questions")
@@ -341,5 +341,63 @@ defmodule FkcElixir.Forum do
     tag_names = for t <- tags, do: t.name
     # find all the input tags
     Repo.all(from(t in Tag, where: t.name in ^tag_names))
+  end
+
+  ### Votimg section
+  def upvote_question(qid, uid) do
+    %QuestionVote{vote: :up}
+    |> QuestionVote.changeset(%{q_id: qid, u_id: uid})
+    |> Repo.insert!()
+  end
+
+  def downvote_question(qid, uid) do
+    %QuestionVote{vote: :down}
+    |> QuestionVote.changeset(%{q_id: qid, u_id: uid})
+    |> Repo.insert!()
+  end
+
+  def get_votes(id, topic) do
+    case topic do
+      :question ->
+        QuestionVote
+        |> where([q], q.q_id == ^id)
+        |> Repo.all()
+
+      :answer ->
+        AnswerVote
+        |> where([a], a.a_id == ^id)
+        |> Repo.all()
+
+      :comment ->
+        CommentVote
+        |> where([c], c.c_id == ^id)
+        |> Repo.all()
+
+      :answer_comment ->
+        ACommentVote
+        |> where([ac], ac.ac_id == ^id)
+        |> Repo.all()
+    end
+  end
+
+  def votes(id, topic) do
+    get_votes(id, topic)
+  end
+
+  def upvote(id, topic) do
+    votes(id, topic)
+    |> Enum.filter(&(&1.vote == :up))
+  end
+
+  def downvote(id, topic) do
+    votes(id, topic)
+    |> Enum.filter(&(&1.vote == :down))
+  end
+
+  def count_votes(id, topic) do
+    upvote_count = length(upvote(id, topic))
+    downvote_count = length(downvote(id, topic))
+
+    upvote_count - downvote_count
   end
 end

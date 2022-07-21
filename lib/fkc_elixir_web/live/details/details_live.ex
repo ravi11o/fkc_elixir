@@ -21,4 +21,15 @@ defmodule FkcElixirWeb.DetailsLive do
       |> assign(question: question, answers: answers)
     }
   end
+
+  @impl true
+  def handle_event("question_upvote", %{"qid" => qid, "uid" => uid}, socket) do
+    Forum.upvote_question(qid, uid)
+    {:noreply, socket}
+  end
+
+  def handle_event("question_downvote", %{"qid" => qid, "uid" => uid}, socket) do
+    Forum.downvote_question(qid, uid)
+    {:noreply, socket}
+  end
 end
