@@ -20,6 +20,13 @@ defmodule FkcElixirWeb.IndexLive do
     |> assign(questions: list_questions(), count: count_questions())
   end
 
+  defp apply_action(socket, :search, %{"term" => term}) do
+    questions = Forum.search_results(term)
+
+    socket
+    |> assign(questions: questions, count: length(questions))
+  end
+
   defp list_questions do
     Forum.list_questions()
   end
@@ -28,6 +35,9 @@ defmodule FkcElixirWeb.IndexLive do
     Forum.count_questions()
   end
 
+  @impl true
   def handle_event("question-serach", %{"search" => term}, socket) do
+    questions = Forum.search_results(term)
+    {:noreply, assign(socket, questions: questions, count: length(questions))}
   end
 end
