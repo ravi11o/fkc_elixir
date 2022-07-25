@@ -21,12 +21,21 @@ defmodule FkcElixirWeb.IndexLive do
     page = String.to_integer(params["page"] || "1")
     per_page = String.to_integer(params["per_page"] || "2")
 
+    sort_by = (params["sort_by"] || "inserted_at") |> String.to_atom()
+    sort_order = (params["sort_order"] || "asc") |> String.to_atom()
+
     paginate_options = %{page: page, per_page: per_page}
-    questions = Forum.list_questions(paginate: paginate_options)
+    sort_options = %{sort_by: sort_by, sort_order: sort_order}
+
+    questions =
+      Forum.list_questions(
+        paginate: paginate_options,
+        sort: sort_options
+      )
 
     socket =
       assign(socket,
-        options: paginate_options,
+        options: Map.merge(paginate_options, sort_options),
         questions: questions,
         count: count_questions()
       )
@@ -43,4 +52,22 @@ defmodule FkcElixirWeb.IndexLive do
     questions = Forum.search_results(term)
     {:noreply, assign(socket, questions: questions, count: length(questions))}
   end
+
+  defp sort_link(socket, text, sort_by, options) do
+    live_patch(text,
+      to:
+        Routes.live_path(
+          socket,
+          __MODULE__,
+          sort_by: sort_by,
+          sort_order: toggle_sort_order(options.sort_order),
+          page: options.page,
+          per_page: options.per_page
+        ),
+      class: "test-Q3 dark"
+    )
+  end
+
+  defp toggle_sort_order(:asc), do: :desc
+  defp toggle_sort_order(:desc), do: :asc
 end
