@@ -53,6 +53,14 @@ defmodule FkcElixirWeb.IndexLive do
     {:noreply, assign(socket, questions: questions, count: length(questions))}
   end
 
+  def handle_event("unanswered", _, socket) do
+    questions =
+      list_questions()
+      |> Enum.filter(&(length(&1.answers) == 0))
+
+    {:noreply, assign(socket, questions: questions)}
+  end
+
   defp sort_link(socket, text, sort_by, options) do
     live_patch(text,
       to:
@@ -66,6 +74,14 @@ defmodule FkcElixirWeb.IndexLive do
         ),
       class: "test-Q3 dark"
     )
+  end
+
+  defp list_questions do
+    Forum.list_questions()
+  end
+
+  defp count_questions do
+    Forum.count_questions()
   end
 
   defp toggle_sort_order(:asc), do: :desc

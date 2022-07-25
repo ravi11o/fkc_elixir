@@ -9,10 +9,10 @@
       <%= sort_link(@socket, "Newest", :inserted_at, @options) %>
       <%= sort_link(@socket, "Updated", :updated_at, @options) %>
       <%= link "Unanswered", to: "#", class: "test-Q3", phx_click: "unanswered" %>
-       <%= link "Unapproved", to: "#", class: "test-Q3", phx_click: "unapproved" %>
+       <%# <%= link "Unapproved", to: "#", class: "test-Q3", phx_click: "unapproved" %> %>
        
       <%# <a class="test-Q3" href="#">Unanswered</a> %>
-      <a class="test-Q3" href="#">Unapproved</a>
+      <%# <a class="test-Q3" href="#">Unapproved</a> %>
       <%# <a class="test-Q3" href="#"><i class="fa-solid fa-filter"></i></a> %>
     </nav>
   </div>
