@@ -457,4 +457,26 @@ defmodule FkcElixir.Forum do
 
     upvote_count - downvote_count
   end
+
+  #### Text Search Query
+
+  defp prefix_search(term), do: String.replace(term, ~r/\W/u, "") <> ":*"
+
+  defp search(query, search_term) do
+    where(
+      query,
+      fragment(
+        "to_tsvector('english', title || ' ' || description) @@
+        to_tsquery(?)",
+        ^prefix_search(search_term)
+      )
+    )
+  end
+
+  def search_results(term) do
+    Question
+    |> search(term)
+    |> preload([:tags, :user, :answers])
+    |> Repo.all()
+  end
 end
