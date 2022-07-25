@@ -34,6 +34,6 @@ defmodule FkcElixirWeb.DetailsLive do
   end
 
   def handle_event("question-serach", %{"search" => term}, socket) do
-    {:noreply, push_redirect(socket, to: "/search?term=#{term}")}
+    {:noreply, push_redirect(socket, to: "/?term=#{term}")}
   end
 end

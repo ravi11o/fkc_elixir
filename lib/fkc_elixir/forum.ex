@@ -40,6 +40,23 @@ defmodule FkcElixir.Forum do
     |> Repo.all()
   end
 
+  def list_questions(criteria) when is_list(criteria) do
+    query = from(s in Question)
+
+    Enum.reduce(criteria, query, fn
+      {:paginate, %{page: page, per_page: per_page}}, query ->
+        from q in query,
+          offset: ^((page - 1) * per_page),
+          limit: ^per_page
+
+      {:sort, %{sort_by: sort_by, sort_order: sort_order}}, query ->
+        from q in query, order_by: [{^sort_order, ^sort_by}]
+    end)
+    |> order_by(desc: :inserted_at)
+    |> preload([:tags, :user, :answers])
+    |> Repo.all()
+  end
+
   def count_questions do
     Question
     |> Repo.aggregate(:count)

@@ -6,11 +6,10 @@
   <div>
     <nav>
       <a class="test-Q3 dark" href="#">Newest</a>
-      <a class="test-Q3" href="#">Votes</a>
       <a class="test-Q3" href="#">Updated</a>
       <a class="test-Q3" href="#">Unanswered</a>
       <a class="test-Q3" href="#">Unapproved</a>
-      <a class="test-Q3" href="#"><i class="fa-solid fa-filter"></i></a>
+      <%# <a class="test-Q3" href="#"><i class="fa-solid fa-filter"></i></a> %>
     </nav>
   </div>
 </div>
@@ -62,6 +61,38 @@
 
 <section>
   <div class="show-more">
-    <a class="show" href="#">Show more result</a>
+    <%= if @options.page > 1 do %>
+      <%= live_patch "Previous",
+        to: Routes.live_path(
+          @socket,
+          __MODULE__,
+          page: @options.page - 1,
+          per_page: @options.per_page
+        ),
+        class: "show"
+      %>
+    <% end %>
+    <%= for i <- (@options.page - 2)..(@options.page + 2), i > 0, i <= ceil(@count / @options.per_page) do %>
+      <%= live_patch i,
+        to: Routes.live_path(
+          @socket,
+          __MODULE__,
+          page: i,
+          per_page: @options.per_page
+        ),
+        class: "show"
+      %>
+    <% end %>
+    <%= live_patch "Next",
+      to: Routes.live_path(
+        @socket,
+        __MODULE__,
+        page: @options.page + 1,
+        per_page: @options.per_page
+      ),
+      class: "show"
+     %>
+
+     
   </div>
 </section>

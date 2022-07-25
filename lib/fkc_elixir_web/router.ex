@@ -32,8 +32,7 @@ defmodule FkcElixirWeb.Router do
   scope "/", FkcElixirWeb do
     pipe_through [:browser]
 
-    live "/", IndexLive, :index
-    live "/search", IndexLive, :search
+    live "/", IndexLive
     live "/question/:slug", DetailsLive
     resources "/tags", TagController
     resources "/comments", CommentController
