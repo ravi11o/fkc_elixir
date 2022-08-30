@@ -27,18 +27,42 @@ defmodule FkcElixirWeb.CommentComponent do
   @impl true
   def handle_event("comment_upvote", %{"cid" => cid, "for" => for}, socket) do
     if(socket.assigns.current_user) do
-      Forum.upvote_comment(cid, socket.assigns.current_user.id, String.to_atom(for))
-    end
+      case Forum.upvote_comment(cid, socket.assigns.current_user.id, String.to_atom(for)) do
+        {:ok, _} ->
+          {:noreply,
+           socket
+           |> put_flash(:info, "#{for} comment Upvoted")
+           |> push_redirect(to: "/question/#{socket.assigns.slug}")}
 
-    {:noreply, socket}
+        {:error, _} ->
+          {:noreply,
+           socket
+           |> put_flash(:info, "Already Voted")
+           |> push_redirect(to: "/question/#{socket.assigns.slug}")}
+      end
+    else
+      {:noreply, socket}
+    end
   end
 
   @impl true
   def handle_event("comment_downvote", %{"cid" => cid, "for" => for}, socket) do
     if(socket.assigns.current_user) do
-      Forum.downvote_comment(cid, socket.assigns.current_user.id, String.to_atom(for))
-    end
+      case Forum.downvote_comment(cid, socket.assigns.current_user.id, String.to_atom(for)) do
+        {:ok, _} ->
+          {:noreply,
+           socket
+           |> put_flash(:info, "#{for} comment Downvoted")
+           |> push_redirect(to: "/question/#{socket.assigns.slug}")}
 
-    {:noreply, socket}
+        {:error, _} ->
+          {:noreply,
+           socket
+           |> put_flash(:info, "Already Voted")
+           |> push_redirect(to: "/question/#{socket.assigns.slug}")}
+      end
+    else
+      {:noreply, socket}
+    end
   end
 end

@@ -12,20 +12,32 @@ defmodule FkcElixirWeb.IndexLive do
   end
 
   @impl true
-  def handle_params(%{"term" => term}, _url, socket) do
+  def handle_params(%{"term" => term} = params, _url, socket) do
+    [paginate, sort] = create_options(params)
     questions = Forum.search_results(term)
-    {:noreply, assign(socket, questions: questions, count: length(questions))}
+
+    {:noreply,
+     assign(socket,
+       questions: questions,
+       options: Map.merge(paginate, sort),
+       count: length(questions)
+     )}
+  end
+
+  def handle_params(%{"tag" => tag} = params, _url, socket) do
+    [paginate, sort] = create_options(params)
+    questions = Forum.search_tag_results(tag)
+
+    {:noreply,
+     assign(socket,
+       questions: questions,
+       options: Map.merge(paginate, sort),
+       count: length(questions)
+     )}
   end
 
   def handle_params(params, _url, socket) do
-    page = String.to_integer(params["page"] || "1")
-    per_page = String.to_integer(params["per_page"] || "4")
-
-    sort_by = (params["sort_by"] || "inserted_at") |> String.to_atom()
-    sort_order = (params["sort_order"] || "asc") |> String.to_atom()
-
-    paginate_options = %{page: page, per_page: per_page}
-    sort_options = %{sort_by: sort_by, sort_order: sort_order}
+    [paginate_options, sort_options] = create_options(params)
 
     questions =
       Forum.list_questions(
@@ -82,4 +94,17 @@ defmodule FkcElixirWeb.IndexLive do
 
   defp toggle_sort_order(:asc), do: :desc
   defp toggle_sort_order(:desc), do: :asc
+
+  defp create_options(params) do
+    page = String.to_integer(params["page"] || "1")
+    per_page = String.to_integer(params["per_page"] || "4")
+
+    sort_by = (params["sort_by"] || "inserted_at") |> String.to_atom()
+    sort_order = (params["sort_order"] || "asc") |> String.to_atom()
+
+    paginate_options = %{page: page, per_page: per_page}
+    sort_options = %{sort_by: sort_by, sort_order: sort_order}
+
+    [paginate_options, sort_options]
+  end
 end

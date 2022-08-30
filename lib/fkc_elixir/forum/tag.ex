@@ -1,9 +1,11 @@
 defmodule FkcElixir.Forum.Tag do
   use Ecto.Schema
   import Ecto.Changeset
+  alias FkcElixir.Forum.{Question, QuestionTag}
 
   schema "tags" do
     field :name, :string
+    many_to_many(:questions, Question, join_through: QuestionTag, on_replace: :delete)
 
     timestamps()
   end

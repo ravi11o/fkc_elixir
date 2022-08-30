@@ -46,6 +46,7 @@
         module={FkcElixirWeb.CommentComponent}
         id={"#{comment.id}-question" || :new_question}
         comment={comment}
+        slug={@question.slug}
         for={:question}
         current_user={@current_user}
       />
@@ -90,7 +91,7 @@
           <li class="test-Q3 green">Answered</li>
         <% end %>
         <%= for tag <- @question.tags do %>
-          <li class="test-Q3 margin-left"><%= link tag.name, to: "#" %></li>
+          <li class="test-Q3 margin-left"><%= link tag.name, to: "/?tag=#{tag.name}" %></li>
         <% end %>
       </ul>
     </div>

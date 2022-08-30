@@ -13,7 +13,7 @@
         <div class="flex justify-content tagBox">
           <div class="flex">
               <i class="fa-solid fa-tag grey-text"></i>
-              <a><%= String.capitalize(tag.name) %></a>
+              <a href={"/?tag=#{tag.name}"}><%= String.capitalize(tag.name) %></a>
           </div>
           <p><%= Enum.random(1..100) %></p>
         </div>

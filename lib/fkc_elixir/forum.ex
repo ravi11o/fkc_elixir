@@ -15,7 +15,8 @@ defmodule FkcElixir.Forum do
     QuestionVote,
     AnswerVote,
     CommentVote,
-    ACommentVote
+    ACommentVote,
+    QuestionTag
   }
 
   def subscribe do
@@ -45,12 +46,13 @@ defmodule FkcElixir.Forum do
 
     Enum.reduce(criteria, query, fn
       {:paginate, %{page: page, per_page: per_page}}, query ->
-        from q in query,
+        from(q in query,
           offset: ^((page - 1) * per_page),
           limit: ^per_page
+        )
 
       {:sort, %{sort_by: sort_by, sort_order: sort_order}}, query ->
-        from q in query, order_by: [{^sort_order, ^sort_by}]
+        from(q in query, order_by: [{^sort_order, ^sort_by}])
     end)
     |> order_by(desc: :inserted_at)
     |> preload([:tags, :user, :answers])
@@ -178,6 +180,10 @@ defmodule FkcElixir.Forum do
 
   def get_tag!(id) do
     Repo.get!(Tag, id)
+  end
+
+  def get_tag_by_name!(name) do
+    Repo.get_by!(Tag, name: name)
   end
 
   def create_tag(attrs \\ %{}) do
@@ -495,5 +501,14 @@ defmodule FkcElixir.Forum do
     |> search(term)
     |> preload([:tags, :user, :answers])
     |> Repo.all()
+  end
+
+  ### Get questions by tags
+  def search_tag_results(name) do
+    tag =
+      get_tag_by_name!(name)
+      |> Repo.preload(questions: [:user, :tags, :answers])
+
+    tag.questions
   end
 end

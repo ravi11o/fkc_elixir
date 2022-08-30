@@ -31,7 +31,7 @@
               <%= link "Answered", to: "#", class: "test-Q3 green" %>
             <% end %>
             <%= for tag <- question.tags do %>
-              <%= link tag.name, to: "#", class: "test-Q3" %>
+              <%= link tag.name, to: "/?tag=#{tag.name}", class: "test-Q3" %>
             <% end %>
           </div>
       </div>
