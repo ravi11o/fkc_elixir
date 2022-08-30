@@ -1,47 +1,79 @@
-<.form let={f} for={@changeset} 
-              action={Routes.user_registration_path(@socket, :create)}
-              phx_submit="save"
-              phx_change="validate"
-              phx_trigger_action={@trigger_submit}>
-  
-  <%= label f, :username %>
-  <%= text_input f, :username, required: true %>
-  <%= error_tag f, :username %>
-
-  <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
-  <%= error_tag f, :email %>
-
-  <%= hidden_input f, :image %>
-
-  <%= label f, :password %>
-  <%= password_input f, :password, required: true, value: input_value(f, :password) %>
-  <%= error_tag f, :password %>
-
-  <%= live_file_input @uploads.image %>
-  <%= for {_ref, err} <- @uploads.image.errors do %>
-    <div>
-      <%= humanize(err) %>
-    </div>
-  <% end %>
-
-  <%= for entry <- @uploads.image.entries do %>
-  <a href="#" phx-click="cancel" phx-value-ref={entry.ref}>&times;</a>
-    <div>
-      <%= live_img_preview entry, width: 200 %>
-    </div>
-    <div>
-      <%= entry.progress %>
+<div class="formBody">
+  <h1>Register</h1>
+  <.form let={f} for={@changeset} 
+                action={Routes.user_registration_path(@socket, :create)}
+                phx_submit="save"
+                phx_change="validate"
+                phx_trigger_action={@trigger_submit}>
+    
+    <div class= "margin-top">
+    <%= label f, :username, class: "text1" %>
+    <div class="margin-top-1">
+      <%= text_input f, :username, required: true, class: "form-input-width2 text1" %>
+      <div class="margin-left margin-top-1">
+      <%= error_tag f, :username %>
+      </div>
     </div>
     
-  <% end %>
+    </div>
+  
+    <div class= "margin-top">
+      <%= label f, :email, class: "text1" %>
+      <div class="margin-top-1">
+        <%= email_input f, :email, required: true, class: "form-input-width2 text1" %>
+        <div class="margin-left margin-top-1">
+        <%= error_tag f, :email %>
+        </div>
+      </div>
+      
+    </div>
+    
+    <%= hidden_input f, :image %>
 
-  <div>
-    <%= submit "Register" %>
-  </div>
-</.form>
+    <div class= "margin-top">
+      <%= label f, :password, class: "text1" %>
+      <div class="margin-top-1">
+        <%= password_input f, :password, required: true, value: input_value(f, :password), class: "form-input-width2 text1" %>
+        <div class="margin-left margin-top-1">
+        <%= error_tag f, :password %>
+        </div>
+      </div>
+      
+    </div>
 
-<p>
-  <%= link "Log in", to: Routes.user_session_path(@socket, :new) %> |
-  <%= link "Forgot your password?", to: Routes.user_reset_password_path(@socket, :new) %>
-</p>
+    <div class= "margin-top">
+        <%= label f, :image, class: "text1" %>
+        <div class="margin-top-1">
+        <%= live_file_input @uploads.image, class: "text1" %>
+      <%= for {_ref, err} <- @uploads.image.errors do  %>
+        <div>
+          <%= humanize(err) %>
+        </div>
+      <% end %>
+        </div>
+    
+    </div>
+
+  
+
+    <%= for entry <- @uploads.image.entries do %>
+      <a href="#" phx-click="cancel" phx-value-ref={entry.ref}>&times;</a>
+      <div>
+        <%= live_img_preview entry, width: 200 %>
+      </div>
+      <div>
+        <%= entry.progress %>
+      </div>
+      
+    <% end %>
+
+    <div>
+      <%= submit "Register", class: "question-save-button margin-bottom3" %>
+    </div>
+  </.form>
+
+  <p>
+    <%= link "Log in", to: Routes.user_session_path(@socket, :new) %> |
+    <%= link "Forgot your password?", to: Routes.user_reset_password_path(@socket, :new) %>
+  </p>
+</div>

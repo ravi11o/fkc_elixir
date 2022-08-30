@@ -19,7 +19,7 @@ defmodule FkcElixirWeb.IndexLive do
 
   def handle_params(params, _url, socket) do
     page = String.to_integer(params["page"] || "1")
-    per_page = String.to_integer(params["per_page"] || "2")
+    per_page = String.to_integer(params["per_page"] || "4")
 
     paginate_options = %{page: page, per_page: per_page}
     questions = Forum.list_questions(paginate: paginate_options)

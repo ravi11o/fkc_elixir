@@ -1,16 +1,16 @@
-<main class="flex">
-  <section class="width-65 padding1">
-    <div class="container">
-      <div>
-        <%= if @question.answers !== [] do %>
-          <h2><i class="fa-solid fa-check"></i>Answered</h2>
-        <% end %>
-        <h3><%= @question.title %></h3><hr>
-      </div>
+<main class="flex bodyContainer">
+  <section class=" footerPadding width-80 bodyHeight">
+    
+    <div>
+      <%= if @question.answers !== [] do %>
+        <h2><i class="fa-solid fa-check"></i>Answered</h2>
+      <% end %>
+      <h2><%= @question.title %></h2><hr>
     </div>
+    
     <div class="container">
       <div>
-        <p><%= raw @question.description %></p>
+        <p class="margin-bottom3"><%= raw @question.description %></p>
         <%# <a class="google" href="#">google.com</a> %>
       </div>
       <div class="flex justify-content margin-06">
@@ -18,26 +18,27 @@
           <ul class="flex">
             <li class="padding-right up">
               <a href="#" phx-click="question_upvote" phx-value-qid={@question.id} phx-value-uid={@current_user.id}>
-                <i class="fa-solid fa-chevron-up"></i>
+                <i class="fa-solid fa-chevron-up vote"></i>
               </a>
             </li>
             <li class="padding-right up">
               <a href="#" phx-click="question_downvote" phx-value-qid={@question.id} phx-value-uid={@current_user.id}>
-                <i class="fa-solid fa-angle-down"></i>
+                <i class="fa-solid fa-angle-down vote"></i>
               </a>
             </li>
-            <li class="up"><%= Forum.count_votes(@question.id, :question) %></li>
+            <li class="up vote"><%= Forum.count_votes(@question.id, :question) %></li>
           </ul>
         </div>
         <div>
-          <ul class="flex">
-            <li class="color">Posted <%= FkcElixir.Cldr.format_date_time(@question.inserted_at) %></li>
-            <li><a class="aa" href="#"><i class="fa-solid fa-user"></i></a></li>
-            <li class="name"><%= @question.user.username  %></li>
+          <ul class="flex align-center">
+            <li class="color margin-right">Posted <%= FkcElixir.Cldr.format_date_time(@question.inserted_at) %></li>
+            <img class="userImages margin-right" src="/images/user.png" href="#" />
+            <div>
+            <li class="userName"><%= @question.user.username  %></li>
+            <li class="num32">32<i class="fa-solid fa-star"></i>x1</li>
+            </div>
           </ul>
-          <ul>
-            <li class="num32">32<i class="fa-solid fa-star"></i>*1</li>
-          </ul>
+         
         </div>
         
       </div>
@@ -51,9 +52,9 @@
         current_user={@current_user}
       />
     <% end %>
-    <div class="container flex justify-content">
+    <div class="container flex justify-content margin-top">
       <div>
-        <p class="p1">Answers <%= Enum.count @question.answers %></p>
+        <h2> <%= Enum.count @question.answers %> Answers</h2>
       </div>
       <div>
         <a class="test-Q3 dark" herf="#">Votes</a>
@@ -70,30 +71,33 @@
       />
     <% end %>
     <div class="container">
-      <div class="ans-write">
+      <%# <div class="ans-write">
         <a class="write" href="#"><i class="fa-solid fa-pen"></i>WRITE YOUR ANSWER</a>
-      </div>
+      </div> %>
+      <form>
+        <textarea />
+        <button type="submit"> Submit</button>
+      </form>
     </div>
   </section>
   <section>
-    <div class="container">
-      <div class="box1 margin-top color">
-        <ul class="line-height">
-          <li><%= @question.views %> Views</li>
-          <li><%=Enum.count(@question.answers) %> Answers</li>
-          <li><i class="fa-solid fa-clock"></i><%= FkcElixir.Cldr.format_date_time(@question.inserted_at) %></li>
-          <li><i class="fa-solid fa-pencil"></i><%= FkcElixir.Cldr.format_date_time(@question.inserted_at) %></li>
-          <li><i class="fa-solid fa-tag"></i>Tags</li>
-        </ul>
-        <ul class="flex margin-top">
-          <%= if @question.answers !== [] do %>
-            <li class="test-Q3 green">Answered</li>
-          <% end %>
-          <%= for tag <- @question.tags do %>
-            <li class="test-Q3 margin-left"><%= link tag.name, to: "#" %></li>
-          <% end %>
-        </ul>
-      </div>
+    <div class="box1 margin-top color">
+      <ul class="line-height">
+        <li><%= @question.views %> Views</li>
+        <li><%=Enum.count(@question.answers) %> Answers</li>
+        <li><i class="fa-solid fa-clock"></i><%= FkcElixir.Cldr.format_date_time(@question.inserted_at) %></li>
+        <li><i class="fa-solid fa-pencil"></i><%= FkcElixir.Cldr.format_date_time(@question.inserted_at) %></li>
+        <li><i class="fa-solid fa-tag"></i>Tags</li>
+      </ul>
+      <ul class="flexWrap margin-top-half">
+        <%= if @question.answers !== [] do %>
+          <li class="test-Q3 green">Answered</li>
+        <% end %>
+        <%= for tag <- @question.tags do %>
+          <li class="test-Q3 margin-left"><%= link tag.name, to: "#" %></li>
+        <% end %>
+      </ul>
     </div>
+    
   </section>
 </main>

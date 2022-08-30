@@ -1,5 +1,5 @@
 
-<div class="container flex justify-content padding1">
+<div class="flex justify-content footerPadding bodyContainer">
   <div>
     <h1>Question  <span class="number1"><%= @count %></span>  </h1>
   </div>
@@ -15,7 +15,7 @@
 </div>
 <%= for question <- @questions do %>
   <section>
-    <div class="container box flex justify-content">
+    <div class="box flex justify-content bodyContainer">
       <div class="flex">
           <div>
             <ul>
@@ -35,10 +35,10 @@
           </div>
       </div>
       <div class="days-ago">
-          <div class="flex">
+          <div class="flex align-center">
             <div>
-              
-              <a class="aa" href="#"><i class="fa-solid fa-user"></i></a>
+              <img class="userImages margin-right" src="/images/user.png" href="#" />
+              <%# <a class="aa" href="#"><i class="fa-solid fa-user"></i></a> %>
             </div>
             <div>
               <a class="name" href="#"><%= question.user.username %></a>
