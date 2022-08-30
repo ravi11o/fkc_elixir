@@ -15,13 +15,35 @@ defmodule FkcElixirWeb.AnswerComponent do
 
   @impl true
   def handle_event("answer_upvote", %{"aid" => aid, "uid" => uid}, socket) do
-    Forum.upvote_answer(aid, uid)
-    {:noreply, socket}
+    case Forum.upvote_answer(aid, uid) do
+      {:ok, _} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, "Answer Upvoted")
+         |> push_redirect(to: "/question/#{socket.assigns.slug}")}
+
+      {:error, _} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, "Already Upvoted")
+         |> push_redirect(to: "/question/#{socket.assigns.slug}")}
+    end
   end
 
   def handle_event("answer_downvote", %{"aid" => aid, "uid" => uid}, socket) do
-    Forum.downvote_answer(aid, uid)
-    {:noreply, socket}
+    case Forum.downvote_answer(aid, uid) do
+      {:ok, _} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, "Answer Downvoted")
+         |> push_redirect(to: "/question/#{socket.assigns.slug}")}
+
+      {:error, _} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, "Already Voted")
+         |> push_redirect(to: "/question/#{socket.assigns.slug}")}
+    end
   end
 
   def handle_event("answer_upvote", _, socket) do

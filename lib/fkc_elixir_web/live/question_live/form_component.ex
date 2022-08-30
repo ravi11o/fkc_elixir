@@ -24,7 +24,6 @@ defmodule FkcElixirWeb.QuestionLive.FormComponent do
   end
 
   def handle_event("save", %{"question" => question_params}, socket) do
-    IO.inspect question_params
     save_question(socket, socket.assigns.action, question_params)
   end
 

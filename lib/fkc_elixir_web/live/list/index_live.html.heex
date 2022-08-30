@@ -9,11 +9,8 @@
       <%= sort_link(@socket, "Newest", :inserted_at, @options) %>
       <%= sort_link(@socket, "Updated", :updated_at, @options) %>
       <%= link "Unanswered", to: "#", class: "test-Q3", phx_click: "unanswered" %>
-       <%# <%= link "Unapproved", to: "#", class: "test-Q3", phx_click: "unapproved" %> 
        
-      <%# <a class="test-Q3" href="#">Unanswered</a> %>
-      <%# <a class="test-Q3" href="#">Unapproved</a> %>
-      <%# <a class="test-Q3" href="#"><i class="fa-solid fa-filter"></i></a> %>
+     
     </nav>
   </div>
 </div>
@@ -41,8 +38,7 @@
       <div class="days-ago">
           <div class="flex align-center">
             <div>
-              <img class="userImages margin-right" src="/images/user.png" href="#" />
-              <%# <a class="aa" href="#"><i class="fa-solid fa-user"></i></a> %>
+              <img class="userImages margin-right" src={question.user.image || "/images/user.png" } href="#" />  
             </div>
             <div>
               <a class="name" href="#"><%= question.user.username %></a>

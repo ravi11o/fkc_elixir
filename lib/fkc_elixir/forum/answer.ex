@@ -19,5 +19,6 @@ defmodule FkcElixir.Forum.Answer do
     answer
     |> cast(attrs, [:description, :question_id, :user_id])
     |> validate_required([:description, :question_id, :user_id])
+    |> validate_length(:description, min: 10)
   end
 end

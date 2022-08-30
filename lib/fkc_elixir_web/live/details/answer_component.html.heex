@@ -27,12 +27,12 @@
         <ul class="flex align-center">
           <li class="color margin-right ">Posted <%= FkcElixir.Cldr.format_date_time(@answer.inserted_at) %></li>
           
-          <img class="userImages margin-right" src="/images/tintin.png" href="#" />
+          <img class="userImages margin-right" src={@answer.user.image || "/images/user.png"} href="#" />
           
           <div>
           <li class="userName"><%= @answer.user.username %></li>
-          <li class="num32">32<i class="fa-solid fa-star"></i>*1</li>
-          
+          <li class="num32">32</li>
+          <%# <li class="num32">32<i class="fa-solid fa-star"></i>*1</li> %>
           </div>
         </ul>
       </div>
@@ -51,3 +51,4 @@
   <% end %>
   <hr>
 </div>
+ 

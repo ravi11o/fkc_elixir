@@ -1,0 +1,18 @@
+ <div class="container">
+      <.form
+        let={f}
+        for={@changeset}
+        phx-change="validate"
+        phx-update="ignore"
+        phx-target={@myself}
+        phx-submit="save"
+        debounce="4000"
+      >
+      <div>
+        <%= textarea f, :description, rows: 6, class: "answer-input" %>
+        <%= error_tag f, :description %>
+      </div>
+      <%= submit "Add Answer", phx_disable_with: "Saving...", class: "" %>
+      
+      </.form>
+    </div>

@@ -13,12 +13,12 @@
         <div>
           <ul class="flex">
             <li class="padding-right up">
-              <a href="#" phx-click="question_upvote" phx-value-qid={@question.id} phx-value-uid={@current_user && @current_user.id || nil}>
+              <a href="#" phx-click="question_upvote" phx-value-qid={@question.id} phx-value-uid={@current_user && @current_user.id}>
                 <i class="fa-solid fa-chevron-up"></i>
               </a>
             </li>
             <li class="padding-right up">
-              <a href="#" phx-click="question_downvote" phx-value-qid={@question.id} phx-value-uid={@current_user && @current_user.id || nil}>
+              <a href="#" phx-click="question_downvote" phx-value-qid={@question.id} phx-value-uid={@current_user && @current_user.id}>
                 <i class="fa-solid fa-angle-down"></i>
 
               </a>
@@ -29,10 +29,11 @@
         <div>
           <ul class="flex align-center">
             <li class="color margin-right">Posted <%= FkcElixir.Cldr.format_date_time(@question.inserted_at) %></li>
-            <img class="userImages margin-right" src="/images/user.png" href="#" />
+            <img class="userImages margin-right" src={@question.user.image || "/images/user.png"} href="#" />
             <div>
             <li class="userName"><%= @question.user.username  %></li>
-            <li class="num32">32<i class="fa-solid fa-star"></i>x1</li>
+            <li class="num32">32</li>
+            <%# <li class="num32">32<i class="fa-solid fa-star"></i>1</li> %>
             </div>
           </ul>
          
@@ -64,18 +65,16 @@
         module={FkcElixirWeb.AnswerComponent} 
         id={answer.id || :new} 
         answer={answer} 
+        slug={@question.slug}
         current_user={@current_user}
       />
     <% end %>
-    <div class="container">
-      <%# <div class="ans-write">
-        <a class="write" href="#"><i class="fa-solid fa-pen"></i>WRITE YOUR ANSWER</a>
-      </div> %>
-      <form>
-        <textarea />
-        <button type="submit"> Submit</button>
-      </form>
-    </div>
+    <.live_component 
+      module={FkcElixirWeb.AnswerFormComponent}
+      id={"add-answer-form-#{@question.id}"}
+      question={@question}
+      current_user={@current_user}
+    />
   </section>
   <section>
     <div class="box1 margin-top color">

@@ -2,6 +2,7 @@ defmodule FkcElixirWeb.DetailsLive do
   use FkcElixirWeb, :live_view
 
   alias FkcElixir.Forum
+  alias FkcElixir.Forum.Answer
 
   @impl true
   def mount(_params, session, socket) do
@@ -13,12 +14,13 @@ defmodule FkcElixirWeb.DetailsLive do
   def handle_params(%{"slug" => slug}, _, socket) do
     question = Forum.get_question_by_slug!(slug)
     answers = Forum.list_answers(question.id)
+    answer_changeset = Forum.change_answer(%Answer{})
 
     {
       :noreply,
       socket
       |> assign(:page_title, "Details | #{slug}")
-      |> assign(question: question, answers: answers)
+      |> assign(question: question, answers: answers, answer_changeset: answer_changeset)
     }
   end
 
@@ -26,22 +28,32 @@ defmodule FkcElixirWeb.DetailsLive do
   def handle_event("question_upvote", %{"qid" => qid, "uid" => uid}, socket) do
     case Forum.upvote_question(qid, uid) do
       {:ok, _} ->
-        {:noreply, socket}
+        {:noreply,
+         socket
+         |> put_flash(:info, "Question Upvoted")
+         |> push_redirect(to: "/question/#{socket.assigns.question.slug}")}
 
       {:error, _} ->
-        put_flash(socket, :info, "Already Voted")
-        {:noreply, socket}
+        {:noreply,
+         socket
+         |> put_flash(:info, "Already Voted")
+         |> push_redirect(to: "/question/#{socket.assigns.question.slug}")}
     end
   end
 
   def handle_event("question_downvote", %{"qid" => qid, "uid" => uid}, socket) do
     case Forum.downvote_question(qid, uid) do
       {:ok, _} ->
-        {:noreply, socket}
+        {:noreply,
+         socket
+         |> put_flash(:info, "Question Downvoted")
+         |> push_redirect(to: "/question/#{socket.assigns.question.slug}")}
 
       {:error, _} ->
-        put_flash(socket, :info, "Already Voted")
-        {:noreply, socket}
+        {:noreply,
+         socket
+         |> put_flash(:info, "Already Voted")
+         |> push_redirect(to: "/question/#{socket.assigns.question.slug}")}
     end
   end
 

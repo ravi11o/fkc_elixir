@@ -20,7 +20,7 @@
         <% end %>
         <%= if @current_user do %>
           <div class="dropdown">
-          <img class="userImageProfile" src="/images/tintin.png" />
+          <img class="userImageProfile" src={@current_user.image || "/images/user.png"} />
             <div class="dropdown-content">
               <a href="#">Profile</a>
               <%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %>
