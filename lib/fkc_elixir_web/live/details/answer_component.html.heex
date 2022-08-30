@@ -11,12 +11,12 @@
             <li><i class="check padding-right fa-solid fa-check"></i></li>
           <% end %>
           <li class="padding-right up">
-            <a href="#" phx-click="answer_upvote" phx-value-aid={@answer.id} phx-value-uid={@current_user.id} phx-target={@myself}>
+            <a href="#" phx-click="answer_upvote" phx-value-aid={@answer.id} phx-value-uid={@current_user && @current_user.id} phx-target={@myself}>
               <i class="fa-solid fa-chevron-up"></i>
             </a>
           </li>
           <li class="padding-right up">
-            <a href="#" phx-click="answer_downvote" phx-value-aid={@answer.id} phx-value-uid={@current_user.id} phx-target={@myself}>
+            <a href="#" phx-click="answer_downvote" phx-value-aid={@answer.id} phx-value-uid={@current_user && @current_user.id} phx-target={@myself}>
               <i class="fa-solid fa-angle-down"></i>
             </a>
           </li>

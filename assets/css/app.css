@@ -387,13 +387,17 @@ h1{
 
 
 }
+.small-box-container{
+  width: 6rem;
+  height: 8rem;
+}
 .white-box{
   border:1px solid #00000038;
   padding:0.4rem 0.8rem;
   width: 4.5rem;
   height: 0.8rem;
   border-radius: 0.4rem;
-  margin-bottom: 0.6rem;
+  margin-bottom: 2rem;
 }
 .yellow-box{
   border:1px solid #00000038;
@@ -402,7 +406,8 @@ h1{
   height: 0.8rem;
   border-radius: 0.4rem;
   background-color: #ffff0038;
-  margin-bottom: 0.6rem;
+  margin-bottom: 2rem;
+
 
 }
 .green-box{
@@ -421,7 +426,7 @@ h1{
   font-size: 1.5rem;
   color:#21a9f4;
   /* max-width: 30%; */
-  width: 75%;
+  width: 70%;
   display: block;
 }
 .test-Q2{

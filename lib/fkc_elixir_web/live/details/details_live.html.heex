@@ -11,18 +11,17 @@
     <div class="container">
       <div>
         <p><%= raw @question.description %></p>
-        <%# <a class="google" href="#">google.com</a> %>
       </div>
       <div class="flex justify-content margin-06">
         <div>
           <ul class="flex">
             <li class="padding-right up">
-              <a href="#" phx-click="question_upvote" phx-value-qid={@question.id} phx-value-uid={@current_user.id}>
+              <a href="#" phx-click="question_upvote" phx-value-qid={@question.id} phx-value-uid={@current_user && @current_user.id || nil}>
                 <i class="fa-solid fa-chevron-up"></i>
               </a>
             </li>
             <li class="padding-right up">
-              <a href="#" phx-click="question_downvote" phx-value-qid={@question.id} phx-value-uid={@current_user.id}>
+              <a href="#" phx-click="question_downvote" phx-value-qid={@question.id} phx-value-uid={@current_user && @current_user.id || nil}>
                 <i class="fa-solid fa-angle-down"></i>
               </a>
             </li>

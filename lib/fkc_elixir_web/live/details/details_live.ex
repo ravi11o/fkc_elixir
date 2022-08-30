@@ -33,6 +33,16 @@ defmodule FkcElixirWeb.DetailsLive do
     {:noreply, socket}
   end
 
+  def handle_event("question_upvote", %{"uid" => nil}, socket) do
+    # Forum.upvote_question(qid, uid)
+    {:noreply, socket}
+  end
+
+  def handle_event("question_downvote", %{"uid" => nil}, socket) do
+    # Forum.downvote_question(qid, uid)
+    {:noreply, socket}
+  end
+
   def handle_event("question-serach", %{"search" => term}, socket) do
     {:noreply, push_redirect(socket, to: "/?term=#{term}")}
   end

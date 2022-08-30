@@ -1,8 +1,8 @@
 // We import the CSS which is extracted to its own file by esbuild.
 // Remove this line if you add a your own CSS build pipeline (e.g postcss).
 import "../css/app.css";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import TrixEditor from "trix";
+// import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+// import TrixEditor from "trix";
 
 // If you want to use Phoenix channels, run `mix help phx.gen.channel`
 // to get started and then uncomment the line below.
@@ -74,7 +74,7 @@ Hooks.Trix = {
   },
 };
 let liveSocket = new LiveSocket("/live", Socket, {
-  hooks: Hooks,
+  // hooks: Hooks,
   params: { _csrf_token: csrfToken },
 });
 

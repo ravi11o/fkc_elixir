@@ -43,10 +43,6 @@ defmodule FkcElixirWeb.IndexLive do
     {:noreply, socket}
   end
 
-  defp count_questions do
-    Forum.count_questions()
-  end
-
   @impl true
   def handle_event("question-serach", %{"search" => term}, socket) do
     questions = Forum.search_results(term)
