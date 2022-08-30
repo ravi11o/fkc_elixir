@@ -1,17 +1,17 @@
-<div class="container flex margin-top padding-bottom">
+<div class="container flex margin-left1 margin-top-1">
   <div>
     <ul class="flex color">
       <li class="padding-right">
         <a href="#" phx-click="comment_upvote" phx-value-cid={@comment.id} phx-value-for={@for} phx-target={@myself}>
-          <i class="fa-solid fa-chevron-up"></i>
+          <i class="fa-solid fa-chevron-up vote"></i>
         </a>
         </li>
       <li>
         <a href="#" phx-click="comment_downvote" phx-value-cid={@comment.id} phx-value-for={@for} phx-target={@myself}>
-          <i class="fa-solid fa-angle-down"></i>
+          <i class="fa-solid fa-angle-down vote"></i>
         </a>
       </li>
-      <li class="up"><%= Forum.count_comment_votes(@comment.id, @for) %></li>
+      <li class="commentVote vote"><%= Forum.count_comment_votes(@comment.id, @for) %></li>
     </ul>
   </div>
   <div>
@@ -22,15 +22,15 @@
         <li class="color left"><%= @comment.description %>--</li>
       <% end %>
       
-      <li><a class="blue" href="#"><%= @comment.user.username %></a></li>
+      <li><a class="blue commentUserName" href="#"><%= @comment.user.username %></a></li>
     </ul>
   </div>
   <div>
     <ul class="flex">
-      <li><i class="fa-solid fa-clock"></i></li>
-      <li class="month"><%= FkcElixir.Cldr.format_date_time(@comment.updated_at) %></li>
-      <li><a  class="blue" href="#">Edit</a></li>
-      <li><a  class="blue" href="#">&times;</a></li>
+      <li><i class="fa-solid fa-clock commentTime commentTimer"></i></li>
+      <li class="commentTime "><%= FkcElixir.Cldr.format_date_time(@comment.updated_at) %></li>
+      <li><a  class="blue margin-left1" href="#">Edit</a></li>
+      <li><a  class="blue margin-left" href="#">Delete</a></li>
     </ul>
   </div>
 </div>

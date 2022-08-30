@@ -1,23 +1,25 @@
 <header>
-  <div class="container flex justify-content padding3">
-    <div>Icon</div>
-    <div>
-      <form phx-submit="question-serach">
-        <label>Search:</label>
-        <input type="text" id="search" name="search">
-      </form>
-    </div>
-    <div>
-      <nav>
+  <div class=" flex justify-content align-center  padding3 bodyContainer">
+  
+    <%# <div>AltForum</div> %>
+    <img src="/images/logo.png" class="logo"/>
+    <div class="justify-content flex align-center">
+      <div class="searchBar">
+        <form phx-submit="question-serach">
+          <%# <label>Search:</label> %>
+          <input type="text" id="search" name="search" class="searchInput" placeholder="Search">
+        </form>
+      </div>
+      <nav class="flex justify-content align-center">
         <a class="question1" href="#">Question</a>
         <a class="nav-bar" href="#">Users</a>
         <a class="nav-bar" href="#">Tags</a>
         <%= if @current_user do %>
-          <%= link "Ask Question", to: Routes.question_new_path(@conn, :new) %>
+          <%= link "Ask Question", to: Routes.question_new_path(@conn, :new), class: "nav-bar" %>
         <% end %>
         <%= if @current_user do %>
           <div class="dropdown">
-            <a class="dropbtn" href="#"><%= @current_user.username %></a>
+          <img class="userImageProfile" src="/images/tintin.png" />
             <div class="dropdown-content">
               <a href="#">Profile</a>
               <%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %>

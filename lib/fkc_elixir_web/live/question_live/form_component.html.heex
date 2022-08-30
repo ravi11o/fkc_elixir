@@ -14,25 +14,37 @@
     debounce="1000"
     class="">
 
+   <div class= "margin-top">
+      <%= label f, :title, class: "padding-right text1" %>
+      <div class="margin-top-1">
+        <%= text_input f, :title, class: "form-input-width" %>
+        <%= error_tag f, :title %>
+      </div>
+    </div>
+   
+   <div class= "margin-top padding-right">
+     <%= label f, :tags, class: "padding-right text1" %>
+     <div class="margin-top-1">
+     <%= text_input f, :tag, placeholder: "Add tags seperated by comma",class: "form-input-width", value: (for tag <- @question.tags, do: tag.name) |> Enum.join(", ") %>
+     </div>
+   </div>
+
   
-    <%= label f, :title, class: "" %>
-    <%= text_input f, :title %>
-    <%= error_tag f, :title %>
-
-    <%= label f, :tags %>
-    <%= text_input f, :tag, placeholder: "Add tags seperated by comma", value: (for tag <- @question.tags, do: tag.name) |> Enum.join(", ") %>
-
-    <%= label f, :description %>
-        <%= hidden_input f, :description, id: "description", rows: 9, phx_hook: "Trix" %>
-        <div>
-          <trix-editor input="description"></trix-editor>
-        </div> 
-        <%= error_tag f, :description %>
+   <div class= "margin-top padding-right">
+    <%= label f, :description, class: "padding-right text1" %>
+    <div class="margin-top-1">
+      <%= textarea f, :description, id: "description", rows: 5, phx_hook: "Trix", class: "form-input-width" %>
+      <%= error_tag f, :description %>
+    </div>
+    
+   </div>
+   
+    
       
-        <div>
-          <%= submit "Save", phx_disable_with: "Saving..." %>
-        </div>
-      </.form>
+    <div>
+      <%= submit "Save", phx_disable_with: "Saving...", class: "question-save-button margin-bottom3" %>
+    </div>
+  </.form>
 
 
   

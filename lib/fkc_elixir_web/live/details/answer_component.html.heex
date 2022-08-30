@@ -4,7 +4,7 @@
       <p href="#"><%=raw @answer.description %></p>
     </div>
     <div>
-      <div class="flex justify-content margin-06 padding2">
+      <div class="flex justify-content margin-06 padding5">
       <div>
         <ul class="flex">
           <%= if @answer.verified do %>
@@ -20,17 +20,20 @@
               <i class="fa-solid fa-angle-down"></i>
             </a>
           </li>
-          <li class="up"><%= Forum.count_votes(@answer.id, :answer) %></li>
+          <li class="up vote"><%= Forum.count_votes(@answer.id, :answer) %></li>
         </ul>
       </div>
       <div>
-        <ul class="flex">
-          <li class="color">Posted <%= FkcElixir.Cldr.format_date_time(@answer.inserted_at) %></li>
-          <li><a class="aa" href="#"><i class="fa-solid fa-user"></i></a></li>
-          <li class="name"><%= @answer.user.username %></li>
-        </ul>
-        <ul>
+        <ul class="flex align-center">
+          <li class="color margin-right ">Posted <%= FkcElixir.Cldr.format_date_time(@answer.inserted_at) %></li>
+          
+          <img class="userImages margin-right" src="/images/tintin.png" href="#" />
+          
+          <div>
+          <li class="userName"><%= @answer.user.username %></li>
           <li class="num32">32<i class="fa-solid fa-star"></i>*1</li>
+          
+          </div>
         </ul>
       </div>
       

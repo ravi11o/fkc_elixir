@@ -11,13 +11,12 @@
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
 
   </head>
-  <body>
+  <body >
     <%= render "_user_menu.html", assigns %>
     
     <%= @inner_content %>
-
-     <footer>
-      <div class="container padding1">
+     <footer >
+      <div class="footerPadding bodyContainer">
         <div class="flex justify-content">
           <div>
             <nav>
@@ -38,5 +37,8 @@
         </div>
       </div>
     </footer>
+
+    
   </body>
+  
 </html>

@@ -19,7 +19,7 @@ defmodule FkcElixirWeb.IndexLive do
 
   def handle_params(params, _url, socket) do
     page = String.to_integer(params["page"] || "1")
-    per_page = String.to_integer(params["per_page"] || "2")
+    per_page = String.to_integer(params["per_page"] || "4")
 
     sort_by = (params["sort_by"] || "inserted_at") |> String.to_atom()
     sort_order = (params["sort_order"] || "asc") |> String.to_atom()
