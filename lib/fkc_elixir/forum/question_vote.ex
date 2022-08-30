@@ -15,7 +15,7 @@ defmodule FkcElixir.Forum.QuestionVote do
     question_vote
     |> cast(attrs, [:vote, :u_id, :q_id])
     |> validate_required([:vote, :u_id, :q_id])
-    |> unique_constraint([:uid, :qid], name: "already Voted")
+    |> unique_constraint([:u_id, :q_id], name: :question_votes_u_id_q_id_index)
   end
 end
 
@@ -36,6 +36,7 @@ defmodule FkcElixir.Forum.AnswerVote do
     answer_vote
     |> cast(attrs, [:vote, :u_id, :a_id])
     |> validate_required([:vote, :u_id, :a_id])
+    |> unique_constraint([:u_id, :a_id], name: :answer_votes_u_id_a_id_index)
   end
 end
 
@@ -56,6 +57,7 @@ defmodule FkcElixir.Forum.CommentVote do
     comment_vote
     |> cast(attrs, [:vote, :u_id, :c_id])
     |> validate_required([:vote, :u_id, :c_id])
+    |> unique_constraint([:u_id, :c_id], name: :comment_votes_u_id_c_id_index)
   end
 end
 
@@ -76,5 +78,6 @@ defmodule FkcElixir.Forum.ACommentVote do
     a_comment_vote
     |> cast(attrs, [:vote, :u_id, :ac_id])
     |> validate_required([:vote, :u_id, :ac_id])
+    |> unique_constraint([:u_id, :ac_id], name: :a_comment_votes_u_id_ac_id_index)
   end
 end

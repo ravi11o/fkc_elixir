@@ -374,25 +374,25 @@ defmodule FkcElixir.Forum do
   def upvote_question(qid, uid) do
     %QuestionVote{vote: :up}
     |> QuestionVote.changeset(%{q_id: qid, u_id: uid})
-    |> Repo.insert!()
+    |> Repo.insert()
   end
 
   def downvote_question(qid, uid) do
     %QuestionVote{vote: :down}
     |> QuestionVote.changeset(%{q_id: qid, u_id: uid})
-    |> Repo.insert!()
+    |> Repo.insert()
   end
 
   def upvote_answer(aid, uid) do
     %AnswerVote{vote: :up}
     |> AnswerVote.changeset(%{a_id: aid, u_id: uid})
-    |> Repo.insert!()
+    |> Repo.insert()
   end
 
   def downvote_answer(aid, uid) do
     %AnswerVote{vote: :down}
     |> AnswerVote.changeset(%{a_id: aid, u_id: uid})
-    |> Repo.insert!()
+    |> Repo.insert()
   end
 
   def upvote_comment(cid, uid, topic) do
@@ -400,12 +400,12 @@ defmodule FkcElixir.Forum do
       :question ->
         %CommentVote{vote: :up}
         |> CommentVote.changeset(%{c_id: cid, u_id: uid})
-        |> Repo.insert!()
+        |> Repo.insert()
 
       :answer ->
         %ACommentVote{vote: :up}
         |> ACommentVote.changeset(%{ac_id: cid, u_id: uid})
-        |> Repo.insert!()
+        |> Repo.insert()
     end
   end
 
@@ -414,12 +414,12 @@ defmodule FkcElixir.Forum do
       :question ->
         %CommentVote{vote: :down}
         |> CommentVote.changeset(%{c_id: cid, u_id: uid})
-        |> Repo.insert!()
+        |> Repo.insert()
 
       :answer ->
         %ACommentVote{vote: :down}
         |> ACommentVote.changeset(%{ac_id: cid, u_id: uid})
-        |> Repo.insert!()
+        |> Repo.insert()
     end
   end
 

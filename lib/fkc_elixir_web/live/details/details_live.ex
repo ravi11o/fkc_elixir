@@ -24,22 +24,32 @@ defmodule FkcElixirWeb.DetailsLive do
 
   @impl true
   def handle_event("question_upvote", %{"qid" => qid, "uid" => uid}, socket) do
-    Forum.upvote_question(qid, uid)
-    {:noreply, socket}
+    case Forum.upvote_question(qid, uid) do
+      {:ok, _} ->
+        {:noreply, socket}
+
+      {:error, _} ->
+        put_flash(socket, :info, "Already Voted")
+        {:noreply, socket}
+    end
   end
 
   def handle_event("question_downvote", %{"qid" => qid, "uid" => uid}, socket) do
-    Forum.downvote_question(qid, uid)
+    case Forum.downvote_question(qid, uid) do
+      {:ok, _} ->
+        {:noreply, socket}
+
+      {:error, _} ->
+        put_flash(socket, :info, "Already Voted")
+        {:noreply, socket}
+    end
+  end
+
+  def handle_event("question_upvote", _, socket) do
     {:noreply, socket}
   end
 
-  def handle_event("question_upvote", %{"uid" => nil}, socket) do
-    # Forum.upvote_question(qid, uid)
-    {:noreply, socket}
-  end
-
-  def handle_event("question_downvote", %{"uid" => nil}, socket) do
-    # Forum.downvote_question(qid, uid)
+  def handle_event("question_downvote", _, socket) do
     {:noreply, socket}
   end
 

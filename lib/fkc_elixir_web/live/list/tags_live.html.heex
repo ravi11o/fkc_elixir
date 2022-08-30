@@ -7,42 +7,18 @@
         </div>
     </div>
 
+
     <section class="flexWrap">
-        <div class="flex justify-content tagBox">
-            <div class="flex">
-                <i class="fa-solid fa-tag grey-text"></i>
-                <a>scoold</a>
+        <%= for tag <- @tags do %>
+            <div class="flex justify-content tagBox">
+                <div class="flex">
+                    <i class="fa-solid fa-tag grey-text"></i>
+                    <a><%= String.capitalize(tag.name) %></a>
+                </div>
+                <p><%= Enum.random(0..100) %></p>
             </div>
-            <p>x 9</p>
-        </div>
-        <div class="flex justify-content tagBox">
-            <div class="flex">
-                <i class="fa-solid fa-tag grey-text"></i>
-                <a>test</a>
-            </div>
-            <p>x 9</p>
-        </div>
-        <div class="flex justify-content tagBox">
-            <div class="flex">
-                <i class="fa-solid fa-tag grey-text"></i>
-                <a>dslkjslkfjslk</a>
-            </div>
-            <p>x 9</p>
-        </div>
-         <div class="flex justify-content tagBox">
-            <div class="flex">
-                <i class="fa-solid fa-tag grey-text"></i>
-                <a>scoold</a>
-            </div>
-            <p>x 9</p>
-        </div>
-        <div class="flex justify-content tagBox">
-            <div class="flex">
-                <i class="fa-solid fa-tag grey-text"></i>
-                <a>scoold</a>
-            </div>
-            <p>x 9</p>
-        </div>
+        <% end %>
+        
     </section>
 
 

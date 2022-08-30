@@ -23,4 +23,12 @@ defmodule FkcElixirWeb.AnswerComponent do
     Forum.downvote_answer(aid, uid)
     {:noreply, socket}
   end
+
+  def handle_event("answer_upvote", _, socket) do
+    {:noreply, socket}
+  end
+
+  def handle_event("answer_downvote", _, socket) do
+    {:noreply, socket}
+  end
 end

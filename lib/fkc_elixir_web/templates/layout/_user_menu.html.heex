@@ -2,7 +2,9 @@
   <div class=" flex justify-content align-center  padding3 bodyContainer">
   
     <%# <div>AltForum</div> %>
-    <img src="/images/logo.png" class="logo"/>
+    <a href="/">
+      <img src="/images/logo.png" class="logo"/>
+    </a>
     <div class="justify-content flex align-center">
       <div class="searchBar">
         <form phx-submit="question-serach">
@@ -11,9 +13,8 @@
         </form>
       </div>
       <nav class="flex justify-content align-center">
-        <a class="question1" href="#">Question</a>
-        <a class="nav-bar" href="#">Users</a>
-        <a class="nav-bar" href="#">Tags</a>
+        <a class="question1" href="/">Question</a>
+        <a class="nav-bar" href="/tags-list">Tags</a>
         <%= if @current_user do %>
           <%= link "Ask Question", to: Routes.question_new_path(@conn, :new), class: "nav-bar" %>
         <% end %>
