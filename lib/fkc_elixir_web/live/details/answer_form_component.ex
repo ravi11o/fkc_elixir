@@ -26,7 +26,6 @@ defmodule FkcElixirWeb.AnswerFormComponent do
   end
 
   def handle_event("save", %{"answer" => answer_params}, socket) do
-    IO.inspect(socket)
     changeset = Forum.change_answer(socket.assigns.answer, answer_params)
 
     case Repo.insert(changeset) do

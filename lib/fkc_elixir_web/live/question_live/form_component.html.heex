@@ -33,7 +33,10 @@
    <div class= "margin-top padding-right">
     <%= label f, :description, class: "padding-right text1" %>
     <div class="margin-top-1">
-      <%= textarea f, :description, id: "description", rows: 5, phx_hook: "Trix", class: "form-input-width" %>
+      <%= textarea f, :description, id: "description", phx_hook: "Editor", class: "form-input-width" %>
+      <%# <div id="question-description-editor" phx-update="ignore">
+        <trix-editor class="trix-content" input="description"></trix-editor>
+      </div> %>
       <%= error_tag f, :description %>
     </div>
     
@@ -50,3 +53,7 @@
   
 
 </div>
+
+
+
+

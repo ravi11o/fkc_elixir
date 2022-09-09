@@ -1,14 +1,3 @@
-/* @import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities"; */
-
-@import "./trix.css";
-
-/* @import "./phoenix.css"; */
-
-
-
-
 /* This file is for your main application CSS */
 
 /* Alerts and form errors used by phx.new */
@@ -277,7 +266,7 @@ a{
 }
 .padding3{
   /* padding: 1.3rem 4rem 0.5rem 4rem; */
-  padding: 2rem 0;
+  padding: 1rem 0;
 
 }
 .padding-right{
@@ -384,7 +373,7 @@ section{
 .align-center{
   align-items: center;
 }
-.question1{
+.active{
   background-color: #ec407b;
   /* padding:1.4rem 1.5rem; */
 }
@@ -396,7 +385,7 @@ header{
 }
 header a{
   color:white;
-  padding:1.4rem 1.5rem;
+  padding:1rem 1rem;
 }
 form{
   margin-left: 15rem;

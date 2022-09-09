@@ -8,7 +8,7 @@ defmodule FkcElixirWeb.IndexLive do
     if connected?(socket), do: Forum.subscribe()
     socket = assign_current_user(socket, session)
 
-    {:ok, socket}
+    {:ok, assign(socket, active: "questions")}
   end
 
   @impl true
@@ -67,6 +67,10 @@ defmodule FkcElixirWeb.IndexLive do
       |> Enum.filter(&(length(&1.answers) == 0))
 
     {:noreply, assign(socket, questions: questions)}
+  end
+
+  def handle_event("active_class", %{"button" => button}, socket) do
+    {:noreply, assign(socket, active: button)}
   end
 
   defp sort_link(socket, text, sort_by, options) do
