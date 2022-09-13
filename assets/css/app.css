@@ -154,14 +154,14 @@ s,
 samp,
 small,
 strike,
-strong,
+/* strong, */
 sub,
 sup,
 tt,
 var,
 b,
 u,
-i,
+/* i, */
 center,
 dl,
 dt,
@@ -828,6 +828,38 @@ h4{
   padding: 10px;
 }
 
+
+/* Answer box layout */
+.asnwer-box pre {
+  background: #e6e4e4;
+  padding: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: grey;
+}
+
+/* Question box layout */
+.question-box pre {
+  background: #e6e4e4;
+  padding: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: grey;
+}
+
+
+/* Editor layout */
+
+.ck-editor__editable ul  {
+  
+  list-style: circle;
+
+}
+.ck-editor__editable ol  {
+  
+  list-style: initial;
+
+}
 
 
 

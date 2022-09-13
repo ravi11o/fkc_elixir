@@ -6,8 +6,8 @@
     </div>
     
     <div class="container">
-      <div>
-        <p class="margin-bottom3"><%= raw @question.description %></p>
+      <div class="margin-bottom3 question-box">
+        <%= raw @question.description %>
       </div>
       <div class="flex justify-content margin-06">
         <div>
@@ -41,16 +41,36 @@
         
       </div>
     </div>
-    <%= for comment <- @question.comments do %>
-      <.live_component
-        module={FkcElixirWeb.CommentComponent}
-        id={"#{comment.id}-question" || :new_question}
-        comment={comment}
-        slug={@question.slug}
-        for={:question}
-        current_user={@current_user}
-      />
+    <div id="comments" phx-update="prepend">
+      <%= for comment <- @comments do %>
+        <.live_component
+          module={FkcElixirWeb.CommentComponent}
+          id={"#{comment.id}-question" || :new_question}
+          comment={comment}
+          slug={@question.slug}
+          for={:question}
+          current_user={@current_user} 
+        />
+      <% end %>
+    </div>
+    
+    <%= if @current_user do %>
+       <div>
+        <a href="#" phx-click="ques_comment_form">Add Comment</a>
+      </div>
     <% end %>
+   
+    <%= if @comment_form do %>
+      <div>
+        <.form let={f} for={:comment} phx_submit="save_ques_comment">
+          <%= text_input f, :title, placeholder: "Add Comment" %>
+          <%= hidden_input f, :question_id %>
+          <%= hidden_input f, :user_id %>
+          <%= submit "Save" %>
+        </.form>
+      </div>
+    <% end %>
+    
     <div class="container flex justify-content margin-top">
       <div>
         <h2> <%= Enum.count @question.answers %> Answers</h2>

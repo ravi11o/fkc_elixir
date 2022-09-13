@@ -104,7 +104,7 @@ defmodule FkcElixirWeb.IndexLive do
 
   defp create_options(params) do
     page = String.to_integer(params["page"] || "1")
-    per_page = String.to_integer(params["per_page"] || "4")
+    per_page = String.to_integer(params["per_page"] || "10")
 
     sort_by = (params["sort_by"] || "inserted_at") |> String.to_atom()
     sort_order = (params["sort_order"] || "asc") |> String.to_atom()
