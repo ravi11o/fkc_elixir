@@ -36,6 +36,7 @@ defmodule FkcElixirWeb.AnswerFormComponent do
          |> push_redirect(to: "/question/#{socket.assigns.question.slug}")}
 
       {:error, changeset} ->
+        IO.inspect(changeset)
         {:noreply, assign(socket, changeset: changeset)}
     end
   end

@@ -1,3 +1,44 @@
+<header>
+  <div class=" flex justify-content align-center  padding3 bodyContainer">
+  
+    <%# <div>AltForum</div> %>
+    <%# <a href="/">
+      <img src="/images/logo.png" class="logo"/>
+    </a> %>
+    <%= live_patch to: "/" do %>
+      <img src="/images/logo.png" class="logo"/>
+    <% end %>
+    <div class="justify-content flex align-center">
+      <div class="searchBar">
+        <form phx-submit="question-serach">
+          <%# <label>Search:</label> %>
+          <input type="text" id="search" name="search" class="searchInput" placeholder="Search">
+        </form>
+      </div>
+      <nav class="flex justify-content align-center">
+        <%= live_patch "Questions", to: "/", class: "#{if @current_path == "/", do: "active", else: "nav-bar"}" %>
+        <%= live_patch "Tags", to: "/tags", class: "#{if @current_path == "/tags", do: "active", else: "nav-bar"}" %>
+        <%= if @current_user do %>
+          <%= live_patch "Ask Questions", to: Routes.question_new_path(@socket, :new), class: "#{if @current_path == "/questions/new", do: "active", else: "nav-bar"}" %>
+        <% end %>
+        
+        <%= if @current_user do %>
+          <div class="dropdown">
+          <img class="userImageProfile" src={@current_user.image || "/images/user.png"} />
+            <div class="dropdown-content">
+              <a href="#">Profile</a>
+              <%= link "Settings", to: Routes.user_settings_path(@socket, :edit) %>
+              <%= link "Log out", to: Routes.user_session_path(@socket, :delete), method: :delete %>
+            </div>
+          </div>  
+        <% else %>
+          <%= link "Log in", to: Routes.user_session_path(@socket, :new), class: "nav-bar" %>
+        <% end %>
+        
+      </nav>
+    </div>
+  </div>
+</header>
 <main>
   <p class="alert alert-info" role="alert"
     phx-click="lv:clear-flash"

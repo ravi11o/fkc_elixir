@@ -719,7 +719,12 @@ h4{
   background-color: #ff6666;
 }
 .form-input-width{
-  width:70%;
+  width:80%;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+}
+.form-input-width3{
+  width:80%;
   background-color: #f2f2f2;
   border-radius: 5px;
 }
@@ -812,6 +817,16 @@ h4{
   width: 100%;
 }
 
+.ck-content{
+  height: 200px !important;
+}
+.answer-form{
+  margin-left: 0;
+}
+.answer-submit-button {
+  margin-top: 6px;
+  padding: 10px;
+}
 
 
 

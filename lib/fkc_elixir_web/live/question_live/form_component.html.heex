@@ -25,15 +25,15 @@
    <div class= "margin-top padding-right">
      <%= label f, :tags, class: "padding-right text1" %>
      <div class="margin-top-1">
-     <%= text_input f, :tag, placeholder: "Add tags seperated by comma",class: "form-input-width", value: (for tag <- @question.tags, do: tag.name) |> Enum.join(", ") %>
+     <%= text_input f, :tag, placeholder: "Add tags seperated by comma",class: "form-input-width3", value: (for tag <- @question.tags, do: tag.name) |> Enum.join(", ") %>
      </div>
    </div>
 
   
    <div class= "margin-top padding-right">
     <%= label f, :description, class: "padding-right text1" %>
-    <div class="margin-top-1">
-      <%= textarea f, :description, id: "description", phx_hook: "Editor", class: "form-input-width" %>
+    <div class="margin-top-1 form-input-width3">
+      <%= textarea f, :description, id: "description", phx_hook: "Editor" %>
       <%# <div id="question-description-editor" phx-update="ignore">
         <trix-editor class="trix-content" input="description"></trix-editor>
       </div> %>

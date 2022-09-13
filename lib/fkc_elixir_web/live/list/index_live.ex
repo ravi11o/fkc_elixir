@@ -12,7 +12,7 @@ defmodule FkcElixirWeb.IndexLive do
   end
 
   @impl true
-  def handle_params(%{"term" => term} = params, _url, socket) do
+  def handle_params(%{"term" => term} = params, url, socket) do
     [paginate, sort] = create_options(params)
     questions = Forum.search_results(term)
 
@@ -20,11 +20,12 @@ defmodule FkcElixirWeb.IndexLive do
      assign(socket,
        questions: questions,
        options: Map.merge(paginate, sort),
-       count: length(questions)
+       count: length(questions),
+       current_path: URI.parse(url).path
      )}
   end
 
-  def handle_params(%{"tag" => tag} = params, _url, socket) do
+  def handle_params(%{"tag" => tag} = params, url, socket) do
     [paginate, sort] = create_options(params)
     questions = Forum.search_tag_results(tag)
 
@@ -32,11 +33,12 @@ defmodule FkcElixirWeb.IndexLive do
      assign(socket,
        questions: questions,
        options: Map.merge(paginate, sort),
-       count: length(questions)
+       count: length(questions),
+       current_path: URI.parse(url).path
      )}
   end
 
-  def handle_params(params, _url, socket) do
+  def handle_params(params, url, socket) do
     [paginate_options, sort_options] = create_options(params)
 
     questions =
@@ -49,7 +51,8 @@ defmodule FkcElixirWeb.IndexLive do
       assign(socket,
         options: Map.merge(paginate_options, sort_options),
         questions: questions,
-        count: count_questions()
+        count: count_questions(),
+        current_path: URI.parse(url).path
       )
 
     {:noreply, socket}

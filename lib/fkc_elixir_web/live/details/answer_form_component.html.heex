@@ -7,6 +7,7 @@
     phx-target={@myself}
     phx-submit="save"
     debounce="4000"
+    class="answer-form"
   >
   <div>
     <div id="skdjhgfhjsdgfhj" phx-update="ignore">
@@ -18,7 +19,7 @@
     </div> %>
     <%= error_tag f, :description %>
   </div>
-  <%= submit "Add Answer", phx_disable_with: "Saving...", class: "" %>
+  <%= submit "Add Answer", phx_disable_with: "Saving...", class: "answer-submit-button" %>
   
   </.form>
 

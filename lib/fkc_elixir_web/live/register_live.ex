@@ -4,8 +4,9 @@ defmodule FkcElixirWeb.RegisterLive do
   alias FkcElixir.Accounts
   alias FkcElixir.Accounts.User
 
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
     changeset = Accounts.change_user_registration(%User{})
+    socket = assign_current_user(socket, session)
 
     socket =
       allow_upload(

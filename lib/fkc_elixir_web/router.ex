@@ -33,13 +33,13 @@ defmodule FkcElixirWeb.Router do
     pipe_through [:browser]
 
     live "/", IndexLive
-    live "/tags-list", TagsLive
+    live "/tags", TagsLive
     live "/question/:slug", DetailsLive
     resources "/tags", TagController
     resources "/comments", CommentController
 
-    live "/questions", QuestionLive.Index, :index
-    live "/questions/:id", QuestionLive.Show, :show
+    # live "/questions", QuestionLive.Index, :index
+    # live "/questions/:id", QuestionLive.Show, :show
 
     delete "/users/log_out", UserSessionController, :delete
     get "/users/confirm", UserConfirmationController, :new
@@ -65,17 +65,17 @@ defmodule FkcElixirWeb.Router do
     put "/users/reset_password/:token", UserResetPasswordController, :update
   end
 
-  scope "/", FkcElixirWeb do
-    pipe_through [:browser, :require_authenticated_user]
+  # scope "/", FkcElixirWeb do
+  #   pipe_through [:browser, :require_authenticated_user]
 
-    ## Questions live route
-    live "/questions/new", QuestionLive.New, :new
-    live "/questions/:id/edit", QuestionLive.New, :edit
+  #   ## Questions live route
+  #   live "/questions/new", QuestionLive.New, :new
+  #   live "/questions/:id/edit", QuestionLive.New, :edit
 
-    get "/users/settings", UserSettingsController, :edit
-    put "/users/settings", UserSettingsController, :update
-    get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
-  end
+  #   get "/users/settings", UserSettingsController, :edit
+  #   put "/users/settings", UserSettingsController, :update
+  #   get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+  # end
 
   # Other scopes may use custom stacks.
   # scope "/api", FkcElixirWeb do
