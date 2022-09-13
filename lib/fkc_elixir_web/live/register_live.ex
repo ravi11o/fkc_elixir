@@ -19,7 +19,13 @@ defmodule FkcElixirWeb.RegisterLive do
     {:ok, assign(socket, changeset: changeset, trigger_submit: false)}
   end
 
+  def handle_params(_params, url, socket) do
+    {:noreply, assign(socket, current_path: URI.parse(url).path)}
+  end
+
   def handle_event("save", %{"user" => params}, socket) do
+    File.mkdir_p("priv/static/uploads")
+
     uploads =
       consume_uploaded_entries(socket, :image, fn meta, entry ->
         dest = Path.join("priv/static/uploads", filename(entry))

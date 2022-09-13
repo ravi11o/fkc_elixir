@@ -24,10 +24,12 @@ config :fkc_elixir, FkcElixirWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :fkc_elixir, FkcElixir.Mailer, adapter: Swoosh.Adapters.Local
+config :fkc_elixir, FkcElixir.Mailer,
+  adapter: Swoosh.Adapters.Sendgrid,
+  api_key: System.get_env("SENDGRID_API")
 
 # Swoosh API client is needed for adapters other than SMTP.
-config :swoosh, :api_client, false
+config :swoosh, :api_client, Swoosh.ApiClient.Hackney
 
 # Configure esbuild (the version is required)
 config :esbuild,

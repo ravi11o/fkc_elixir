@@ -35,3 +35,5 @@ npm-debug.log
 /assets/node_modules/
 /assets/vendor/ckeditor5-build/node_modules/
 
+.env
+

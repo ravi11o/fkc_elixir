@@ -8,7 +8,7 @@ defmodule FkcElixir.Accounts.UserNotifier do
     email =
       new()
       |> to(recipient)
-      |> from({"FkcElixir", "contact@example.com"})
+      |> from({"AltForum", "suraj.ravi110@gmail.com"})
       |> subject(subject)
       |> text_body(body)
 

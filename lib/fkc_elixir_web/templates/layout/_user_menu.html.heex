@@ -13,7 +13,7 @@
         </form>
       </div>
       <nav class="flex justify-content align-center">
-        <a class="active" href="/" phx-click="active_class" phx-value-button="questions">Questions</a>
+        <a class="nav-bar" href="/" phx-click="active_class" phx-value-button="questions">Questions</a>
         <a class="nav-bar" href="/tags" phx-click="active_class" phx-value-button="tags">Tags</a>
         <%= if @current_user do %>
           <%= link "Ask Question", to: Routes.question_new_path(@conn, :new), class: "nav-bar" %>
