@@ -12,10 +12,19 @@ defmodule FkcElixir.Forum.Question do
     field :slug, :string
     field :tag, :string, virtual: true
     belongs_to(:user, User)
-    has_many :answers, Answer
-    has_many :comments, Comment
-    many_to_many :question_votes, User, join_through: QuestionVote, on_replace: :delete
-    many_to_many(:tags, Tag, join_through: QuestionTag, on_replace: :delete)
+    has_many :answers, Answer, on_delete: :delete_all
+    has_many :comments, Comment, on_delete: :delete_all
+
+    many_to_many :question_votes, User,
+      join_through: QuestionVote,
+      on_replace: :delete,
+      on_delete: :delete_all
+
+    many_to_many(:tags, Tag,
+      join_through: QuestionTag,
+      on_replace: :delete,
+      on_delete: :delete_all
+    )
 
     timestamps()
   end

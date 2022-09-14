@@ -55,21 +55,23 @@
     </div>
     
     <%= if @current_user do %>
-       <div>
-        <a href="#" phx-click="ques_comment_form">Add Comment</a>
-      </div>
+       <%= if @comment_form do %>
+          <div>
+            <.form let={f} for={:comment} phx_submit="save_ques_comment">
+              <%= text_input f, :title, placeholder: "Add Comment" %>
+              <%= hidden_input f, :question_id %>
+              <%= hidden_input f, :user_id %>
+              <%= submit "Save" %>
+            </.form>
+          </div>
+        <% else %>
+          <div>
+            <a href="#" phx-click="ques_comment_form">Add Comment</a>
+          </div>
+        <% end %>
     <% end %>
    
-    <%= if @comment_form do %>
-      <div>
-        <.form let={f} for={:comment} phx_submit="save_ques_comment">
-          <%= text_input f, :title, placeholder: "Add Comment" %>
-          <%= hidden_input f, :question_id %>
-          <%= hidden_input f, :user_id %>
-          <%= submit "Save" %>
-        </.form>
-      </div>
-    <% end %>
+    
     
     <div class="container flex justify-content margin-top">
       <div>
@@ -100,6 +102,8 @@
   <section>
     <div class="box1 margin-top color">
       <ul class="line-height">
+        <li><%= live_patch "Edit", to: Routes.question_new_path(@socket, :edit, @question) %></li>
+        <li><%= link "delete", to: "#", phx_click: "delete_question"%></li>
         <li><%= @question.views %> Views</li>
         <li><%=Enum.count(@question.answers) %> Answers</li>
         <li><i class="fa-solid fa-clock"></i><%= FkcElixir.Cldr.format_date_time(@question.inserted_at) %></li>

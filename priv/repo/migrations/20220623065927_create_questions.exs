@@ -7,7 +7,7 @@ defmodule FkcElixir.Repo.Migrations.CreateQuestions do
       add :views, :integer
       add :description, :text
       add :slug, :string
-      add :user_id, references(:users, on_delete: :nothing)
+      add :user_id, references(:users, on_delete: :delete_all)
 
       timestamps()
     end

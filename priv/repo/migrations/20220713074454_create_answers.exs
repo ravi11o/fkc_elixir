@@ -5,8 +5,8 @@ defmodule FkcElixir.Repo.Migrations.CreateAnswers do
     create table(:answers) do
       add :description, :text
       add :verified, :boolean, default: false, null: false
-      add :question_id, references(:questions, on_delete: :nothing)
-      add :user_id, references(:users, on_delete: :nothing)
+      add :question_id, references(:questions, on_delete: :delete_all)
+      add :user_id, references(:users, on_delete: :delete_all)
 
       timestamps()
     end

@@ -72,7 +72,7 @@ defmodule FkcElixirWeb.DetailsLive do
   end
 
   def handle_event("ques_comment_form", _, socket) do
-    {:noreply, assign(socket, :comment_form, !socket.assigns.comment_form)}
+    {:noreply, update(socket, :comment_form, fn val -> !val end)}
   end
 
   def handle_event("save_ques_comment", %{"comment" => comment_params}, socket) do
@@ -92,5 +92,19 @@ defmodule FkcElixirWeb.DetailsLive do
     end
 
     {:noreply, socket}
+  end
+
+  def handle_event("delete_question", _params, socket) do
+    IO.inspect("delete started")
+
+    case Forum.delete_question(socket.assigns.question) do
+      {:ok, _} ->
+        IO.inspect("deleted")
+        {:noreply, push_redirect(socket, to: "/")}
+
+      {:error, reason} ->
+        IO.inspect(reason)
+        {:noreply, socket}
+    end
   end
 end

@@ -10,6 +10,7 @@ defmodule FkcElixirWeb.AnswerComponent do
     {:ok,
      socket
      |> assign(assigns)
+     |> assign(edit: false)
      |> assign(:changeset, changeset)}
   end
 
@@ -51,6 +52,11 @@ defmodule FkcElixirWeb.AnswerComponent do
   end
 
   def handle_event("answer_downvote", _, socket) do
+    {:noreply, socket}
+  end
+
+  def handle_event("edit_answer", _, socket) do
+    IO.inspect(socket.assigns.answer)
     {:noreply, socket}
   end
 end

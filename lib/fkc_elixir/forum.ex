@@ -154,7 +154,7 @@ defmodule FkcElixir.Forum do
   """
   def delete_question(%Question{} = question) do
     Repo.delete(question)
-    Phoenix.PubSub.broadcast(FkcElixir.PubSub, "questions", :question_deleted)
+    # Phoenix.PubSub.broadcast(FkcElixir.PubSub, "questions", :question_deleted)
   end
 
   @doc """
@@ -379,25 +379,25 @@ defmodule FkcElixir.Forum do
   ### Votimg section
   def upvote_question(qid, uid) do
     %QuestionVote{vote: :up}
-    |> QuestionVote.changeset(%{q_id: qid, u_id: uid})
+    |> QuestionVote.changeset(%{question_id: qid, user_id: uid})
     |> Repo.insert()
   end
 
   def downvote_question(qid, uid) do
     %QuestionVote{vote: :down}
-    |> QuestionVote.changeset(%{q_id: qid, u_id: uid})
+    |> QuestionVote.changeset(%{question_id: qid, user_id: uid})
     |> Repo.insert()
   end
 
   def upvote_answer(aid, uid) do
     %AnswerVote{vote: :up}
-    |> AnswerVote.changeset(%{a_id: aid, u_id: uid})
+    |> AnswerVote.changeset(%{answer_id: aid, user_id: uid})
     |> Repo.insert()
   end
 
   def downvote_answer(aid, uid) do
     %AnswerVote{vote: :down}
-    |> AnswerVote.changeset(%{a_id: aid, u_id: uid})
+    |> AnswerVote.changeset(%{answer_id: aid, user_id: uid})
     |> Repo.insert()
   end
 
@@ -405,12 +405,12 @@ defmodule FkcElixir.Forum do
     case topic do
       :question ->
         %CommentVote{vote: :up}
-        |> CommentVote.changeset(%{c_id: cid, u_id: uid})
+        |> CommentVote.changeset(%{comment_id: cid, user_id: uid})
         |> Repo.insert()
 
       :answer ->
         %ACommentVote{vote: :up}
-        |> ACommentVote.changeset(%{ac_id: cid, u_id: uid})
+        |> ACommentVote.changeset(%{a_comment_id: cid, user_id: uid})
         |> Repo.insert()
     end
   end
@@ -419,12 +419,12 @@ defmodule FkcElixir.Forum do
     case topic do
       :question ->
         %CommentVote{vote: :down}
-        |> CommentVote.changeset(%{c_id: cid, u_id: uid})
+        |> CommentVote.changeset(%{comment_id: cid, user_id: uid})
         |> Repo.insert()
 
       :answer ->
         %ACommentVote{vote: :down}
-        |> ACommentVote.changeset(%{ac_id: cid, u_id: uid})
+        |> ACommentVote.changeset(%{a_comment_id: cid, user_id: uid})
         |> Repo.insert()
     end
   end
@@ -433,22 +433,22 @@ defmodule FkcElixir.Forum do
     case topic do
       :question ->
         QuestionVote
-        |> where([q], q.q_id == ^id)
+        |> where([q], q.question_id == ^id)
         |> Repo.all()
 
       :answer ->
         AnswerVote
-        |> where([a], a.a_id == ^id)
+        |> where([a], a.answer_id == ^id)
         |> Repo.all()
 
       :comment ->
         CommentVote
-        |> where([c], c.c_id == ^id)
+        |> where([c], c.comment_id == ^id)
         |> Repo.all()
 
       :answer_comment ->
         ACommentVote
-        |> where([ac], ac.ac_id == ^id)
+        |> where([ac], ac.a_comment_id == ^id)
         |> Repo.all()
     end
   end

@@ -3,8 +3,9 @@
     <div class="padding2">
       <div class="asnwer-box"><%=raw @answer.description %></div>
     </div>
-    <div>
-      <div class="flex justify-content margin-06 padding5">
+    <%= link "Edit", to: "#", phx_click: "edit_answer" %>
+    <%= link "Delete", to: "#", phx_click: "delete_answer" %>
+    <div class="flex justify-content margin-06 padding5">
       <div>
         <ul class="flex">
           <%= if @answer.verified do %>
@@ -37,7 +38,6 @@
         </ul>
       </div>
       
-    </div>
     </div>
   </div>
   <%= for comment <- @answer.a_comments do %>  

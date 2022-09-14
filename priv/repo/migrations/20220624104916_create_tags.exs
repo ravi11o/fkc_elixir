@@ -11,8 +11,8 @@ defmodule FkcElixir.Repo.Migrations.CreateTags do
     create(index(:tags, ["lower(name)"], name: :tags_name_index, unique: true))
 
     create table(:questions_tags) do
-      add :question_id, references(:questions)
-      add :tag_id, references(:tags)
+      add :question_id, references(:questions, on_delete: :delete_all)
+      add :tag_id, references(:tags, on_delete: :delete_all)
       timestamps()
     end
 
