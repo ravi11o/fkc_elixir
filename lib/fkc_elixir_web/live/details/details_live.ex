@@ -22,7 +22,7 @@ defmodule FkcElixirWeb.DetailsLive do
       |> assign(:page_title, "Details | #{slug}")
       |> assign(:current_path, URI.parse(url).path)
       |> assign(:comment_form, false)
-      |> assign(question: question, answers: answers, comments: question.comments)
+      |> assign(question: question, answers: answers)
     }
   end
 
@@ -76,9 +76,9 @@ defmodule FkcElixirWeb.DetailsLive do
   end
 
   def handle_event("save_ques_comment", %{"comment" => comment_params}, socket) do
-    question_id = socket.assigns.question.id
+    question = socket.assigns.question
     current_user = socket.assigns.current_user
-    new_params = %{comment_params | "question_id" => question_id, "user_id" => current_user.id}
+    new_params = %{comment_params | "question_id" => question.id, "user_id" => current_user.id}
 
     case Forum.create_comment(new_params) do
       {:ok, _comment} ->

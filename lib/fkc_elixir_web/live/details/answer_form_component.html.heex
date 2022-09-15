@@ -1,25 +1,21 @@
- <div class="container">
+ <div class="container" id={if @edit, do: "update-answer-form", else: "add-answer-form"}>
   <.form
     let={f}
     for={@changeset}
-    phx-change="validate"
     phx-update="ignore"
     phx-target={@myself}
-    phx-submit="save"
-    debounce="4000"
+    phx-submit={if @edit, do: "update", else: "save"}
     class="answer-form"
   >
   <div>
-    <div id="skdjhgfhjsdgfhj" phx-update="ignore">
-      <%= textarea f, :description, id: "description", rows: 6, phx_hook: "Editor", class: "answer-input" %>
+    <div id={if @edit, do: "update-answer-div", else: "add-answer"} phx-update="ignore">
+      <%= textarea f, :description, id: "#{if @edit, do: "update-answer-textarea", else: "add-textarea"}", rows: 6, phx_hook: "Editor", class: "answer-input" %>
     
     </div>
-    <%# <div id="answer-description-editor" phx-update="ignore">
-      <trix-editor input="description"></trix-editor>
-    </div> %>
+    
     <%= error_tag f, :description %>
   </div>
-  <%= submit "Add Answer", phx_disable_with: "Saving...", class: "answer-submit-button" %>
+  <%= submit "#{if @edit, do: "Update", else: "Add"} Answer", phx_disable_with: "Saving...", class: "answer-submit-button" %>
   
   </.form>
 

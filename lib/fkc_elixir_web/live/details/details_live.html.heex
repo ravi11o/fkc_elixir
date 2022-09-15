@@ -42,7 +42,7 @@
       </div>
     </div>
     <div id="comments" phx-update="prepend">
-      <%= for comment <- @comments do %>
+      <%= for comment <- @question.comments do %>
         <.live_component
           module={FkcElixirWeb.CommentComponent}
           id={"#{comment.id}-question" || :new_question}
@@ -88,6 +88,7 @@
         module={FkcElixirWeb.AnswerComponent} 
         id={answer.id || :new} 
         answer={answer} 
+        question={@question}
         slug={@question.slug}
         current_user={@current_user}
       />
@@ -97,6 +98,8 @@
       id={"add-answer-form-#{@question.id}"}
       question={@question}
       current_user={@current_user}
+      edit={false}
+      answer={false}
     />
   </section>
   <section>

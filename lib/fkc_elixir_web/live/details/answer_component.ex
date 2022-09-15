@@ -56,7 +56,22 @@ defmodule FkcElixirWeb.AnswerComponent do
   end
 
   def handle_event("edit_answer", _, socket) do
-    IO.inspect(socket.assigns.answer)
-    {:noreply, socket}
+    {:noreply, update(socket, :edit, &(!&1))}
+  end
+
+  def handle_event("delete_answer", _, socket) do
+    case Forum.delete_answer(socket.assigns.answer) do
+      {:ok, _} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, "Answer Deleted")
+         |> push_redirect(to: "/question/#{socket.assigns.slug}")}
+
+      {:error, _} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, "Something went wrong")
+         |> push_redirect(to: "/question/#{socket.assigns.slug}")}
+    end
   end
 end

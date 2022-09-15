@@ -19,11 +19,10 @@ defmodule FkcElixirWeb.QuestionLive.New do
 
   defp apply_action(socket, :edit, %{"id" => id}) do
     question = Forum.get_question!(id)
-    IO.inspect(question)
 
     socket
     |> assign(:page_title, "Edit Question")
-    |> assign(:question, Forum.get_question!(id))
+    |> assign(:question, question)
   end
 
   defp apply_action(socket, :new, _params) do
