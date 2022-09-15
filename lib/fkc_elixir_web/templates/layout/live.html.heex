@@ -26,7 +26,7 @@
           <div class="dropdown">
           <img class="userImageProfile" src={@current_user.image || "/images/user.png"} />
             <div class="dropdown-content">
-              <a href="#">Profile</a>
+              <a href="#"><%= @current_user.username %></a>
               <%= link "Settings", to: Routes.user_settings_path(@socket, :edit) %>
               <%= link "Log out", to: Routes.user_session_path(@socket, :delete), method: :delete %>
             </div>

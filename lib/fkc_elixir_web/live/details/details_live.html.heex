@@ -105,8 +105,10 @@
   <section>
     <div class="box1 margin-top color">
       <ul class="line-height">
-        <li><%= live_patch "Edit", to: Routes.question_new_path(@socket, :edit, @question) %></li>
-        <li><%= link "delete", to: "#", phx_click: "delete_question"%></li>
+        <%= if @current_user && (@current_user.id == @question.user.id || @current_user.is_admin)  do %>
+          <li><%= live_patch "Edit", to: Routes.question_new_path(@socket, :edit, @question) %></li>
+          <li><%= link "delete", to: "#", phx_click: "delete_question"%></li>
+        <% end %>
         <li><%= @question.views %> Views</li>
         <li><%=Enum.count(@question.answers) %> Answers</li>
         <li><i class="fa-solid fa-clock"></i><%= FkcElixir.Cldr.format_date_time(@question.inserted_at) %></li>

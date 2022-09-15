@@ -14,8 +14,10 @@
       <div class="padding2">
         <div class="asnwer-box"><%=raw @answer.description %></div>
       </div>
-      <%= link "Edit", to: "#", phx_click: "edit_answer", phx_target: @myself %>
-      <%= link "Delete", to: "#", phx_click: "delete_answer", phx_target: @myself %>
+      <%= if @current_user && (@current_user.id == @answer.user.id || @current_user.is_admin)  do %>
+        <%= link "Edit", to: "#", phx_click: "edit_answer", phx_target: @myself %>
+        <%= link "Delete", to: "#", phx_click: "delete_answer", phx_target: @myself %>
+      <% end %>
       <div class="flex justify-content margin-06 padding5">
         <div>
           <ul class="flex">

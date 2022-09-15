@@ -3,16 +3,17 @@ defmodule FkcElixir.Accounts.User do
   import Ecto.Changeset
 
   schema "users" do
-    field :email, :string
-    field :username, :string
-    field :image, :string
-    field :is_admin, :boolean, default: false
-    field :password, :string, virtual: true, redact: true
-    field :hashed_password, :string, redact: true
-    field :confirmed_at, :naive_datetime
-    has_many :questions, FkcElixir.Forum.Question
-    has_many :comments, FkcElixir.Forum.Comment
-    has_many :a_comments, FkcElixir.Forum.AComment
+    field(:email, :string)
+    field(:username, :string)
+    field(:image, :string)
+    field(:is_admin, :boolean, default: false)
+    field(:is_blocked, :boolean, default: false)
+    field(:password, :string, virtual: true, redact: true)
+    field(:hashed_password, :string, redact: true)
+    field(:confirmed_at, :naive_datetime)
+    has_many(:questions, FkcElixir.Forum.Question)
+    has_many(:comments, FkcElixir.Forum.Comment)
+    has_many(:a_comments, FkcElixir.Forum.AComment)
 
     timestamps()
   end
@@ -36,7 +37,7 @@ defmodule FkcElixir.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :username, :password, :image])
+    |> cast(attrs, [:email, :username, :password, :image, :is_admin])
     |> validate_required([:email, :password, :username])
     |> validate_email()
     |> validate_password(opts)

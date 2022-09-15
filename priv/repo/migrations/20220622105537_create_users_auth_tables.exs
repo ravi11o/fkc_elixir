@@ -11,6 +11,7 @@ defmodule FkcElixir.Repo.Migrations.CreateUsersAuthTables do
       add :is_admin, :boolean, default: false
       add :hashed_password, :string, null: false
       add :confirmed_at, :naive_datetime
+      add :is_blocked, :boolean, default: false
       timestamps()
     end
 

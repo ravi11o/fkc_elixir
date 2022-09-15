@@ -29,7 +29,9 @@
     <ul class="flex">
       <li><i class="fa-solid fa-clock commentTime commentTimer"></i></li>
       <li class="commentTime "><%= FkcElixir.Cldr.format_date_time(@comment.updated_at) %></li>
-      <li><%= link "Delete", to: "#", phx_click: "delete_comment",  phx_target: @myself %></li>
+      <%= if @current_user && (@current_user.id == @comment.user.id || @current_user.is_admin)  do %>
+        <li><%= link "Delete", to: "#", phx_click: "delete_comment",  phx_target: @myself %></li>
+      <% end %>
     </ul>
   </div>
 </div>
