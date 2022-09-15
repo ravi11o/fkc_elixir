@@ -63,6 +63,22 @@
         current_user={@current_user}
       />
     <% end %>
+    <%= if @current_user do %>
+       <%= if @comment_form do %>
+          <div>
+            <.form let={f} for={:comment} phx_submit="save_answer_comment" phx_target={@myself}>
+              <%= text_input f, :description, placeholder: "Add Comment" %>
+              <%= hidden_input f, :answer_id %>
+              <%= hidden_input f, :user_id %>
+              <%= submit "Save" %>
+            </.form>
+          </div>
+        <% else %>
+          <div>
+            <a href="#" phx-click="answer_comment_form" phx-target={@myself}>Add Comment</a>
+          </div>
+        <% end %>
+    <% end %>
     <hr>
 </div>
 <% end %>

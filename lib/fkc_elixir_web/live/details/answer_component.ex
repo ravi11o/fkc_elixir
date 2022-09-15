@@ -11,6 +11,7 @@ defmodule FkcElixirWeb.AnswerComponent do
      socket
      |> assign(assigns)
      |> assign(edit: false)
+     |> assign(comment_form: false)
      |> assign(:changeset, changeset)}
   end
 
@@ -73,5 +74,28 @@ defmodule FkcElixirWeb.AnswerComponent do
          |> put_flash(:info, "Something went wrong")
          |> push_redirect(to: "/question/#{socket.assigns.slug}")}
     end
+  end
+
+  def handle_event("answer_comment_form", _, socket) do
+    {:noreply, update(socket, :comment_form, fn val -> !val end)}
+  end
+
+  def handle_event("save_answer_comment", %{"comment" => comment_params}, socket) do
+    answer = socket.assigns.answer
+    current_user = socket.assigns.current_user
+    new_params = %{comment_params | "answer_id" => answer.id, "user_id" => current_user.id}
+
+    case Forum.create_answer_comment(new_params) do
+      {:ok, _comment} ->
+        {:noreply, push_redirect(socket, to: "/question/#{socket.assigns.question.slug}")}
+
+      {:error, _} ->
+        {:noreply,
+         socket
+         |> put_flash(:error, "Could not add comment")
+         |> push_redirect(to: socket.assigns.current_path)}
+    end
+
+    {:noreply, socket}
   end
 end
