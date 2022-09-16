@@ -1,87 +1,87 @@
 <div>
   <%= if @edit do %>
-  <.live_component 
-      module={FkcElixirWeb.AnswerFormComponent}
-      id={"add-answer-form-#{@question.id}"}
-      question={@question}
-      current_user={@current_user}
-      edit={@edit}
-      answer={@answer}
-    />
-<% else %>
-  <div>
-    <div class="container">
-      <div class="padding2">
-        <div class="asnwer-box"><%=raw @answer.description %></div>
-      </div>
-      <%= if @current_user && (@current_user.id == @answer.user.id || @current_user.is_admin)  do %>
-        <%= link "Edit", to: "#", phx_click: "edit_answer", phx_target: @myself %>
-        <%= link "Delete", to: "#", phx_click: "delete_answer", phx_target: @myself %>
-      <% end %>
-      <div class="flex justify-content margin-06 padding5">
-        <div>
-          <ul class="flex">
-            <%= if @answer.verified do %>
-              <li><i class="check padding-right fa-solid fa-check"></i></li>
-            <% end %>
-            <li class="padding-right up">
-              <a href="#" phx-click="answer_upvote" phx-value-aid={@answer.id} phx-value-uid={@current_user && @current_user.id} phx-target={@myself}>
-                <i class="fa-solid fa-chevron-up"></i>
-              </a>
-            </li>
-            <li class="padding-right up">
-              <a href="#" phx-click="answer_downvote" phx-value-aid={@answer.id} phx-value-uid={@current_user && @current_user.id} phx-target={@myself}>
-                <i class="fa-solid fa-angle-down"></i>
-              </a>
-            </li>
-            <li class="up vote"><%= Forum.count_votes(@answer.id, :answer) %></li>
-          </ul>
-        </div>
-        <div>
-          <ul class="flex align-center">
-            <li class="color margin-right ">Posted <%= FkcElixir.Cldr.format_date_time(@answer.inserted_at) %></li>
-            
-            <img class="userImages margin-right" src={@answer.user.image || "/images/user.png"} href="#" />
-            
-            <div>
-            <li class="userName"><%= @answer.user.username %></li>
-            <li class="num32">32</li>
-            <%# <li class="num32">32<i class="fa-solid fa-star"></i>*1</li> %>
-            </div>
-          </ul>
-        </div>
-        
-      </div>
-    </div>
-    <%= for comment <- @answer.a_comments do %>  
-      <.live_component
-        module={FkcElixirWeb.CommentComponent}
-        id={comment.id || :new}
-        comment={comment}
-        slug={@slug}
-        for={:answer}
+    <.live_component 
+        module={FkcElixirWeb.AnswerFormComponent}
+        id={"add-answer-form-#{@question.id}"}
+        question={@question}
         current_user={@current_user}
+        edit={@edit}
+        answer={@answer}
       />
-    <% end %>
-    <%= if @current_user do %>
-       <%= if @comment_form do %>
-          <div>
-            <.form let={f} for={:comment} phx_submit="save_answer_comment" phx_target={@myself}>
-              <%= text_input f, :description, placeholder: "Add Comment" %>
-              <%= hidden_input f, :answer_id %>
-              <%= hidden_input f, :user_id %>
-              <%= submit "Save" %>
-            </.form>
-          </div>
-        <% else %>
-          <div>
-            <a href="#" phx-click="answer_comment_form" phx-target={@myself}>Add Comment</a>
-          </div>
+  <% else %>
+    <div>
+      <div class="container">
+        <div class="padding2">
+          <div class="asnwer-box"><%=raw @answer.description %></div>
+        </div>
+        <%= if @current_user && (@current_user.id == @answer.user.id || @current_user.is_admin)  do %>
+          <%= link "Edit", to: "#", phx_click: "edit_answer", phx_target: @myself %>
+          <%= link "Delete", to: "#", phx_click: "delete_answer", phx_target: @myself %>
         <% end %>
-    <% end %>
-    <hr>
-</div>
-<% end %>
+        <div class="flex justify-content margin-06 padding5">
+          <div>
+            <ul class="flex">
+              <%= if @answer.verified do %>
+                <li><i class="check padding-right fa-solid fa-check"></i></li>
+              <% end %>
+              <li class="padding-right up">
+                <a href="#" phx-click="answer_upvote" phx-value-aid={@answer.id} phx-value-uid={@current_user && @current_user.id} phx-target={@myself}>
+                  <i class="fa-solid fa-chevron-up"></i>
+                </a>
+              </li>
+              <li class="padding-right up">
+                <a href="#" phx-click="answer_downvote" phx-value-aid={@answer.id} phx-value-uid={@current_user && @current_user.id} phx-target={@myself}>
+                  <i class="fa-solid fa-angle-down"></i>
+                </a>
+              </li>
+              <li class="up vote"><%= Forum.count_votes(@answer.id, :answer) %></li>
+            </ul>
+          </div>
+          <div>
+            <ul class="flex align-center">
+              <li class="color margin-right ">Posted <%= FkcElixir.Cldr.format_date_time(@answer.inserted_at) %></li>
+              
+              <img class="userImages margin-right" src={@answer.user.image || "/images/user.png"} href="#" />
+              
+              <div>
+              <li class="userName"><%= @answer.user.username %></li>
+              <li class="num32">32</li>
+              <%# <li class="num32">32<i class="fa-solid fa-star"></i>*1</li> %>
+              </div>
+            </ul>
+          </div>
+          
+        </div>
+      </div>
+      <%= for comment <- @answer.a_comments do %>  
+        <.live_component
+          module={FkcElixirWeb.CommentComponent}
+          id={comment.id || :new}
+          comment={comment}
+          slug={@slug}
+          for={:answer}
+          current_user={@current_user}
+        />
+      <% end %>
+      <%= if @current_user do %>
+        <%= if @comment_form do %>
+            <div>
+              <.form let={f} for={:comment} phx_submit="save_answer_comment" phx_target={@myself}>
+                <%= text_input f, :description, placeholder: "Add Comment" %>
+                <%= hidden_input f, :answer_id %>
+                <%= hidden_input f, :user_id %>
+                <%= submit "Save" %>
+              </.form>
+            </div>
+          <% else %>
+            <div>
+              <a href="#" phx-click="answer_comment_form" phx-target={@myself}>Add Comment</a>
+            </div>
+          <% end %>
+      <% end %>
+      <hr>
+    </div>
+  <% end %>
 </div>
 
 

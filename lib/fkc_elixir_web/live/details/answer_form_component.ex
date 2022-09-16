@@ -43,8 +43,8 @@ defmodule FkcElixirWeb.AnswerFormComponent do
     changeset = Forum.change_answer(socket.assigns.answer, answer_params)
 
     case Repo.update(changeset) do
-      {:ok, _} ->
-        socket = update(socket, :edit, &(!&1))
+      {:ok, answer} ->
+        send_update(FkcElixirWeb.AnswerComponent, id: answer.id, answer: answer)
 
         {:noreply,
          socket

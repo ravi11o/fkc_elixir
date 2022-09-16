@@ -45,7 +45,7 @@
       <%= for comment <- @question.comments do %>
         <.live_component
           module={FkcElixirWeb.CommentComponent}
-          id={"#{comment.id}-question" || :new_question}
+          id={"question-#{comment.id}"}
           comment={comment}
           slug={@question.slug}
           for={:question}
@@ -61,7 +61,7 @@
               <%= text_input f, :title, placeholder: "Add Comment" %>
               <%= hidden_input f, :question_id %>
               <%= hidden_input f, :user_id %>
-              <%= submit "Save" %>
+              <%= submit "Save", phx_disable_with: "Saving..." %>
             </.form>
           </div>
         <% else %>

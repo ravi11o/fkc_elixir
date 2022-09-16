@@ -66,8 +66,24 @@ defmodule FkcElixirWeb.CommentComponent do
     end
   end
 
-  def handle_event("delete_comment", _, socket) do
+  def handle_event("delete_question_comment", _, socket) do
     case Forum.delete_comment(socket.assigns.comment) do
+      {:ok, _} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, "Comment Deleted")
+         |> push_redirect(to: "/question/#{socket.assigns.slug}")}
+
+      {:error, _} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, "Something went wrong")
+         |> push_redirect(to: "/question/#{socket.assigns.slug}")}
+    end
+  end
+
+  def handle_event("delete_answer_comment", _, socket) do
+    case Forum.delete_answer_comment(socket.assigns.comment) do
       {:ok, _} ->
         {:noreply,
          socket

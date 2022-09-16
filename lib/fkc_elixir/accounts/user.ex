@@ -2,6 +2,8 @@ defmodule FkcElixir.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias FkcElixir.Forum.{Question, Answer, Comment, AComment}
+
   schema "users" do
     field(:email, :string)
     field(:username, :string)
@@ -11,9 +13,10 @@ defmodule FkcElixir.Accounts.User do
     field(:password, :string, virtual: true, redact: true)
     field(:hashed_password, :string, redact: true)
     field(:confirmed_at, :naive_datetime)
-    has_many(:questions, FkcElixir.Forum.Question)
-    has_many(:comments, FkcElixir.Forum.Comment)
-    has_many(:a_comments, FkcElixir.Forum.AComment)
+    has_many(:questions, Question)
+    has_many(:answers, Answer)
+    has_many(:comments, Comment)
+    has_many(:a_comments, AComment)
 
     timestamps()
   end

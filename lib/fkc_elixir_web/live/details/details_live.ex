@@ -82,6 +82,8 @@ defmodule FkcElixirWeb.DetailsLive do
 
     case Forum.create_comment(new_params) do
       {:ok, _comment} ->
+        socket = assign(socket, :comment_form, false)
+
         {:noreply, push_redirect(socket, to: "/question/#{socket.assigns.question.slug}")}
 
       {:error, _} ->
