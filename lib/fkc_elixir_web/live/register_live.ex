@@ -24,13 +24,11 @@ defmodule FkcElixirWeb.RegisterLive do
   end
 
   def handle_event("save", %{"user" => params}, socket) do
-    File.mkdir_p("priv/static/uploads")
-
     uploads =
       consume_uploaded_entries(socket, :image, fn meta, entry ->
-        dest = Path.join("priv/static/uploads", filename(entry))
+        dest = Path.join("priv/static/images", filename(entry))
         File.cp!(meta.path, dest)
-        Routes.static_path(socket, "/uploads/#{filename(entry)}")
+        Routes.static_path(socket, "/images/#{filename(entry)}")
       end)
 
     changeset =
