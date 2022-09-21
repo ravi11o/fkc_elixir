@@ -28,7 +28,7 @@
         </div>
         <div>
           <ul class="flex align-center">
-            <li class="color margin-right">Posted <%= FkcElixir.Cldr.format_date_time(@question.inserted_at) %></li>
+            <li class="color margin-right">Posted <%= FkcElixir.Utils.format_date_time(@question.inserted_at) %></li>
             <img class="userImages margin-right" src={@question.user.image || "/images/user.png"} href="#" />
             <div>
             <li class="userName"><%= @question.user.username  %></li>
@@ -61,7 +61,7 @@
               <%= text_input f, :title, placeholder: "Add Comment" %>
               <%= hidden_input f, :question_id %>
               <%= hidden_input f, :user_id %>
-              <%= submit "Save", phx_disable_with: "Saving..." %>
+              <%= submit "Save" %>
             </.form>
           </div>
         <% else %>
@@ -111,8 +111,8 @@
         <% end %>
         <li><%= @question.views %> Views</li>
         <li><%=Enum.count(@question.answers) %> Answers</li>
-        <li><i class="fa-solid fa-clock"></i><%= FkcElixir.Cldr.format_date_time(@question.inserted_at) %></li>
-        <li><i class="fa-solid fa-pencil"></i><%= FkcElixir.Cldr.format_date_time(@question.inserted_at) %></li>
+        <li><i class="fa-solid fa-clock"></i><%= FkcElixir.Utils.format_date_time(@question.inserted_at) %></li>
+        <li><i class="fa-solid fa-pencil"></i><%= FkcElixir.Utils.format_date_time(@question.inserted_at) %></li>
         <li><i class="fa-solid fa-tag"></i>Tags</li>
       </ul>
       <ul class="flexWrap margin-top-half">

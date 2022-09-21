@@ -39,7 +39,7 @@
           </div>
           <div>
             <ul class="flex align-center">
-              <li class="color margin-right ">Posted <%= FkcElixir.Cldr.format_date_time(@answer.inserted_at) %></li>
+              <li class="color margin-right ">Posted <%= FkcElixir.Utils.format_date_time(@answer.inserted_at) %></li>
               
               <img class="userImages margin-right" src={@answer.user.image || "/images/user.png"} href="#" />
               

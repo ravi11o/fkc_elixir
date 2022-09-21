@@ -121,7 +121,8 @@ defmodule FkcElixir.Forum do
     |> Question.changeset(attrs)
     |> Ecto.Changeset.put_assoc(:tags, question_tags(attrs))
     |> Repo.insert()
-    |> broadcast(:question_created)
+
+    # |> broadcast(:question_created)
   end
 
   def update_question(%Question{} = question, attrs) do
@@ -129,13 +130,20 @@ defmodule FkcElixir.Forum do
     |> Question.changeset(attrs)
     |> Ecto.Changeset.put_assoc(:tags, question_tags(attrs))
     |> Repo.update()
-    |> broadcast(:question_updated)
+
+    # |> broadcast(:question_updated)
   end
 
-  def broadcast({:ok, question}, event) do
-    Phoenix.PubSub.broadcast(FkcElixir.PubSub, "questions", {event, question})
+  # def broadcast({:ok, resource}, :question_comment) do
+  #   Phoenix.PubSub.broadcast(FkcElixir.PubSub, "questions", :question_comment)
 
-    {:ok, question}
+  #   {:ok, resource}
+  # end
+
+  def broadcast({:ok, resource}, event) do
+    Phoenix.PubSub.broadcast(FkcElixir.PubSub, "questions", {event, resource})
+
+    {:ok, resource}
   end
 
   def broadcast({:error, _changeset} = error, _event), do: error
@@ -249,6 +257,7 @@ defmodule FkcElixir.Forum do
     %Comment{}
     |> Comment.changeset(attrs)
     |> Repo.insert()
+    |> broadcast(:question_comment)
   end
 
   @doc """
@@ -333,6 +342,7 @@ defmodule FkcElixir.Forum do
     %AComment{}
     |> AComment.changeset(attrs)
     |> Repo.insert()
+    |> broadcast(:answer_comment)
   end
 
   def update_answer_comment(%AComment{} = a_comment, attrs) do

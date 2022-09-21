@@ -87,7 +87,12 @@ defmodule FkcElixirWeb.AnswerComponent do
 
     case Forum.create_answer_comment(new_params) do
       {:ok, _comment} ->
-        {:noreply, push_redirect(socket, to: "/question/#{socket.assigns.question.slug}")}
+        # send_update(FkcElixirWeb.AnswerComponent,
+        #   id: answer.id,
+        #   answer: [comment] ++ answer.a_comments
+        # )
+
+        {:noreply, socket}
 
       {:error, _} ->
         {:noreply,

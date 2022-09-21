@@ -1,4 +1,4 @@
-<div class="container flex margin-left1 margin-top-1">
+<div class="container flex margin-left1 margin-top-1" id={"q-comment-#{@comment.id}"}>
   <div>
     <ul class="flex color">
       <li class="padding-right">
@@ -17,18 +17,17 @@
   <div>
     <ul class="flex">
       <%= if Map.has_key?(@comment, :title) do %>
-        <li class="color left"><%= @comment.title %>--</li>
+        <li class="color left"><%= @comment.title %> -<a class="blue commentUserName" href="#"><%= @comment.user.username %></a><%= FkcElixir.Utils.format_date_time(@comment.updated_at) %></li>
       <% else %>
-        <li class="color left"><%= @comment.description %>--</li>
+        <li class="color left"><%= @comment.description %> -<a class="blue commentUserName" href="#"><%= @comment.user.username %><%= FkcElixir.Utils.format_date_time(@comment.updated_at) %></a></li>
       <% end %>
       
-      <li><a class="blue commentUserName" href="#"><%= @comment.user.username %></a></li>
+      
     </ul>
   </div>
   <div>
     <ul class="flex">
-      <li><i class="fa-solid fa-clock commentTime commentTimer"></i></li>
-      <li class="commentTime "><%= FkcElixir.Cldr.format_date_time(@comment.updated_at) %></li>
+      <%# <li><i class="fa-solid fa-clock commentTime commentTimer"></i></li> %>
       <%= if @current_user && (@current_user.id == @comment.user.id || @current_user.is_admin)  do %>
         <li><%= link "Delete", to: "#", phx_click: "delete_#{to_string(@for)}_comment",  phx_target: @myself %></li>
       <% end %>

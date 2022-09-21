@@ -52,7 +52,6 @@ defmodule FkcElixir.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:tailwind, "~> 0.1.6", runtime: Mix.env() == :dev},
       {:slugger, "~> 0.3"},
-      {:ex_cldr_dates_times, "~> 2.0"},
       {:hackney, "~> 1.18"}
     ]
   end

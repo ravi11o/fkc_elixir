@@ -6,6 +6,7 @@ defmodule FkcElixirWeb.DetailsLive do
 
   @impl true
   def mount(_params, session, socket) do
+    if connected?(socket), do: Forum.subscribe()
     socket = assign_current_user(socket, session)
     {:ok, socket}
   end
@@ -82,9 +83,9 @@ defmodule FkcElixirWeb.DetailsLive do
 
     case Forum.create_comment(new_params) do
       {:ok, _comment} ->
-        socket = assign(socket, :comment_form, false)
+        # socket = assign(socket, :comment_form, false)
 
-        {:noreply, push_redirect(socket, to: "/question/#{socket.assigns.question.slug}")}
+        {:noreply, socket}
 
       {:error, _} ->
         {:noreply,
@@ -97,16 +98,40 @@ defmodule FkcElixirWeb.DetailsLive do
   end
 
   def handle_event("delete_question", _params, socket) do
-    IO.inspect("delete started")
-
     case Forum.delete_question(socket.assigns.question) do
       {:ok, _} ->
-        IO.inspect("deleted")
         {:noreply, push_redirect(socket, to: "/")}
 
       {:error, reason} ->
         IO.inspect(reason)
         {:noreply, socket}
     end
+  end
+
+  @impl true
+  def handle_info({:question_comment, _comment}, socket) do
+    question = socket.assigns.question
+
+    socket =
+      update(
+        socket,
+        :question,
+        fn _question -> Forum.get_question_by_slug!(question.slug) end
+      )
+
+    {:noreply, assign(socket, :comment_form, false)}
+  end
+
+  def handle_info({:answer_comment, _comment}, socket) do
+    question = socket.assigns.question
+
+    socket =
+      update(
+        socket,
+        :answers,
+        fn _question -> Forum.list_answers(question.id) end
+      )
+
+    {:noreply, assign(socket, :comment_form, false)}
   end
 end
