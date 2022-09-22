@@ -14,7 +14,7 @@ GIT_CLEAN_PATHS="_build rel priv/static"
 
 PRODUCTION_HOSTS="65.20.77.43"
 PRODUCTION_USER="ravi"
-DELIVER_TO="/home/deploy/apps"
+DELIVER_TO="/home/ravi/apps"
 AUTO_VERSION=revision
 
 # For Phoenix projects, symlink prod.secret.exs to our tmp source
@@ -57,11 +57,11 @@ pre_erlang_clean_compile() {
   "
 }
 
-post_extract_release_archive() {
-  status "Removing start_erl.data if it exists"
-  __remote "
-    [ -f ~/.profile ] && source ~/.profile
-    cd $DELIVER_TO/$APP/var $SILENCE
-    rm start_erl.data
-  "
-}
+# post_extract_release_archive() {
+#   status "Removing start_erl.data if it exists"
+#   __remote "
+#     [ -f ~/.profile ] && source ~/.profile
+#     cd $DELIVER_TO/$APP/var $SILENCE
+#     rm start_erl.data
+#   "
+# }
