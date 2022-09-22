@@ -134,4 +134,17 @@ defmodule FkcElixirWeb.DetailsLive do
 
     {:noreply, assign(socket, :comment_form, false)}
   end
+
+  def handle_info({:answer_created, _comment}, socket) do
+    question = socket.assigns.question
+
+    socket =
+      update(
+        socket,
+        :answers,
+        fn _question -> Forum.list_answers(question.id) end
+      )
+
+    {:noreply, socket}
+  end
 end

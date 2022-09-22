@@ -19,7 +19,7 @@
       <%= if Map.has_key?(@comment, :title) do %>
         <li class="color left"><%= @comment.title %> -<a class="blue commentUserName" href="#"><%= @comment.user.username %></a><%= FkcElixir.Utils.format_date_time(@comment.updated_at) %></li>
       <% else %>
-        <li class="color left"><%= @comment.description %> -<a class="blue commentUserName" href="#"><%= @comment.user.username %><%= FkcElixir.Utils.format_date_time(@comment.updated_at) %></a></li>
+        <li class="color left"><%= @comment.description %> -<a class="blue commentUserName" href="#"><%= @comment.user.username %></a><%= FkcElixir.Utils.format_date_time(@comment.updated_at) %></li>
       <% end %>
       
       

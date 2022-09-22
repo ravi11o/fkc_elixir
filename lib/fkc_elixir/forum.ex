@@ -312,6 +312,7 @@ defmodule FkcElixir.Forum do
     %Answer{}
     |> Answer.changeset(attrs)
     |> Repo.insert()
+    |> broadcast(:answer_created)
   end
 
   def list_answers(id) do
