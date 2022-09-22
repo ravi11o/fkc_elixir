@@ -39,28 +39,21 @@ pre_erlang_clean_compile() {
       npm install
     "
 
-  status "Compiling assets"
-    __sync_remote "
-      [ -f ~/.profile ] && source ~/.profile
-      set -e
-      cd '${BUILD_AT}/assets
-      node_modules/.bin/webpack --mode production --silent'
-    "
+  # status "Compiling assets"
+  #   __sync_remote "
+  #     [ -f ~/.profile ] && source ~/.profile
+  #     set -e
+  #     cd '${BUILD_AT}/assets/node_modules/.bin/webpack --mode production --silent'
+  #   "
 
   status "Running phoenix.digest" # log output prepended with 
-"----->"
-  __sync_remote " # runs the commands on the build host
-    [ -f ~/.profile ] && source ~/.profile # load profile (optional)
-    set -e # fail if any command fails (recommended)
-    cd '$BUILD_AT' # enter the build directory on the build host 
-(required)
-    # prepare something
-    mkdir -p priv/static # required by the phoenix.digest task
-    # run your custom task
-    APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD phx.digest 
-$SILENCE
-    APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD phx.digest.clean 
-$SILENCE
+  __sync_remote "
+    [ -f ~/.profile ] && source ~/.profile
+    set -e
+    cd '$BUILD_AT'
+    mkdir -p priv/static
+    APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD phx.digest $SILENCE
+    APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD phx.digest.clean $SILENCE
   "
 }
 
