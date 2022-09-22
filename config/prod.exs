@@ -53,4 +53,4 @@ config :logger, level: :info
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
 config :phoenix, :serve_endpoints, true
-import_config "runtime.exs"
+import_config "prod.secret.exs"
