@@ -132,7 +132,7 @@ defmodule FkcElixirWeb.DetailsLive do
         fn _question -> Forum.list_answers(question.id) end
       )
 
-    {:noreply, assign(socket, :comment_form, false)}
+    {:noreply, socket}
   end
 
   def handle_info({:answer_created, _comment}, socket) do

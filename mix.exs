@@ -20,7 +20,7 @@ defmodule FkcElixir.MixProject do
   def application do
     [
       mod: {FkcElixir.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :edeliver]
     ]
   end
 
@@ -52,7 +52,9 @@ defmodule FkcElixir.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:tailwind, "~> 0.1.6", runtime: Mix.env() == :dev},
       {:slugger, "~> 0.3"},
-      {:hackney, "~> 1.18"}
+      {:hackney, "~> 1.18"},
+      {:distillery, "~> 2.1"},
+      {:edeliver, "~> 1.9"}
     ]
   end
 
