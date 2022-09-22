@@ -43,8 +43,8 @@ pre_erlang_clean_compile() {
     __sync_remote "
       [ -f ~/.profile ] && source ~/.profile
       set -e
-      cd '${BUILD_AT}'/assets
-      node_modules/.bin/webpack --mode production --silent
+      cd '${BUILD_AT}/assets
+      node_modules/.bin/webpack --mode production --silent'
     "
 
   status "Running phoenix.digest" # log output prepended with 
