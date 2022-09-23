@@ -54,7 +54,7 @@ defmodule FkcElixir.MixProject do
       {:slugger, "~> 0.3"},
       {:hackney, "~> 1.18"},
       {:distillery, "~> 2.1"},
-      {:edeliver, "~> 1.9"}
+      {:edeliver, "~> 1.8"}
     ]
   end
 
@@ -70,7 +70,7 @@ defmodule FkcElixir.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.deploy": ["esbuild default --minify", "tailwind default --minify", "phx.digest"]
+      "assets.deploy": ["esbuild default --minify", "phx.digest"]
     ]
   end
 end

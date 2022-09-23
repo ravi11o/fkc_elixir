@@ -1,3 +1,0 @@
-#!/bin/sh
-cd -P -- "$(dirname -- "$0")"
-exec ./fkc_elixir eval FkcElixir.Release.migrate

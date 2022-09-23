@@ -23,7 +23,6 @@ import Editor from "../vendor/ckeditor5-build/build/ckeditor";
 
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html";
-// import TrixEditor from "trix";
 
 // Establish Phoenix Socket and LiveView configuration.
 import { Socket } from "phoenix";
