@@ -1,7 +1,7 @@
 import Config
 
 config :deploy_example, DeployExample.Repo,
-  load_from_system_env: true,
+  # load_from_system_env: true,
   pool_size: 10
 
 # For production, don't forget to configure the url host
@@ -16,7 +16,7 @@ config :deploy_example, DeployExample.Repo,
 config :fkc_elixir, FkcElixirWeb.Endpoint,
   load_from_system_env: true,
   cache_static_manifest: "priv/static/cache_manifest.json",
-  server: true,
+  # server: true,
   code_reloader: false
 
 # Do not print debug messages in production
@@ -56,4 +56,4 @@ config :logger, level: :info
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
 config :phoenix, :serve_endpoints, true
-# import_config "runtime.exs"
+import_config "prod.secret.exs"
