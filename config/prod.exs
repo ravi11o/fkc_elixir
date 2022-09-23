@@ -10,8 +10,7 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 config :fkc_elixir, FkcElixirWeb.Endpoint,
-  http: [port: {:system, "PORT"}],
-  url: [host: "65.20.77.43", port: 80],
+  load_from_system_env: true,
   cache_static_manifest: "priv/static/cache_manifest.json",
   server: true,
   code_reloader: false
