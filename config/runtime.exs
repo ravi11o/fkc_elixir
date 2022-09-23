@@ -13,6 +13,8 @@ if System.get_env("PHX_SERVER") && System.get_env("RELEASE_NAME") do
 end
 
 if config_env() == :prod do
+  load_from_system_env: true,
+
   database_url =
     System.get_env("DATABASE_URL") ||
       raise """
@@ -24,6 +26,7 @@ if config_env() == :prod do
 
   config :fkc_elixir, FkcElixir.Repo,
     # ssl: true,
+    load_from_system_env: true,
     url: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     socket_options: maybe_ipv6
