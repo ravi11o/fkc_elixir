@@ -1,5 +1,9 @@
 import Config
 
+config :deploy_example, DeployExample.Repo,
+  load_from_system_env: true,
+  pool_size: 10
+
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
 # when generating URLs.
@@ -51,5 +55,5 @@ config :logger, level: :info
 #       force_ssl: [hsts: true]
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
-config :phoenix, :serve_endpoints, true
-import_config "runtime.exs"
+# config :phoenix, :serve_endpoints, true
+# import_config "runtime.exs"
