@@ -13,21 +13,24 @@ if System.get_env("PHX_SERVER") && System.get_env("RELEASE_NAME") do
 end
 
 if config_env() == :prod do
-  load_from_system_env: true,
-
-  database_url =
-    System.get_env("DATABASE_URL") ||
-      raise """
-      environment variable DATABASE_URL is missing.
-      For example: ecto://USER:PASS@HOST/DATABASE
-      """
+  # database_url =
+  #   System.get_env("DATABASE_URL") ||
+  #     raise """
+  #     environment variable DATABASE_URL is missing.
+  #     For example: ecto://USER:PASS@HOST/DATABASE
+  #     """
 
   maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
 
   config :fkc_elixir, FkcElixir.Repo,
     # ssl: true,
     load_from_system_env: true,
-    url: database_url,
+    url:
+      System.get_env("DATABASE_URL") ||
+        raise("""
+        environment variable DATABASE_URL is missing.
+        For example: ecto://USER:PASS@HOST/DATABASE
+        """),
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     socket_options: maybe_ipv6
 
@@ -43,10 +46,11 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
-  host = System.get_env("PHX_HOST") || "example.com"
+  host = System.get_env("APP_HOST") || "65.20.77.43"
   port = String.to_integer(System.get_env("PORT") || "4000")
 
   config :fkc_elixir, FkcElixirWeb.Endpoint,
+    load_from_system_env: true,
     url: [host: host, port: 443],
     http: [
       # Enable IPv6 and bind on all interfaces.
