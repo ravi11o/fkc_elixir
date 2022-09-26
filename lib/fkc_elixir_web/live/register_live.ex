@@ -37,15 +37,6 @@ defmodule FkcElixirWeb.RegisterLive do
     #   [photo | _] -> registration_changeset(%{params | "image" => photo})
     # end
 
-    # {completed, []} = uploaded_entries(socket, :image)
-
-    # [photo | _] =
-    #   for entry <- completed do
-    #     Routes.static_path(socket, "/uploads/#{filename(entry)}")
-    #   end
-
-    # changeset = registration_changeset(%{params | "image" => photo})
-
     {:noreply, assign(socket, changeset: changeset, trigger_submit: changeset.valid?)}
   end
 
