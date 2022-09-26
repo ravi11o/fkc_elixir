@@ -17,7 +17,7 @@ PRODUCTION_HOSTS="65.20.77.43"
 PRODUCTION_USER="ravi"
 DELIVER_TO="/home/ravi"
 
-For *Phoenix* projects, symlink prod.secret.exs to our tmp source
+# For *Phoenix* projects, symlink prod.secret.exs to our tmp source
 pre_erlang_get_and_update_deps() {
   local _prod_secret_path="/home/ravi/prod.secret.exs"
   if [ "$TARGET_MIX_ENV" = "prod" ]; then
