@@ -37,7 +37,7 @@ defmodule FkcElixir.Forum do
 
     Question
     |> order_by(desc: :inserted_at)
-    |> preload([:tags, :user, :answers])
+    |> preload([:tags, :user, :answers, :question_votes])
     |> Repo.all()
   end
 
@@ -510,7 +510,7 @@ defmodule FkcElixir.Forum do
   def search_results(term) do
     Question
     |> search(term)
-    |> preload([:tags, :user, :answers])
+    |> preload([:tags, :user, :answers, :question_votes])
     |> Repo.all()
   end
 
@@ -518,7 +518,7 @@ defmodule FkcElixir.Forum do
   def search_tag_results(name) do
     tag =
       get_tag_by_name!(name)
-      |> Repo.preload(questions: [:user, :tags, :answers])
+      |> Repo.preload(questions: [:user, :tags, :answers, :question_votes])
 
     tag.questions
   end
