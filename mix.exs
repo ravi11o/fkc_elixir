@@ -20,7 +20,7 @@ defmodule FkcElixir.MixProject do
   def application do
     [
       mod: {FkcElixir.Application, []},
-      extra_applications: [:logger, :runtime_tools, :edeliver]
+      extra_applications: [:logger, :runtime_tools, :edeliver, :cloudex]
     ]
   end
 
@@ -53,7 +53,8 @@ defmodule FkcElixir.MixProject do
       {:slugger, "~> 0.3"},
       {:hackney, "~> 1.18"},
       {:distillery, "~> 2.1"},
-      {:edeliver, "~> 1.8"}
+      {:edeliver, "~> 1.8"},
+      {:cloudex, "~> 1.4"}
     ]
   end
 
