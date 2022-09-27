@@ -23,7 +23,7 @@
 
               </a>
             </li>
-            <li class="up vote"><%= Forum.count_votes(@question.id, :question) %></li>
+            <li class="up vote"><%= length(@question.question_votes) %></li>
           </ul>
         </div>
         <div>

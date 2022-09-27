@@ -35,8 +35,8 @@ defmodule FkcElixirWeb.Router do
     live "/", IndexLive
     live "/tags", TagsLive
     live "/question/:slug", DetailsLive
-    resources "/tags", TagController
-    resources "/comments", CommentController
+    # resources "/tags", TagController
+    # resources "/comments", CommentController
 
     # live "/questions", QuestionLive.Index, :index
     # live "/questions/:id", QuestionLive.Show, :show

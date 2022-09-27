@@ -29,11 +29,11 @@ defmodule FkcElixirWeb.QuestionLive.FormComponent do
 
   defp save_question(socket, :edit, question_params) do
     case Forum.update_question(socket.assigns.question, question_params) do
-      {:ok, _question} ->
+      {:ok, question} ->
         {:noreply,
          socket
          |> put_flash(:info, "Question updated successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
+         |> push_redirect(to: "/question/#{question.slug}")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, :changeset, changeset)}
@@ -44,11 +44,11 @@ defmodule FkcElixirWeb.QuestionLive.FormComponent do
     question_params = Map.put_new(question_params, "user_id", socket.assigns.current_user.id)
 
     case Forum.create_question(question_params) do
-      {:ok, _question} ->
+      {:ok, question} ->
         {:noreply,
          socket
          |> put_flash(:info, "Question created successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
+         |> push_redirect(to: "/question/#{question.slug}")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}

@@ -833,20 +833,62 @@ h4{
 
 /* Answer box layout */
 .asnwer-box pre {
+  letter-spacing: 1px;
+  line-height: 1.5;
   background: #e6e4e4;
-  padding: 15px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  padding: 12px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   color: grey;
+  font-weight: 300;
+  border-radius: 5px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.asnwer-box p {
+  font-weight: 100;
+  padding-bottom: 5px;
+}
+
+.asnwer-box li {
+  font-weight: 500;
+  padding-bottom: 8px;
+}
+
+.asnwer-box blockquote {
+  font-weight: 100;
+  font-style: italic;
+  padding-left: 30px;
 }
 
 /* Question box layout */
 .question-box pre {
+  letter-spacing: 1px;
+  line-height: 1.5;
   background: #e6e4e4;
-  padding: 15px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  padding: 12px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   color: grey;
+  font-weight: 200;
+  border-radius: 5px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.question-box p {
+  font-weight: 100;
+  padding-bottom: 5px;
+}
+
+.question-box li {
+  font-weight: 300;
+  padding-bottom: 8px;
+}
+
+.question-box blockquote {
+  font-weight: 100;
+  font-style: italic;
+  padding-left: 30px;
 }
 
 

@@ -11,7 +11,12 @@
           <i class="fa-solid fa-angle-down vote"></i>
         </a>
       </li>
-      <li class="commentVote vote"><%= Forum.count_comment_votes(@comment.id, @for) %></li>
+      <%= if @for == :question do %>
+        <li class="commentVote vote"><%= length(@comment.comment_votes) %></li>
+      <% else %>
+        <li class="commentVote vote"><%= length(@comment.a_comment_votes) %></li>
+      <% end %>
+      
     </ul>
   </div>
   <div>

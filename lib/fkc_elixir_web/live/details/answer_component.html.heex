@@ -34,12 +34,12 @@
                   <i class="fa-solid fa-angle-down"></i>
                 </a>
               </li>
-              <li class="up vote"><%= Forum.count_votes(@answer.id, :answer) %></li>
+              <li class="up vote"><%= length(@answer.answer_votes) %></li>
             </ul>
           </div>
           <div>
             <ul class="flex align-center">
-              <li class="color margin-right ">Posted <%= FkcElixir.Utils.format_date_time(@answer.inserted_at) %></li>
+              <li class="color margin-right ">Answered <%= FkcElixir.Utils.format_date_time(@answer.inserted_at) %></li>
               
               <img class="userImages margin-right" src={@answer.user.image || "/images/user.png"} href="#" />
               

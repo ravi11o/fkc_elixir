@@ -2,10 +2,18 @@ defmodule FkcElixir.Forum.AComment do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias FkcElixir.Forum.{Answer, ACommentVote}
+  alias FkcElixir.Accounts.User
+
   schema "a_comments" do
     field :description, :string
-    belongs_to :user, FkcElixir.Accounts.User
-    belongs_to :answer, FkcElixir.Forum.Answer
+    belongs_to :user, User
+    belongs_to :answer, Answer
+
+    many_to_many :a_comment_votes, User,
+      join_through: ACommentVote,
+      on_replace: :delete,
+      on_delete: :delete_all
 
     timestamps()
   end

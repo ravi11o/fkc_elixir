@@ -55,7 +55,7 @@ defmodule FkcElixir.Forum do
         from(q in query, order_by: [{^sort_order, ^sort_by}])
     end)
     |> order_by(desc: :inserted_at)
-    |> preload([:tags, :user, :answers])
+    |> preload([:tags, :user, :answers, :question_votes])
     |> Repo.all()
   end
 
@@ -100,8 +100,8 @@ defmodule FkcElixir.Forum do
     question
     |> Question.changeset(%{views: question.views + 1})
     |> Repo.update!()
-    |> Repo.preload(comments: [:user])
-    |> Repo.preload([:user, :tags, :answers])
+    |> Repo.preload(comments: [:user, :comment_votes])
+    |> Repo.preload([:user, :tags, :answers, :question_votes])
   end
 
   @doc """
@@ -318,8 +318,8 @@ defmodule FkcElixir.Forum do
   def list_answers(id) do
     Answer
     |> where([a], a.question_id == ^id)
-    |> preload(a_comments: [:user])
-    |> preload([:user])
+    |> preload(a_comments: [:user, :a_comment_votes])
+    |> preload([:user, :answer_votes])
     |> Repo.all()
   end
 

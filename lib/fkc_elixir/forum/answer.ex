@@ -2,7 +2,8 @@ defmodule FkcElixir.Forum.Answer do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias FkcElixir.Forum.{Question, AComment}
+  alias FkcElixir.Forum.{Question, AComment, AnswerVote}
+  alias FkcElixir.Accounts.User
 
   schema "answers" do
     field :description, :string
@@ -10,6 +11,11 @@ defmodule FkcElixir.Forum.Answer do
     belongs_to :question, Question
     belongs_to :user, FkcElixir.Accounts.User
     has_many :a_comments, AComment
+
+    many_to_many :answer_votes, User,
+      join_through: AnswerVote,
+      on_replace: :delete,
+      on_delete: :delete_all
 
     timestamps()
   end

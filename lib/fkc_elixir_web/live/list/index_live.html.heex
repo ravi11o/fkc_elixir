@@ -20,8 +20,8 @@
       <div class="flex">
           <div class="small-box-container">
             <ul>
-              <li class="white-box margin-06"><%= Forum.count_votes(question.id, :question) %> Votes</li>
-              <li class="yellow-box margin-06"><%= length question.answers %> Answers</li>
+              <li class="white-box margin-06"><%= length(question.question_votes) %> Votes</li>
+              <li class="yellow-box margin-06"><%= length(question.answers) %> Answers</li>
               <li class="white-box"><%= question.views %> Views</li>
             </ul>
           </div>
