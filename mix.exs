@@ -55,6 +55,7 @@ defmodule FkcElixir.MixProject do
       {:distillery, "~> 2.1"},
       {:edeliver, "~> 1.8"},
       {:cloudex, "~> 1.4"}
+      # {:tailwind, "~> 0.1", runtime: Mix.env() == :dev}
     ]
   end
 

@@ -34,9 +34,6 @@
     <%= label f, :description, class: "padding-right text1" %>
     <div class="margin-top-1 form-input-width3">
       <%= textarea f, :description, id: "description", phx_hook: "Editor" %>
-      <%# <div id="question-description-editor" phx-update="ignore">
-        <trix-editor class="trix-content" input="description"></trix-editor>
-      </div> %>
       <%= error_tag f, :description %>
     </div>
     

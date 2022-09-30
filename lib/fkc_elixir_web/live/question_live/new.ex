@@ -23,11 +23,13 @@ defmodule FkcElixirWeb.QuestionLive.New do
     socket
     |> assign(:page_title, "Edit Question")
     |> assign(:question, question)
+    |> assign(:return_to, "/question/#{question.slug}")
   end
 
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, "New Question")
     |> assign(:question, %Question{tags: []})
+    |> assign(:return_to, "/")
   end
 end

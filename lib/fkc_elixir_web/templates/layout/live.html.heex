@@ -5,7 +5,7 @@
     <%# <a href="/">
       <img src="/images/logo.png" class="logo"/>
     </a> %>
-    <%= live_patch to: "/" do %>
+    <%= live_redirect to: "/" do %>
       <img src="/images/logo.png" class="logo"/>
     <% end %>
     <div class="justify-content flex align-center">
@@ -16,10 +16,10 @@
         </form>
       </div>
       <nav class="flex justify-content align-center">
-        <%= live_patch "Questions", to: "/", class: "#{if @current_path == "/", do: "active", else: "nav-bar"}" %>
-        <%= live_patch "Tags", to: "/tags", class: "#{if @current_path == "/tags", do: "active", else: "nav-bar"}" %>
+        <%= live_redirect "Questions", to: "/", class: "#{if @current_path == "/", do: "active", else: "nav-bar"}" %>
+        <%= live_redirect "Tags", to: "/tags", class: "#{if @current_path == "/tags", do: "active", else: "nav-bar"}" %>
         <%= if @current_user do %>
-          <%= live_patch "Ask Questions", to: Routes.question_new_path(@socket, :new), class: "#{if @current_path == "/questions/new", do: "active", else: "nav-bar"}" %>
+          <%= live_redirect "Ask Questions", to: Routes.question_new_path(@socket, :new), class: "#{if @current_path == "/questions/new", do: "active", else: "nav-bar"}" %>
         <% end %>
         
         <%= if @current_user do %>
