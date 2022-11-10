@@ -31,7 +31,7 @@ defmodule FkcElixirWeb.RegisterLive do
     #     Routes.static_path(socket, "/images/#{filename(entry)}")
     #   end)
 
-    [image_url] =
+    image_url =
       consume_uploaded_entries(socket, :image, fn meta, _ ->
         case Cloudex.upload(meta.path) do
           {:ok, file} -> file.secure_url
@@ -39,7 +39,11 @@ defmodule FkcElixirWeb.RegisterLive do
         end
       end)
 
-    changeset = registration_changeset(%{params | "image" => image_url})
+    changeset =
+      case image_url do
+        [] -> registration_changeset(params)
+        [url] -> registration_changeset(%{params | "image" => url})
+      end
 
     {:noreply, assign(socket, changeset: changeset, trigger_submit: changeset.valid?)}
   end
@@ -59,8 +63,8 @@ defmodule FkcElixirWeb.RegisterLive do
     |> Map.put(:action, :insert)
   end
 
-  defp filename(entry) do
-    [ext | _] = MIME.extensions(entry.client_type)
-    "#{entry.uuid}.#{ext}"
-  end
+  # defp filename(entry) do
+  #   [ext | _] = MIME.extensions(entry.client_type)
+  #   "#{entry.uuid}.#{ext}"
+  # end
 end

@@ -834,7 +834,8 @@ h4{
 .asnwer-box pre {
   letter-spacing: 1px;
   line-height: 1.5;
-  background: #e6e4e4;
+  font-size: small;
+  background: #f8f7f7;
   padding: 12px;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -863,8 +864,9 @@ h4{
 /* Question box layout */
 .question-box pre {
   letter-spacing: 1px;
+  font-size: small;
   line-height: 1.5;
-  background: #e6e4e4;
+  background: #f8f7f7;
   padding: 12px;
   margin-top: 5px;
   margin-bottom: 5px;

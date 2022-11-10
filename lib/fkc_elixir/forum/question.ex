@@ -15,10 +15,11 @@ defmodule FkcElixir.Forum.Question do
     has_many :answers, Answer, on_delete: :delete_all
     has_many :comments, Comment, on_delete: :delete_all
 
-    many_to_many :question_votes, User,
+    many_to_many(:question_votes, User,
       join_through: QuestionVote,
       on_replace: :delete,
       on_delete: :delete_all
+    )
 
     many_to_many(:tags, Tag,
       join_through: QuestionTag,

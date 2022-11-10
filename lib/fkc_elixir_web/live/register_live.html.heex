@@ -4,7 +4,7 @@
                 action={Routes.user_registration_path(@socket, :create)}
                 phx_submit="save"
                 phx_change="validate"
-                phx_debounce: :blur
+                phx_debounce="blur"
                 phx_trigger_action={@trigger_submit}>
     
     <div class= "margin-top">

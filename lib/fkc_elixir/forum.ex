@@ -15,8 +15,7 @@ defmodule FkcElixir.Forum do
     QuestionVote,
     AnswerVote,
     CommentVote,
-    ACommentVote,
-    QuestionTag
+    ACommentVote
   }
 
   def subscribe do
